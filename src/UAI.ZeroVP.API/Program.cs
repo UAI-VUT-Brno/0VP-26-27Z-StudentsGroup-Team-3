@@ -1,9 +1,17 @@
-﻿using System.Text.Json.Serialization;
+﻿using Serilog;
+using System.Text.Json.Serialization;
 using Microsoft.OpenApi;
 using UAI.ZeroVP.Data.DependencyInjection;
 using UAI.ZeroVP.Data.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 
 // --- Služby ---------------------------------------------------------------
 
@@ -48,6 +56,7 @@ builder.Services.AddOpenApi(options =>
 });
 
 var app = builder.Build();
+app.UseSerilogRequestLogging();
 
 // Swagger UI je ve vývoji zapnutý; v kontejneru (prostředí Production) se dá
 // zapnout proměnnou prostředí Swagger__Enabled=true.
