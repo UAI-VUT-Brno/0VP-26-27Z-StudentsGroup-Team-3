@@ -1,7 +1,8 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit.Abstractions;
 
@@ -23,7 +24,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task GetAll_HttpRequest_ReturnsOk()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/todos");
@@ -41,7 +43,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task GetAll_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         await MeasureAsync(
@@ -53,7 +56,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task Create_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         await MeasureAsync(
@@ -71,7 +75,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task GetById_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         var id = await CreateTodoAsync(client);
@@ -86,7 +91,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task Update_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
@@ -114,7 +120,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task Complete_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
@@ -136,7 +143,8 @@ public class HttpPerformanceTests
     [Fact]
     public async Task Delete_HttpRequest_MeasuresResponseTime()
     {
-        await using var factory = new WebApplicationFactory<Program>();
+        await using var factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
