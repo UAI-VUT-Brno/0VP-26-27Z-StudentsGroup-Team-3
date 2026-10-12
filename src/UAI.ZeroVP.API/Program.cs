@@ -4,11 +4,41 @@ using Microsoft.OpenApi;
 using UAI.ZeroVP.Data.DependencyInjection;
 using UAI.ZeroVP.Data.InMemory;
 
+
 var builder = WebApplication.CreateBuilder(args);
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
+
+// Výkonnostní testy používají lokální dočasný soubor.
+// Běžná aplikace ukládá logy do lokálního uživatelského profilu.
+// Cestu lze přepsat konfigurací Serilog:FilePath.
+var isLoadTest = builder.Environment.IsEnvironment("LoadTest");
+
+var logFilePath = isLoadTest
+    ? Path.Combine(Path.GetTempPath(), "zerovp-loadtest-.txt")
+    : builder.Configuration["Serilog:FilePath"]
+        ?? Path.Combine(
+            Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData),
+            "UAI.ZeroVP",
+            "logs",
+            "log-.txt");
+
+var loggerConfiguration = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override(
+        "Microsoft",
+        Serilog.Events.LogEventLevel.Warning)
+    .WriteTo.File(
+        logFilePath,
+        rollingInterval: RollingInterval.Day);
+
+// Konzolové logování ponecháváme pro lokální vývoj.
+// Při zátěžových testech a v produkci nevytváří další režii.
+if (builder.Environment.IsDevelopment())
+{
+    loggerConfiguration.WriteTo.Console();
+}
+
+Log.Logger = loggerConfiguration.CreateLogger();
 
 builder.Host.UseSerilog();
 

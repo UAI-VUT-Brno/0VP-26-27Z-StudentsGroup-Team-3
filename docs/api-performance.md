@@ -79,5 +79,5 @@ in the measured local scenarios.
 No application-level optimization was required based on these
 measurements.
 
-Concurrent load and real HTTP-server performance will be
-evaluated separately on branch feature/api-load-testing.
+Concurrent load testing and logging optimizations are documented
+separately in [API Load Testing](api-load-testing.md).
