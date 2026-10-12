@@ -16,7 +16,11 @@ public class PerformanceProfilingTests
     public PerformanceProfilingTests()
     {
         _timeProvider = TimeProvider.System;
-        var repository = new InMemoryTodoRepository(_timeProvider);
+        var repository = new InMemoryTodoRepository(
+            new InMemoryTodoOptions
+            {
+                SeedSampleData = false
+            });
         var logger = NullLogger<TodosController>.Instance;
         _todosController = new TodosController(repository, _timeProvider, logger);
     }

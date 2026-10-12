@@ -92,3 +92,8 @@ app.MapGet("/", () => Results.Redirect(swaggerEnabled ? "/swagger" : "/api/todos
    .ExcludeFromDescription();
 
 app.Run();
+
+/// <summary>
+/// Entry point exposed for ASP.NET Core integration testing.
+/// </summary>
+public partial class Program { }
