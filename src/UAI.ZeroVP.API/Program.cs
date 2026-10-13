@@ -4,12 +4,11 @@ using Microsoft.OpenApi;
 using UAI.ZeroVP.Data.DependencyInjection;
 using UAI.ZeroVP.Data.InMemory;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Výkonnostní testy používají lokální dočasný soubor.
-// Běžná aplikace ukládá logy do lokálního uživatelského profilu.
-// Cestu lze přepsat konfigurací Serilog:FilePath.
+// Performance tests use a local temporary file.
+// Normal application runs store logs in the local user profile.
+// The path can be overridden via Serilog:FilePath configuration.
 var isLoadTest = builder.Environment.IsEnvironment("LoadTest");
 
 var logFilePath = isLoadTest
@@ -31,8 +30,8 @@ var loggerConfiguration = new LoggerConfiguration()
         logFilePath,
         rollingInterval: RollingInterval.Day);
 
-// Konzolové logování ponecháváme pro lokální vývoj.
-// Při zátěžových testech a v produkci nevytváří další režii.
+// Keep console logging for local development.
+// Avoids additional overhead during load tests and in production.
 if (builder.Environment.IsDevelopment())
 {
     loggerConfiguration.WriteTo.Console();
@@ -43,32 +42,30 @@ Log.Logger = loggerConfiguration.CreateLogger();
 builder.Host.UseSerilog();
 
 
-// --- Služby ---------------------------------------------------------------
+// --- Services -------------------------------------------------------------
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Výčty posílá API jako řetězce ("High"), ne jako čísla – čitelnější v curl i ve Swaggeru.
+        // Enums are serialized as strings ("High") instead of numbers for better readability in curl and Swagger.
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-// Jednotné chybové odpovědi ve formátu ProblemDetails (RFC 9457).
+// Standardized error responses using ProblemDetails (RFC 9457).
 builder.Services.AddProblemDetails();
 
-// Zdroj času jako služba – kontrolery i repozitář si ho berou z DI.
+// Time abstraction registered as a singleton service across DI.
 builder.Services.AddSingleton(TimeProvider.System);
 
-// Datová vrstva: paměťové úložiště. Nastavení se čte ze sekce "Todo",
-// v kontejneru ho lze přepsat proměnnou prostředí Todo__SeedSampleData.
+// Data layer: in-memory storage. Configuration is bound from the "Todo" section,
+// can be overridden in container via Todo__SeedSampleData environment variable.
 builder.Services.AddInMemoryTodoData(options =>
     builder.Configuration.GetSection(InMemoryTodoOptions.SectionName).Bind(options));
 
-// Kontrola zdraví aplikace – později ji využije HEALTHCHECK v Dockerfile.
+// Health checks service for Docker container monitoring.
 builder.Services.AddHealthChecks();
 
-// Popis API ve formátu OpenAPI. Dokument generuje vestavěná knihovna .NET 10
-// (Microsoft.AspNetCore.OpenApi) a vystavuje ho na /openapi/v1.json.
-// Swagger UI je pak jen prohlížeč tohoto dokumentu – žádný druhý generátor.
+// OpenAPI document generator (.NET 10 Microsoft.AspNetCore.OpenApi).
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, cancellationToken) =>
@@ -77,8 +74,8 @@ builder.Services.AddOpenApi(options =>
         {
             Title = "UAI.ZeroVP – ToDo API",
             Version = "v1",
-            Description = "Ukázkové API pro výuku Dockeru. Data jsou uložena pouze "
-                        + "v paměti procesu a po zastavení kontejneru se ztratí."
+            Description = "Sample API for Docker learning purposes. Data is stored purely "
+                        + "in process memory and is lost once the container stops."
         };
 
         return Task.CompletedTask;
@@ -91,31 +88,23 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseSerilogRequestLogging();
 
-app.UseSwagger();
-app.UseSwaggerUI(c => 
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "UAI.ZeroVP API v1");
-    // Nastaví Swagger přímo na úvodní URL adresu aplikace (např. http://localhost:5258)
-    c.RoutePrefix = string.Empty; 
-});
-
-// Swagger UI je ve vývoji zapnutý; v kontejneru (prostředí Production) se dá
-// zapnout proměnnou prostředí Swagger__Enabled=true.
+// Swagger UI is enabled by default in Development; in container (Production) it can be
+// enabled via Swagger__Enabled=true environment variable.
 var swaggerEnabled = app.Configuration.GetValue("Swagger:Enabled", app.Environment.IsDevelopment());
 
 // --- HTTP pipeline --------------------------------------------------------
 
-// Bez přesměrování na HTTPS: v kontejneru se vystavuje pouze HTTP port
-// a TLS řeší až reverzní proxy před ním.
+// No HTTPS redirection: container exposes HTTP only; TLS termination is handled by reverse proxy.
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 if (swaggerEnabled)
 {
-    // Strojově čitelný popis API.
+    // Machine-readable OpenAPI JSON document.
     app.MapOpenApi();
 
-    // Interaktivní dokumentace nad tímto popisem – http://localhost:5258/swagger
+    // Interactive Swagger UI documentation.
+    app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/openapi/v1.json", "UAI.ZeroVP – ToDo API v1");
@@ -127,8 +116,7 @@ if (swaggerEnabled)
 app.MapHealthChecks("/health");
 app.MapControllers();
 
-// Kořen vede na Swagger, ať má "docker run" hned co ukázat.
-// Když je Swagger vypnutý, přesměruje rovnou na seznam úkolů.
+// Root route redirects to Swagger documentation if enabled, otherwise to todos endpoint.
 app.MapGet("/", () => Results.Redirect(swaggerEnabled ? "/swagger" : "/api/todos"))
    .ExcludeFromDescription();
 

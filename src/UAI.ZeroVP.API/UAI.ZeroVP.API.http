@@ -1,35 +1,35 @@
 @UAI.ZeroVP.API_HostAddress = http://localhost:5258
 
-### Popis API ve formátu OpenAPI (Swagger UI ho čte z této adresy)
+### OpenAPI specification (Swagger UI reads from this endpoint)
 GET {{UAI.ZeroVP.API_HostAddress}}/openapi/v1.json
 Accept: application/json
 
-### Informace o běžící instanci (v Dockeru ukáže hostname kontejneru)
+### Running instance info (shows container hostname in Docker)
 GET {{UAI.ZeroVP.API_HostAddress}}/api/info
 Accept: application/json
 
-### Kontrola zdraví – tento endpoint volá i HEALTHCHECK v Dockerfile
+### Health check – endpoint invoked by Dockerfile HEALTHCHECK
 GET {{UAI.ZeroVP.API_HostAddress}}/health
 
-### Všechny úkoly
+### All todos
 GET {{UAI.ZeroVP.API_HostAddress}}/api/todos
 Accept: application/json
 
-### Jen nedokončené úkoly
+### Incomplete todos only
 GET {{UAI.ZeroVP.API_HostAddress}}/api/todos?isCompleted=false
 Accept: application/json
 
-### Nový úkol
+### Create todo
 POST {{UAI.ZeroVP.API_HostAddress}}/api/todos
 Content-Type: application/json
 
 {
-  "title": "Vyzkoušet docker build",
-  "description": "Postavit image z vícefázového Dockerfile.",
+  "title": "Try docker build",
+  "description": "Build an image using multi-stage Dockerfile.",
   "priority": "High"
 }
 
-### Neplatný vstup – vrátí 400 s ValidationProblemDetails
+### Invalid input – returns 400 with ValidationProblemDetails
 POST {{UAI.ZeroVP.API_HostAddress}}/api/todos
 Content-Type: application/json
 
@@ -38,6 +38,6 @@ Content-Type: application/json
   "priority": "High"
 }
 
-### Neexistující úkol – vrátí 404 s ProblemDetails
+### Non-existent todo – returns 404 with ProblemDetails
 GET {{UAI.ZeroVP.API_HostAddress}}/api/todos/00000000-0000-0000-0000-000000000000
 Accept: application/json

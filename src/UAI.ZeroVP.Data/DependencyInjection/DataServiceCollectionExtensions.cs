@@ -5,20 +5,20 @@ using UAI.ZeroVP.Data.InMemory;
 namespace UAI.ZeroVP.Data.DependencyInjection;
 
 /// <summary>
-/// Registrace datové vrstvy do kontejneru služeb.
-/// API tak nemusí znát konkrétní implementaci úložiště – zná jen <see cref="ITodoRepository"/>.
+/// Registers the data layer into the dependency injection container.
+/// This decouples the API from the specific storage implementation, exposing only <see cref="ITodoRepository"/>.
 /// </summary>
 public static class DataServiceCollectionExtensions
 {
     /// <summary>
-    /// Zaregistruje paměťové úložiště úkolů jako singleton.
+    /// Registers the in-memory todo repository as a singleton.
     /// <para>
-    /// Singleton je zde nutnost: data drží samotná instance repozitáře,
-    /// takže scoped registrace by znamenala prázdné úložiště pro každý požadavek.
+    /// A singleton lifetime is necessary here: the data is held directly by the repository instance,
+    /// so a scoped lifetime would result in an empty store on every request.
     /// </para>
     /// </summary>
-    /// <param name="services">Kolekce služeb.</param>
-    /// <param name="configure">Volitelná úprava nastavení úložiště.</param>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configure">Optional configuration callback for repository options.</param>
     public static IServiceCollection AddInMemoryTodoData(
         this IServiceCollection services,
         Action<InMemoryTodoOptions>? configure = null)

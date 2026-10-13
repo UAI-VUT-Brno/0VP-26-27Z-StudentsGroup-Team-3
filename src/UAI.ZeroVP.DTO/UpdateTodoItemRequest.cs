@@ -3,30 +3,30 @@
 namespace UAI.ZeroVP.DTO;
 
 /// <summary>
-/// Vstup pro úplnou aktualizaci úkolu (HTTP PUT /api/todos/{id}).
-/// Jde o "full update" – neposlané hodnoty se přepíší výchozími.
+/// Input for a full update of a todo item (HTTP PUT /api/todos/{id}).
+/// This is a full update – omitted properties will be overwritten with default values.
 /// </summary>
 public sealed record UpdateTodoItemRequest
 {
     /// <summary>
-    /// Krátký název úkolu. Povinný, 1–200 znaků.
+    /// Short title of the todo item. Required, 1–200 characters.
     /// <para>
-    /// Bez klíčového slova <c>required</c> ze stejného důvodu jako
-    /// u <see cref="CreateTodoItemRequest.Title"/>.
+    /// Declared without the <c>required</c> keyword for the same reason as
+    /// <see cref="CreateTodoItemRequest.Title"/>.
     /// </para>
     /// </summary>
-    [Required(AllowEmptyStrings = false, ErrorMessage = "Název úkolu je povinný.")]
-    [StringLength(200, MinimumLength = 1, ErrorMessage = "Název musí mít 1 až 200 znaků.")]
+    [Required(AllowEmptyStrings = false, ErrorMessage = "Title is required.")]
+    [StringLength(200, MinimumLength = 1, ErrorMessage = "Title must be between 1 and 200 characters.")]
     public string Title { get; init; } = string.Empty;
 
-    /// <summary>Volitelný popis, maximálně 1000 znaků.</summary>
-    [StringLength(1000, ErrorMessage = "Popis smí mít nejvýše 1000 znaků.")]
+    /// <summary>Optional description, maximum of 1000 characters.</summary>
+    [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
     public string? Description { get; init; }
 
-    /// <summary>Priorita úkolu.</summary>
-    [EnumDataType(typeof(TodoPriority), ErrorMessage = "Neplatná hodnota priority.")]
+    /// <summary>Priority of the todo item.</summary>
+    [EnumDataType(typeof(TodoPriority), ErrorMessage = "Invalid priority value.")]
     public TodoPriority Priority { get; init; } = TodoPriority.Normal;
 
-    /// <summary>Příznak dokončení úkolu.</summary>
+    /// <summary>Indicates whether the todo item is completed.</summary>
     public bool IsCompleted { get; init; }
 }

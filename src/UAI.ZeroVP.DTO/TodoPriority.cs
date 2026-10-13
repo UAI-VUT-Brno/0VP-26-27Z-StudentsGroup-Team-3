@@ -1,16 +1,16 @@
 ﻿namespace UAI.ZeroVP.DTO;
 
 /// <summary>
-/// Priorita úkolu. Sdílený výčet – používá ho jak API kontrakt, tak datová vrstva.
+/// Todo item priority. Shared enum used by both the API contract and the data layer.
 /// </summary>
 public enum TodoPriority
 {
-    /// <summary>Nízká priorita.</summary>
+    /// <summary>Low priority.</summary>
     Low = 0,
 
-    /// <summary>Běžná priorita (výchozí).</summary>
+    /// <summary>Normal priority (default).</summary>
     Normal = 1,
 
-    /// <summary>Vysoká priorita.</summary>
+    /// <summary>High priority.</summary>
     High = 2
 }

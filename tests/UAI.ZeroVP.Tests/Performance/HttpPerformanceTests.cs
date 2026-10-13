@@ -187,7 +187,7 @@ public class HttpPerformanceTests
     {
         var durations = new List<double>();
 
-        // Warm-up: nezapočítává se do statistik.
+        // Warm-up: doesnt count towards statistics.
         for (var i = 0; i < WarmupCount; i++)
         {
             if (prepareRequest is not null)
@@ -199,10 +199,10 @@ public class HttpPerformanceTests
             Assert.Equal(expectedStatus, response.StatusCode);
         }
 
-        // Měření skutečných HTTP požadavků.
+        // Measurement of actual HTTP requests.
         for (var i = 0; i < MeasurementCount; i++)
         {
-            // Příprava dat je mimo měřený interval.
+            // Preparing data is outside the measurement interval.
             if (prepareRequest is not null)
             {
                 await prepareRequest();
@@ -219,7 +219,7 @@ public class HttpPerformanceTests
             durations.Add(stopwatch.Elapsed.TotalMilliseconds);
         }
 
-        // Výpočet statistik.
+        // Calculation of statistics.
         var sorted = durations.OrderBy(x => x).ToArray();
 
         var average = durations.Average();
@@ -232,7 +232,7 @@ public class HttpPerformanceTests
         var p95 = sorted[
             (int)Math.Ceiling(MeasurementCount * 0.95) - 1];
 
-        // Výpis výsledků.
+        // Output results.
         _output.WriteLine(endpoint);
         _output.WriteLine($"Requests: {MeasurementCount}");
         _output.WriteLine($"Average: {average:F2} ms");
@@ -242,7 +242,7 @@ public class HttpPerformanceTests
         _output.WriteLine($"P95: {p95:F2} ms");
         _output.WriteLine($"Limit: {ResponseTimeLimitMs:F0} ms");
 
-        // Kontrola požadovaného limitu.
+        // Check the requested limit.
         Assert.True(
             maximum < ResponseTimeLimitMs,
             $"{endpoint}: maximum {maximum:F2} ms " +

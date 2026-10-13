@@ -31,7 +31,7 @@ public class PerformanceProfilingTests
         var ct = CancellationToken.None;
         var stopwatch = Stopwatch.StartNew();
 
-        // 1. Změření vytvoření úkolu
+        // 1. Measuring task creation
         var createRequest = new CreateTodoItemRequest
         {
             Title = "Profilovací úkol",
@@ -41,22 +41,22 @@ public class PerformanceProfilingTests
         var created = Assert.IsType<CreatedAtRouteResult>(createResult.Result);
         var createdDto = Assert.IsType<TodoItemDto>(created.Value);
 
-        // 2. Změření dotazu na detail
+        // 2. Measuring detail query
         var getResult = await _todosController.GetById(createdDto.Id, ct);
         Assert.IsType<OkObjectResult>(getResult.Result);
 
-        // 3. Změření získání celého seznamu
+        // 3. Measuring retrieval of entire list
         var listResult = await _todosController.GetAll(null, ct);
         Assert.IsType<OkObjectResult>(listResult.Result);
 
-        // 4. Změření smazání úkolu
+        // 4. Measuring deletion of task
         var deleteResult = await _todosController.Delete(createdDto.Id, ct);
         Assert.IsType<NoContentResult>(deleteResult);
 
         stopwatch.Stop();
 
-        // Ověření splnění limitu 500 ms zadaného v Issue #5
+        // Verification of limit compliance
         Assert.True(stopwatch.ElapsedMilliseconds < 500,
-            $"Doba odezvy překročila 500 ms: naměřeno {stopwatch.ElapsedMilliseconds} ms");
+            $"Response time exceeded 500 ms: measured {stopwatch.ElapsedMilliseconds} ms");
     }
 }

@@ -1,27 +1,27 @@
 ﻿namespace UAI.ZeroVP.DTO;
 
 /// <summary>
-/// Informace o běžící instanci API.
-/// Ve výuce Dockeru slouží k tomu, aby bylo vidět, která replika kontejneru
-/// požadavek obsloužila a že každá má vlastní (prázdnou) paměť.
+/// Information about the running API instance.
+/// In Docker lessons, this illustrates which container replica handled the request
+/// and demonstrates that each replica maintains its own isolated in-memory state.
 /// </summary>
 public sealed record InstanceInfoDto
 {
-    /// <summary>Jméno stroje – v kontejneru odpovídá jeho hostname (zkrácené ID kontejneru).</summary>
+    /// <summary>Machine name – inside a container, this matches its hostname (short container ID).</summary>
     public required string MachineName { get; init; }
 
-    /// <summary>Název prostředí ASP.NET Core (Development / Production / ...).</summary>
+    /// <summary>ASP.NET Core environment name (Development / Production / ...).</summary>
     public required string Environment { get; init; }
 
-    /// <summary>Verze sestavení API.</summary>
+    /// <summary>Assembly version of the API.</summary>
     public required string Version { get; init; }
 
-    /// <summary>Aktuální čas instance v UTC.</summary>
+    /// <summary>Current instance timestamp in UTC.</summary>
     public required DateTimeOffset UtcNow { get; init; }
 
-    /// <summary>Doba běhu procesu – po restartu kontejneru se vynuluje.</summary>
+    /// <summary>Process uptime – resets to zero when the container restarts.</summary>
     public required TimeSpan Uptime { get; init; }
 
-    /// <summary>Počet úkolů, které má tato instance právě v paměti.</summary>
+    /// <summary>Number of todo items currently held in memory by this instance.</summary>
     public required int TodoCount { get; init; }
 }
