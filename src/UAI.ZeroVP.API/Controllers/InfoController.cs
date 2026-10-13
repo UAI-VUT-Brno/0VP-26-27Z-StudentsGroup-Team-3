@@ -7,8 +7,7 @@ using UAI.ZeroVP.DTO;
 namespace UAI.ZeroVP.API.Controllers;
 
 /// <summary>
-/// Diagnostický endpoint. Ve výuce Dockeru ukazuje, která instance
-/// (kontejner) požadavek obsloužila a kolik dat má právě ve své paměti.
+/// Provides diagnostic information about the running API instance.
 /// </summary>
 [ApiController]
 [Route("api/info")]
@@ -19,7 +18,7 @@ public sealed class InfoController : ControllerBase
     private readonly IHostEnvironment _environment;
     private readonly TimeProvider _timeProvider;
 
-    /// <summary>Vytvoří kontroler se závislostmi z DI kontejneru.</summary>
+    /// <summary>Initializes the controller with dependencies from DI container.</summary>
     public InfoController(ITodoRepository repository, IHostEnvironment environment, TimeProvider timeProvider)
     {
         _repository = repository;
@@ -27,18 +26,18 @@ public sealed class InfoController : ControllerBase
         _timeProvider = timeProvider;
     }
 
-    /// <summary>Vrátí informace o běžící instanci API.</summary>
-    /// <response code="200">Popis instance včetně počtu úkolů v paměti.</response>
+    /// <summary>Returns information about the running API instance.</summary>
+    /// <response code="200">Instance description including the count of in-memory todos.</response>
     [HttpGet]
     [ProducesResponseType(typeof(InstanceInfoDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<InstanceInfoDto>> Get(CancellationToken cancellationToken)
     {
         var version = Assembly.GetExecutingAssembly()
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-            ?? "neznámá";
+            ?? "unknown";
 
-        // Process je IDisposable. Bez using by si každý požadavek na /api/info
-        // podržel nativní handle procesu až do příštího sběru odpadků.
+        // Process implements IDisposable. Without using, each request to /api/info
+        // would hold a native process handle until the next garbage collection.
         using var process = Process.GetCurrentProcess();
 
         return Ok(new InstanceInfoDto

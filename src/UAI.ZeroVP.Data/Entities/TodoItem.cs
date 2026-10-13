@@ -3,40 +3,40 @@
 namespace UAI.ZeroVP.Data.Entities;
 
 /// <summary>
-/// Entita úkolu tak, jak ji drží datová vrstva.
-/// Oproti <see cref="TodoItemDto"/> obsahuje i interní pole <see cref="UpdatedAtUtc"/>,
-/// které se ven z API nikdy neposílá.
+/// Todo item entity as stored in the data layer.
+/// Unlike <see cref="TodoItemDto"/>, it also contains the internal <see cref="UpdatedAtUtc"/> field,
+/// which is never exposed through the API.
 /// </summary>
 public sealed class TodoItem
 {
-    /// <summary>Jednoznačný identifikátor úkolu.</summary>
+    /// <summary>Unique identifier of the todo item.</summary>
     public required Guid Id { get; init; }
 
-    /// <summary>Krátký název úkolu.</summary>
+    /// <summary>Short title of the todo item.</summary>
     public required string Title { get; set; }
 
-    /// <summary>Volitelný podrobnější popis.</summary>
+    /// <summary>Optional detailed description.</summary>
     public string? Description { get; set; }
 
-    /// <summary>Priorita úkolu.</summary>
+    /// <summary>Priority of the todo item.</summary>
     public TodoPriority Priority { get; set; } = TodoPriority.Normal;
 
-    /// <summary>Příznak, zda je úkol hotový.</summary>
+    /// <summary>Indicates whether the todo item is completed.</summary>
     public bool IsCompleted { get; set; }
 
-    /// <summary>Okamžik vytvoření (UTC).</summary>
+    /// <summary>Creation timestamp (UTC).</summary>
     public required DateTimeOffset CreatedAtUtc { get; init; }
 
-    /// <summary>Okamžik dokončení (UTC), nebo <c>null</c> pokud úkol hotový není.</summary>
+    /// <summary>Completion timestamp (UTC), or <c>null</c> if the item is not completed.</summary>
     public DateTimeOffset? CompletedAtUtc { get; set; }
 
-    /// <summary>Interní audit – poslední změna záznamu. Do DTO se nepromítá.</summary>
+    /// <summary>Internal audit timestamp for the last modification. Not exposed in the DTO.</summary>
     public DateTimeOffset UpdatedAtUtc { get; set; }
 
     /// <summary>
-    /// Vytvoří hlubokou kopii entity. In-memory repozitář ji používá proto,
-    /// aby volající nemohl omylem změnit uložený stav mimo repozitář
-    /// (u databázového úložiště tuto roli plní mapování na řádky tabulky).
+    /// Creates a deep copy of the entity. Used by the in-memory repository to prevent
+    /// callers from mutating stored state outside the repository
+    /// (in a database-backed store, this boundary is naturally handled by ORM/row mapping).
     /// </summary>
     public TodoItem Clone() => new()
     {

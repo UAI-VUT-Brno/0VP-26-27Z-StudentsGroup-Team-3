@@ -4,12 +4,12 @@ using UAI.ZeroVP.DTO;
 namespace UAI.ZeroVP.API.Mapping;
 
 /// <summary>
-/// Převody mezi entitou datové vrstvy a přenosovými objekty API.
-/// Mapování patří do API vrstvy – ta jediná zná obě strany.
+/// Conversions between the data layer entity and API data transfer objects.
+/// Mapping belongs in the API layer, as it is the only layer aware of both sides.
 /// </summary>
 public static class TodoMapper
 {
-    /// <summary>Převede entitu na výstupní DTO (interní pole se zahodí).</summary>
+    /// <summary>Converts an entity to an output DTO (internal fields are omitted).</summary>
     public static TodoItemDto ToDto(this TodoItem entity) => new()
     {
         Id = entity.Id,
@@ -21,9 +21,9 @@ public static class TodoMapper
         CompletedAtUtc = entity.CompletedAtUtc
     };
 
-    /// <summary>Vytvoří novou entitu z požadavku na založení úkolu.</summary>
-    /// <param name="request">Data z těla požadavku.</param>
-    /// <param name="nowUtc">Aktuální čas – předává se zvenčí kvůli testovatelnosti.</param>
+    /// <summary>Creates a new entity from a request to create a todo item.</summary>
+    /// <param name="request">Data from the request body.</param>
+    /// <param name="nowUtc">Current timestamp passed externally to ensure testability.</param>
     public static TodoItem ToEntity(this CreateTodoItemRequest request, DateTimeOffset nowUtc) => new()
     {
         Id = Guid.NewGuid(),
@@ -37,8 +37,8 @@ public static class TodoMapper
     };
 
     /// <summary>
-    /// Promítne data z požadavku do existující entity.
-    /// Hlídá i přechod stavu dokončení, aby <c>CompletedAtUtc</c> odpovídal příznaku.
+    /// Maps request data onto an existing entity.
+    /// Handles completion state transitions to keep <c>CompletedAtUtc</c> in sync with the flag.
     /// </summary>
     public static void ApplyTo(this UpdateTodoItemRequest request, TodoItem entity, DateTimeOffset nowUtc)
     {
@@ -49,7 +49,7 @@ public static class TodoMapper
         entity.UpdatedAtUtc = nowUtc;
     }
 
-    /// <summary>Nastaví příznak dokončení a dopočítá čas dokončení.</summary>
+    /// <summary>Sets the completion flag and calculates the completion timestamp.</summary>
     public static void SetCompletionState(this TodoItem entity, bool isCompleted, DateTimeOffset nowUtc)
     {
         if (isCompleted && !entity.IsCompleted)

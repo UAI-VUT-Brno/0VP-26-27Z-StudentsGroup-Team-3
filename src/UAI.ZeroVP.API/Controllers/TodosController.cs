@@ -6,9 +6,9 @@ using UAI.ZeroVP.DTO;
 namespace UAI.ZeroVP.API.Controllers;
 
 /// <summary>
-/// REST rozhraní nad seznamem úkolů.
-/// Kontroler zná pouze rozhraní <see cref="ITodoRepository"/> – nikoli to,
-/// že za ním stojí paměťové úložiště.
+/// REST API endpoints for managing todo items.
+/// The controller depends strictly on <see cref="ITodoRepository"/> – without knowledge
+/// of the underlying in-memory storage implementation.
 /// </summary>
 [ApiController]
 [Route("api/todos")]
@@ -19,7 +19,7 @@ public sealed class TodosController : ControllerBase
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<TodosController> _logger;
 
-    /// <summary>Vytvoří kontroler se závislostmi z DI kontejneru.</summary>
+    /// <summary>Initializes the controller with dependencies from the DI container.</summary>
     public TodosController(ITodoRepository repository, TimeProvider timeProvider, ILogger<TodosController> logger)
     {
         _repository = repository;
@@ -27,10 +27,10 @@ public sealed class TodosController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>Vrátí seznam úkolů, volitelně filtrovaný podle stavu dokončení.</summary>
-    /// <param name="isCompleted">Filtr <c>true</c>/<c>false</c>; vynechání znamená bez filtru.</param>
-    /// <param name="cancellationToken">Token pro zrušení operace.</param>
-    /// <response code="200">Seznam úkolů seřazený podle priority a data vzniku.</response>
+    /// <summary>Returns a list of todos, optionally filtered by completion status.</summary>
+    /// <param name="isCompleted">Optional filter (<c>true</c>/<c>false</c>); omit for all items.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <response code="200">List of todos sorted by priority and creation date.</response>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<TodoItemDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<TodoItemDto>>> GetAll(
@@ -42,9 +42,9 @@ public sealed class TodosController : ControllerBase
         return Ok(items.Select(item => item.ToDto()).ToList());
     }
 
-    /// <summary>Vrátí jeden úkol podle identifikátoru.</summary>
-    /// <response code="200">Nalezený úkol.</response>
-    /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
+    /// <summary>Returns a single todo item by ID.</summary>
+    /// <response code="200">The requested todo item.</response>
+    /// <response code="404">Todo item with the specified ID was not found.</response>
     [HttpGet("{id:guid}", Name = nameof(GetById))]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -55,9 +55,9 @@ public sealed class TodosController : ControllerBase
         return item is null ? NotFoundTodo(id) : Ok(item.ToDto());
     }
 
-    /// <summary>Založí nový úkol.</summary>
-    /// <response code="201">Úkol byl vytvořen; hlavička <c>Location</c> odkazuje na nový zdroj.</response>
-    /// <response code="400">Vstupní data neprošla validací.</response>
+    /// <summary>Creates a new todo item.</summary>
+    /// <response code="201">Todo created successfully; Location header contains the resource URI.</response>
+    /// <response code="400">Request validation failed.</response>
     [HttpPost]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -68,15 +68,15 @@ public sealed class TodosController : ControllerBase
         var entity = request.ToEntity(_timeProvider.GetUtcNow());
         var created = await _repository.AddAsync(entity, cancellationToken);
 
-        _logger.LogInformation("Vytvořen úkol {TodoId} ({Title}).", created.Id, created.Title);
+        _logger.LogInformation("Created todo item {TodoId} ({Title}).", created.Id, created.Title);
 
         return CreatedAtRoute(nameof(GetById), new { id = created.Id }, created.ToDto());
     }
 
-    /// <summary>Přepíše existující úkol novými hodnotami.</summary>
-    /// <response code="200">Aktualizovaný úkol.</response>
-    /// <response code="400">Vstupní data neprošla validací.</response>
-    /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
+    /// <summary>Updates an existing todo item.</summary>
+    /// <response code="200">Updated todo item.</response>
+    /// <response code="400">Request validation failed.</response>
+    /// <response code="404">Todo item with the specified ID was not found.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -99,9 +99,9 @@ public sealed class TodosController : ControllerBase
             : NotFoundTodo(id);
     }
 
-    /// <summary>Označí úkol za dokončený.</summary>
-    /// <response code="200">Úkol po změně stavu.</response>
-    /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
+    /// <summary>Marks a todo item as completed.</summary>
+    /// <response code="200">Todo item with updated completion state.</response>
+    /// <response code="404">Todo item with the specified ID was not found.</response>
     [HttpPost("{id:guid}/complete")]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -120,9 +120,9 @@ public sealed class TodosController : ControllerBase
             : NotFoundTodo(id);
     }
 
-    /// <summary>Smaže úkol.</summary>
-    /// <response code="204">Úkol byl smazán.</response>
-    /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
+    /// <summary>Deletes a todo item.</summary>
+    /// <response code="204">Todo item deleted successfully.</response>
+    /// <response code="404">Todo item with the specified ID was not found.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -133,14 +133,14 @@ public sealed class TodosController : ControllerBase
             return NotFoundTodo(id);
         }
 
-        _logger.LogInformation("Smazán úkol {TodoId}.", id);
+        _logger.LogInformation("Deleted todo item {TodoId}.", id);
 
         return NoContent();
     }
 
-    /// <summary>Jednotná odpověď 404 ve formátu ProblemDetails.</summary>
+    /// <summary>Returns a standardized 404 ProblemDetails response.</summary>
     private ObjectResult NotFoundTodo(Guid id) => Problem(
         statusCode: StatusCodes.Status404NotFound,
-        title: "Úkol nenalezen",
-        detail: $"Úkol s identifikátorem {id} neexistuje.");
+        title: "Todo Not Found",
+        detail: $"Todo item with ID {id} does not exist.");
 }

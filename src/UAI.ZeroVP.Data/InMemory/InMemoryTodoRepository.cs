@@ -6,15 +6,15 @@ using UAI.ZeroVP.DTO;
 namespace UAI.ZeroVP.Data.InMemory;
 
 /// <summary>
-/// Úložiště úkolů v operační paměti procesu.
+/// In-memory storage for todo items within the process memory space.
 /// <para>
-/// POZOR – klíčový bod pro výuku Dockeru: data žijí jen uvnitř běžícího procesu.
-/// Zastavením kontejneru (nebo jen restartem aplikace) se nenávratně ztratí
-/// a každá replika kontejneru má vlastní, na ostatních nezávislou sadu dat.
+/// NOTE – key takeaway for Docker learning: data persists only inside the running process.
+/// Stopping the container (or simply restarting the app) causes permanent data loss,
+/// and each container replica maintains its own isolated, independent dataset.
 /// </para>
 /// <para>
-/// <see cref="ConcurrentDictionary{TKey,TValue}"/> zajišťuje bezpečný souběžný přístup –
-/// webový server obsluhuje požadavky ve více vláknech současně.
+/// <see cref="ConcurrentDictionary{TKey,TValue}"/> ensures thread-safe concurrent access,
+/// as the web server handles multiple incoming requests across parallel threads.
 /// </para>
 /// </summary>
 public sealed class InMemoryTodoRepository : ITodoRepository
@@ -23,10 +23,10 @@ public sealed class InMemoryTodoRepository : ITodoRepository
     private readonly TimeProvider _timeProvider;
 
     /// <summary>
-    /// Vytvoří úložiště a volitelně ho naplní ukázkovými daty.
+    /// Initializes the repository and optionally seeds it with sample data.
     /// </summary>
-    /// <param name="options">Nastavení úložiště.</param>
-    /// <param name="timeProvider">Zdroj času – umožňuje čas podvrhnout v testech.</param>
+    /// <param name="options">Repository configuration options.</param>
+    /// <param name="timeProvider">Time provider instance, allowing time mocking in unit tests.</param>
     public InMemoryTodoRepository(InMemoryTodoOptions? options = null, TimeProvider? timeProvider = null)
     {
         _timeProvider = timeProvider ?? TimeProvider.System;
@@ -69,7 +69,7 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         var stored = item.Clone();
         if (!_items.TryAdd(stored.Id, stored))
         {
-            throw new InvalidOperationException($"Úkol s identifikátorem {stored.Id} již existuje.");
+            throw new InvalidOperationException($"A todo item with ID {stored.Id} already exists.");
         }
 
         return Task.FromResult(stored.Clone());
@@ -83,10 +83,10 @@ public sealed class InMemoryTodoRepository : ITodoRepository
 
         var replacement = item.Clone();
 
-        // TryUpdate porovná uloženou instanci s tou, kterou jsme právě přečetli.
-        // Když ji mezitím vyměnilo jiné vlákno, porovnání selže a čte se znovu.
-        // Bez toho cyklu by souběžný zápis vrátil false, tedy 404 "úkol nenalezen",
-        // přestože úkol existuje. Vyhrává poslední zapisující.
+        // TryUpdate compares the currently stored instance with the one read previously.
+        // If swapped by another thread in the meantime, comparison fails and it retries.
+        // Without this loop, a concurrent write would return false (404 "not found")
+        // even though the record exists. Last write wins.
         while (_items.TryGetValue(item.Id, out var existing))
         {
             if (_items.TryUpdate(item.Id, replacement, existing))
@@ -114,15 +114,15 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         return Task.FromResult(_items.Count);
     }
 
-    /// <summary>Vloží ukázkové úkoly, aby API hned po startu nevracelo prázdný seznam.</summary>
+    /// <summary>Seeds sample todo items so the API does not return an empty collection on startup.</summary>
     private void Seed()
     {
         var now = _timeProvider.GetUtcNow();
 
-        AddSeedItem("Připravit ukázkové API", "Tři projekty: DTO, Data, API.", TodoPriority.High, isCompleted: true, now.AddDays(-2));
-        AddSeedItem("Napsat Dockerfile", "Vícefázový build nad SDK a runtime image.", TodoPriority.High, isCompleted: false, now.AddDays(-1));
-        AddSeedItem("Vyzkoušet docker compose", "Spustit API ve dvou replikách.", TodoPriority.Normal, isCompleted: false, now.AddHours(-3));
-        AddSeedItem("Uklidit nepoužité image", "docker image prune", TodoPriority.Low, isCompleted: false, now.AddMinutes(-30));
+        AddSeedItem("Prepare sample API", "Three projects: DTO, Data, API.", TodoPriority.High, isCompleted: true, now.AddDays(-2));
+        AddSeedItem("Write Dockerfile", "Multi-stage build using SDK and runtime images.", TodoPriority.High, isCompleted: false, now.AddDays(-1));
+        AddSeedItem("Test docker compose", "Run the API in two replicas.", TodoPriority.Normal, isCompleted: false, now.AddHours(-3));
+        AddSeedItem("Clean up unused images", "docker image prune", TodoPriority.Low, isCompleted: false, now.AddMinutes(-30));
     }
 
     private void AddSeedItem(string title, string description, TodoPriority priority, bool isCompleted, DateTimeOffset createdAtUtc)

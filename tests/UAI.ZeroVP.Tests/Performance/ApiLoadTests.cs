@@ -1,5 +1,4 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -56,8 +55,8 @@ public class ApiLoadTests
         var totalRequests =
             WarmupCount + concurrentRequests * RoundCount;
 
-        // Každý požadavek pracující s ID dostane vlastní úkol.
-        // Vytvoření úkolů není součástí měřeného intervalu.
+        // Each request operating on an ID gets its own dedicated todo item.
+        // Item creation is excluded from the measured timeframe.
         var requiresExistingTodo = endpoint.Contains(
             "{id}",
             StringComparison.Ordinal);
@@ -81,7 +80,7 @@ public class ApiLoadTests
             _ => HttpStatusCode.OK
         };
 
-        // Výběr skutečného HTTP požadavku podle endpointu.
+        // Dispatches the actual HTTP request based on the target endpoint.
         Task<HttpResponseMessage> SendRequestAsync(int index)
         {
             return endpoint switch
@@ -128,7 +127,7 @@ public class ApiLoadTests
             };
         }
 
-        // Warm-up – požadavky se nezapočítávají do statistik.
+        // Warm-up phase – requests are not included in final statistics.
         for (var i = 0; i < WarmupCount; i++)
         {
             using var response = await SendRequestAsync(i);
@@ -138,7 +137,7 @@ public class ApiLoadTests
         var samples = new List<RequestSample>(
             concurrentRequests * RoundCount);
 
-        // Tři měřená kola souběžné zátěže.
+        // Three measured rounds of concurrent load.
         for (var round = 0; round < RoundCount; round++)
         {
             var startSignal = new TaskCompletionSource<bool>(
@@ -151,7 +150,7 @@ public class ApiLoadTests
                 .Range(offset, concurrentRequests)
                 .Select(async index =>
                 {
-                    // Požadavky čekají na společný start.
+                    // Requests wait for a synchronized start signal.
                     await startSignal.Task;
 
                     var stopwatch = Stopwatch.StartNew();
@@ -187,7 +186,7 @@ public class ApiLoadTests
             samples.AddRange(roundResults);
         }
 
-        // Výpočet statistik včetně neúspěšných požadavků.
+        // Computes statistics including failed requests.
         var durations = samples
             .Select(sample => sample.DurationMs)
             .OrderBy(duration => duration)
@@ -223,7 +222,7 @@ public class ApiLoadTests
         var transportErrors = samples.Count(
             sample => sample.Error is not null);
 
-        // Výpis výsledků do xUnit.
+        // Output results to xUnit test output.
         _output.WriteLine($"Endpoint: {endpoint}");
         _output.WriteLine(
             $"Concurrent requests: {concurrentRequests}");
@@ -260,9 +259,9 @@ public class ApiLoadTests
                 $"Failure: HTTP {failure.Status}, {failure.Error}");
         }
 
-        // Funkční správnost musí být zachována i při zátěži.
-        // Výkonnostní limit je diagnostický, aby testy
-        // nebyly nestabilní kvůli výkonu testovacího počítače.
+        // Functional correctness must hold under load.
+        // The latency limit is diagnostic to prevent flaky tests
+        // caused by runner machine performance variations.
         Assert.True(
             successful == samples.Count,
             $"{endpoint}: only {successful}/{samples.Count} " +
