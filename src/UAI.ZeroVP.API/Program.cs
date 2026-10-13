@@ -85,8 +85,19 @@ builder.Services.AddOpenApi(options =>
     });
 });
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 app.UseSerilogRequestLogging();
+
+app.UseSwagger();
+app.UseSwaggerUI(c => 
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "UAI.ZeroVP API v1");
+    // Nastaví Swagger přímo na úvodní URL adresu aplikace (např. http://localhost:5258)
+    c.RoutePrefix = string.Empty; 
+});
 
 // Swagger UI je ve vývoji zapnutý; v kontejneru (prostředí Production) se dá
 // zapnout proměnnou prostředí Swagger__Enabled=true.

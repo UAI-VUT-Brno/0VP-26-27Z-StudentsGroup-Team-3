@@ -47,7 +47,7 @@ public sealed class TodosController : ControllerBase
     /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
     [HttpGet("{id:guid}", Name = nameof(GetById))]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TodoItemDto>> GetById(Guid id, CancellationToken cancellationToken)
     {
         var item = await _repository.GetByIdAsync(id, cancellationToken);
@@ -80,7 +80,7 @@ public sealed class TodosController : ControllerBase
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TodoItemDto>> Update(
         Guid id,
         [FromBody] UpdateTodoItemRequest request,
@@ -104,7 +104,7 @@ public sealed class TodosController : ControllerBase
     /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
     [HttpPost("{id:guid}/complete")]
     [ProducesResponseType(typeof(TodoItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TodoItemDto>> Complete(Guid id, CancellationToken cancellationToken)
     {
         var entity = await _repository.GetByIdAsync(id, cancellationToken);
@@ -125,7 +125,7 @@ public sealed class TodosController : ControllerBase
     /// <response code="404">Úkol se zadaným identifikátorem neexistuje.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
         if (!await _repository.DeleteAsync(id, cancellationToken))
