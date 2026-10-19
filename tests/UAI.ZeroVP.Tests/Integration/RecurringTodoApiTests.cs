@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,8 +17,8 @@ namespace UAI.ZeroVP.Tests.Integration;
 
 public class RecurringTodoApiTests
 {
-        private static readonly JsonSerializerOptions JsonOptions = new(
-        JsonSerializerDefaults.Web)
+    private static readonly JsonSerializerOptions JsonOptions = new(
+    JsonSerializerDefaults.Web)
     {
         Converters =
         {
@@ -81,8 +81,8 @@ public class RecurringTodoApiTests
             Assert.Equal(firstDueAt.AddDays(i * 7), created[i].DueAtUtc);
             Assert.False(created[i].IsCompleted);
 
-        var stored = await client.GetFromJsonAsync<TodoItemDto>(
-            $"/api/todos/{created[i].Id}", JsonOptions);   
+            var stored = await client.GetFromJsonAsync<TodoItemDto>(
+                $"/api/todos/{created[i].Id}", JsonOptions);
 
             Assert.NotNull(stored);
             Assert.Equal(created[i].DueAtUtc, stored.DueAtUtc);
