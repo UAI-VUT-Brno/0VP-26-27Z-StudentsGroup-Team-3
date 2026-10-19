@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'fix/**'
+  pull_request:
+    branches:
+      - main
+      - 'feature/**'
+      - 'fix/**'
+
+jobs:
+  build-and-test:
+    name: Build and Test (.NET)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore UAI.ZeroVP.sln
+
+      - name: Build solution
+        run: dotnet build UAI.ZeroVP.sln --no-restore --configuration Release
+
+      - name: Run unit & integration tests
+        run: dotnet test UAI.ZeroVP.sln --no-build --configuration Release --verbosity normal
