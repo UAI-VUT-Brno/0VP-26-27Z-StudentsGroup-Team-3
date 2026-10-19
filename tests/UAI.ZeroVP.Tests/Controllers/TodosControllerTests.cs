@@ -70,6 +70,7 @@ public class TodosControllerTests
         Assert.Equal(TodoPriority.High, todo.Priority);
         Assert.False(todo.IsCompleted);
         Assert.Null(todo.CompletedAtUtc);
+        Assert.Null(todo.DueAtUtc);
     }
 
     [Fact]

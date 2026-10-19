@@ -20,6 +20,15 @@ public interface ITodoRepository
     /// <summary>Saves a new todo item and returns its resulting state, including the assigned <c>Id</c>.</summary>
     Task<TodoItem> AddAsync(TodoItem item, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Atomically saves a collection of new todo items.
+    /// Returns the persisted items, including their assigned identifiers.
+    /// The operation must not persist a partial collection.
+    /// </summary>
+    Task<IReadOnlyList<TodoItem>> AddRangeAsync(
+        IReadOnlyList<TodoItem> items,
+        CancellationToken cancellationToken = default);
+
     /// <summary>Updates an existing todo item. Returns <c>false</c> if the record does not exist.</summary>
     Task<bool> UpdateAsync(TodoItem item, CancellationToken cancellationToken = default);
 

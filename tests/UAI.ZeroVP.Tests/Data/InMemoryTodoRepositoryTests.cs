@@ -252,4 +252,128 @@ public class InMemoryTodoRepositoryTests
         Assert.Equal("High priority newer", items[1].Title);
         Assert.Equal("Low priority", items[2].Title);
     }
+
+    [Fact]
+    public async Task AddRangeAsync_ValidItems_PersistsAllItems()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        var now = DateTimeOffset.UtcNow;
+
+        var items = Enumerable.Range(0, 4)
+            .Select(i => new TodoItem
+            {
+                Id = Guid.NewGuid(),
+                Title = "Weekly task",
+                Priority = TodoPriority.Normal,
+                IsCompleted = false,
+                CreatedAtUtc = now,
+                DueAtUtc = now.AddDays(i * 7),
+                UpdatedAtUtc = now
+            })
+            .ToList();
+
+        // Act
+        var created = await repository.AddRangeAsync(items);
+
+        // Assert
+        Assert.Equal(4, created.Count);
+        Assert.Equal(4, await repository.CountAsync());
+
+        foreach (var item in created)
+        {
+            var stored = await repository.GetByIdAsync(item.Id);
+
+            Assert.NotNull(stored);
+            Assert.Equal(item.DueAtUtc, stored.DueAtUtc);
+        }
+    }
+
+    [Fact]
+    public async Task AddRangeAsync_DuplicateExistingId_PersistsNoNewItems()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        var now = DateTimeOffset.UtcNow;
+
+        var existing = new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Existing task",
+            Priority = TodoPriority.Normal,
+            IsCompleted = false,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        };
+
+        await repository.AddAsync(existing);
+
+        var newItem = new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "New task",
+            Priority = TodoPriority.Normal,
+            IsCompleted = false,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        };
+
+        var duplicate = new TodoItem
+        {
+            Id = existing.Id,
+            Title = "Duplicate task",
+            Priority = TodoPriority.Normal,
+            IsCompleted = false,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        };
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => repository.AddRangeAsync([newItem, duplicate]));
+
+        Assert.Equal(1, await repository.CountAsync());
+        Assert.Null(await repository.GetByIdAsync(newItem.Id));
+
+        var stored = await repository.GetByIdAsync(existing.Id);
+        Assert.NotNull(stored);
+        Assert.Equal("Existing task", stored.Title);
+    }
+
+    [Fact]
+    public async Task AddRangeAsync_DuplicateIdsWithinBatch_PersistsNothing()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        var now = DateTimeOffset.UtcNow;
+        var duplicateId = Guid.NewGuid();
+
+        var items = new List<TodoItem>
+        {
+            new()
+            {
+                Id = duplicateId,
+                Title = "First task",
+                Priority = TodoPriority.Normal,
+                CreatedAtUtc = now,
+                UpdatedAtUtc = now
+            },
+            new()
+            {
+                Id = duplicateId,
+                Title = "Second task",
+                Priority = TodoPriority.Normal,
+                CreatedAtUtc = now,
+                UpdatedAtUtc = now
+            }
+        };
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => repository.AddRangeAsync(items));
+
+        Assert.Equal(0, await repository.CountAsync());
+        Assert.Null(await repository.GetByIdAsync(duplicateId));
+    }
+
 }
