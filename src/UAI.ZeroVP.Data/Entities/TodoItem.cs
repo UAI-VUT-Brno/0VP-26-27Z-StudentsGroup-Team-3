@@ -27,6 +27,9 @@ public sealed class TodoItem
     /// <summary>Creation timestamp (UTC).</summary>
     public required DateTimeOffset CreatedAtUtc { get; init; }
 
+    /// <summary>Optional due date and time (UTC).</summary>
+    public DateTimeOffset? DueAtUtc { get; set; }
+
     /// <summary>Completion timestamp (UTC), or <c>null</c> if the item is not completed.</summary>
     public DateTimeOffset? CompletedAtUtc { get; set; }
 
@@ -46,6 +49,7 @@ public sealed class TodoItem
         Priority = Priority,
         IsCompleted = IsCompleted,
         CreatedAtUtc = CreatedAtUtc,
+        DueAtUtc = DueAtUtc,
         CompletedAtUtc = CompletedAtUtc,
         UpdatedAtUtc = UpdatedAtUtc
     };

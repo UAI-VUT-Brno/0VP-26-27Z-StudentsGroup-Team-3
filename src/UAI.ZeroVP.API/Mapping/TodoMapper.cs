@@ -18,6 +18,7 @@ public static class TodoMapper
         Priority = entity.Priority,
         IsCompleted = entity.IsCompleted,
         CreatedAtUtc = entity.CreatedAtUtc,
+        DueAtUtc = entity.DueAtUtc,
         CompletedAtUtc = entity.CompletedAtUtc
     };
 
@@ -32,6 +33,7 @@ public static class TodoMapper
         Priority = request.Priority,
         IsCompleted = false,
         CreatedAtUtc = nowUtc,
+        DueAtUtc = null,
         CompletedAtUtc = null,
         UpdatedAtUtc = nowUtc
     };

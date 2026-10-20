@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using UAI.ZeroVP.API.Controllers;
@@ -70,6 +70,7 @@ public class TodosControllerTests
         Assert.Equal(TodoPriority.High, todo.Priority);
         Assert.False(todo.IsCompleted);
         Assert.Null(todo.CompletedAtUtc);
+        Assert.Null(todo.DueAtUtc);
     }
 
     [Fact]

@@ -20,6 +20,7 @@ namespace UAI.ZeroVP.Data.InMemory;
 public sealed class InMemoryTodoRepository : ITodoRepository
 {
     private readonly ConcurrentDictionary<Guid, TodoItem> _items = new();
+    private readonly object _writeLock = new();
     private readonly TimeProvider _timeProvider;
 
     /// <summary>
@@ -37,28 +38,39 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         }
     }
 
+
     /// <inheritdoc />
-    public Task<IReadOnlyList<TodoItem>> GetAllAsync(bool? isCompleted = null, CancellationToken cancellationToken = default)
+    public Task<IReadOnlyList<TodoItem>> GetAllAsync(
+        bool? isCompleted = null,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        IReadOnlyList<TodoItem> result = _items.Values
-            .Where(item => isCompleted is null || item.IsCompleted == isCompleted)
-            .OrderByDescending(item => item.Priority)
-            .ThenBy(item => item.CreatedAtUtc)
-            .Select(item => item.Clone())
-            .ToList();
+        lock (_writeLock)
+        {
+            IReadOnlyList<TodoItem> result = _items.Values
+                .Where(item => isCompleted is null || item.IsCompleted == isCompleted)
+                .OrderByDescending(item => item.Priority)
+                .ThenBy(item => item.CreatedAtUtc)
+                .Select(item => item.Clone())
+                .ToList();
 
-        return Task.FromResult(result);
+            return Task.FromResult(result);
+        }
     }
+
 
     /// <inheritdoc />
     public Task<TodoItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(_items.TryGetValue(id, out var item) ? item.Clone() : null);
+        lock (_writeLock)
+        {
+            return Task.FromResult(_items.TryGetValue(id, out var item) ? item.Clone() : null);
+        }
     }
+
 
     /// <inheritdoc />
     public Task<TodoItem> AddAsync(TodoItem item, CancellationToken cancellationToken = default)
@@ -67,13 +79,81 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         cancellationToken.ThrowIfCancellationRequested();
 
         var stored = item.Clone();
-        if (!_items.TryAdd(stored.Id, stored))
+
+        lock (_writeLock)
         {
-            throw new InvalidOperationException($"A todo item with ID {stored.Id} already exists.");
+            if (!_items.TryAdd(stored.Id, stored))
+            {
+                throw new InvalidOperationException(
+                    $"A todo item with ID {stored.Id} already exists.");
+            }
         }
 
         return Task.FromResult(stored.Clone());
     }
+
+
+    /// <inheritdoc />
+    public Task<IReadOnlyList<TodoItem>> AddRangeAsync(
+        IReadOnlyList<TodoItem> items,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(items);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var stored = items.Select(item =>
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            return item.Clone();
+        }).ToList();
+
+        lock (_writeLock)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var ids = new HashSet<Guid>();
+
+            foreach (var item in stored)
+            {
+                if (!ids.Add(item.Id) || _items.ContainsKey(item.Id))
+                {
+                    throw new InvalidOperationException(
+                        $"A todo item with ID {item.Id} already exists.");
+                }
+            }
+
+            var addedIds = new List<Guid>();
+
+            try
+            {
+                foreach (var item in stored)
+                {
+                    if (!_items.TryAdd(item.Id, item))
+                    {
+                        throw new InvalidOperationException(
+                            $"Failed to add todo item with ID {item.Id}.");
+                    }
+
+                    addedIds.Add(item.Id);
+                }
+
+                IReadOnlyList<TodoItem> result =
+                    stored.Select(item => item.Clone()).ToList();
+
+                return Task.FromResult(result);
+            }
+            catch
+            {
+                foreach (var id in addedIds)
+                {
+                    _items.TryRemove(id, out _);
+                }
+
+                throw;
+            }
+        }
+    }
+
 
     /// <inheritdoc />
     public Task<bool> UpdateAsync(TodoItem item, CancellationToken cancellationToken = default)
@@ -83,36 +163,47 @@ public sealed class InMemoryTodoRepository : ITodoRepository
 
         var replacement = item.Clone();
 
-        // TryUpdate compares the currently stored instance with the one read previously.
-        // If swapped by another thread in the meantime, comparison fails and it retries.
-        // Without this loop, a concurrent write would return false (404 "not found")
-        // even though the record exists. Last write wins.
-        while (_items.TryGetValue(item.Id, out var existing))
+        lock (_writeLock)
         {
-            if (_items.TryUpdate(item.Id, replacement, existing))
-            {
-                return Task.FromResult(true);
-            }
-        }
+            cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(false);
+            while (_items.TryGetValue(item.Id, out var existing))
+            {
+                if (_items.TryUpdate(item.Id, replacement, existing))
+                {
+                    return Task.FromResult(true);
+                }
+            }
+
+            return Task.FromResult(false);
+        }
     }
+
+
 
     /// <inheritdoc />
     public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(_items.TryRemove(id, out _));
+        lock (_writeLock)
+        {
+            return Task.FromResult(_items.TryRemove(id, out _));
+        }
     }
+
 
     /// <inheritdoc />
     public Task<int> CountAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(_items.Count);
+        lock (_writeLock)
+        {
+            return Task.FromResult(_items.Count);
+        }
     }
+
 
     /// <summary>Seeds sample todo items so the API does not return an empty collection on startup.</summary>
     private void Seed()

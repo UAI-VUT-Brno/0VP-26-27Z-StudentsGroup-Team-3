@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UAI.ZeroVP.API.Mapping;
 using UAI.ZeroVP.Data.Abstractions;
+using UAI.ZeroVP.Data.Entities;
 using UAI.ZeroVP.DTO;
 
 namespace UAI.ZeroVP.API.Controllers;
@@ -71,6 +72,54 @@ public sealed class TodosController : ControllerBase
         _logger.LogInformation("Created todo item {TodoId} ({Title}).", created.Id, created.Title);
 
         return CreatedAtRoute(nameof(GetById), new { id = created.Id }, created.ToDto());
+    }
+
+    /// <summary>Creates a weekly sequence of independent todo items.</summary>
+    /// <remarks>
+    /// Creates the first occurrence and RepeatCount additional occurrences,
+    /// each exactly seven days apart. Every occurrence has a unique ID.
+    /// </remarks>
+    /// <response code="201">All weekly occurrences created successfully.</response>
+    /// <response code="400">Request validation failed.</response>
+    [HttpPost("repeat")]
+    [ProducesResponseType(typeof(IReadOnlyList<TodoItemDto>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IReadOnlyList<TodoItemDto>>> Repeat(
+        [FromBody] CreateRecurringTodoRequest request,
+        CancellationToken cancellationToken)
+    {
+        var nowUtc = _timeProvider.GetUtcNow();
+        var firstDueAtUtc = request.FirstDueAtUtc!.Value;
+
+        var occurrences = new List<TodoItem>(request.RepeatCount + 1);
+
+        for (var i = 0; i <= request.RepeatCount; i++)
+        {
+            occurrences.Add(new TodoItem
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title.Trim(),
+                Description = string.IsNullOrWhiteSpace(request.Description)
+                    ? null
+                    : request.Description.Trim(),
+                Priority = request.Priority,
+                IsCompleted = false,
+                CreatedAtUtc = nowUtc,
+                DueAtUtc = firstDueAtUtc.AddDays(i * 7),
+                CompletedAtUtc = null,
+                UpdatedAtUtc = nowUtc
+            });
+        }
+
+        var created = await _repository.AddRangeAsync(occurrences, cancellationToken);
+        var result = created.Select(item => item.ToDto()).ToList();
+
+        _logger.LogInformation(
+            "Created {Count} weekly todo occurrences starting at {FirstDueAtUtc}.",
+            result.Count,
+            firstDueAtUtc);
+
+        return StatusCode(StatusCodes.Status201Created, result);
     }
 
     /// <summary>Updates an existing todo item.</summary>

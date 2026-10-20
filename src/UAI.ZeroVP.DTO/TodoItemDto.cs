@@ -25,6 +25,9 @@ public sealed record TodoItemDto
     /// <summary>Creation timestamp (UTC).</summary>
     public DateTimeOffset CreatedAtUtc { get; init; }
 
+    /// <summary>Optional due date and time (UTC), or null if no due date is set.</summary>
+    public DateTimeOffset? DueAtUtc { get; init; }
+
     /// <summary>Completion timestamp (UTC), or <c>null</c> if the item is not completed.</summary>
     public DateTimeOffset? CompletedAtUtc { get; init; }
 }
