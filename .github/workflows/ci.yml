@@ -6,11 +6,13 @@ on:
       - main
       - 'feature/**'
       - 'fix/**'
+      - 'chore/**'
   pull_request:
     branches:
       - main
       - 'feature/**'
       - 'fix/**'
+      - 'chore/**'
 
 jobs:
   build-and-test:
@@ -19,10 +21,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up .NET 10 SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
