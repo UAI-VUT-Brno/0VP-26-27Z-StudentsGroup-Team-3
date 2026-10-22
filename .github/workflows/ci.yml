@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Test (.NET)
+    name: Build, Audit and Test (.NET)
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,9 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore UAI.ZeroVP.sln
+
+      - name: Security scan (audit NuGet packages)
+        run: dotnet list UAI.ZeroVP.sln package --vulnerable --include-transitive
 
       - name: Build solution
         run: dotnet build UAI.ZeroVP.sln --no-restore --configuration Release
