@@ -17,6 +17,7 @@ public sealed class InfoController : ControllerBase
     private readonly ITodoRepository _repository;
     private readonly IHostEnvironment _environment;
     private readonly TimeProvider _timeProvider;
+    private static readonly string InstanceId = Guid.NewGuid().ToString("N");
 
     /// <summary>Initializes the controller with dependencies from DI container.</summary>
     public InfoController(ITodoRepository repository, IHostEnvironment environment, TimeProvider timeProvider)
@@ -42,6 +43,7 @@ public sealed class InfoController : ControllerBase
 
         return Ok(new InstanceInfoDto
         {
+            InstanceId = InstanceId,
             MachineName = Environment.MachineName,
             Environment = _environment.EnvironmentName,
             Version = version,
