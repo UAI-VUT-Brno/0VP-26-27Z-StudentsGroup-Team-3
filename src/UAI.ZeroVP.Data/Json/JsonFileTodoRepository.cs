@@ -368,15 +368,30 @@ public sealed class JsonFileTodoRepository : ITodoRepository
 
         var updated = ExecuteWrite(() =>
         {
-            if (!_items.ContainsKey(replacement.Id))
+            if (!_items.TryGetValue(replacement.Id, out var existing))
             {
                 return (Result: false, Changed: false);
             }
+
+            if (existing.Version != replacement.Version)
+            {
+                throw new TodoConcurrencyException(
+                    replacement.Id,
+                    replacement.Version,
+                    existing.Version);
+            }
+
+            replacement.Version = checked(existing.Version + 1);
 
             _items[replacement.Id] = replacement;
 
             return (Result: true, Changed: true);
         }, cancellationToken);
+
+        if (updated)
+        {
+            item.Version = replacement.Version;
+        }
 
         return Task.FromResult(updated);
     }

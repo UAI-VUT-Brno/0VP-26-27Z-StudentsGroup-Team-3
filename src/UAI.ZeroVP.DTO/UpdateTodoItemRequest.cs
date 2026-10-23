@@ -29,4 +29,9 @@ public sealed record UpdateTodoItemRequest
 
     /// <summary>Indicates whether the todo item is completed.</summary>
     public bool IsCompleted { get; init; }
+
+    /// <summary>Expected version of the todo item being updated.
+    /// Must match the currently stored version.</summary>
+    [Range(1, long.MaxValue)]
+    public long Version { get; init; }
 }

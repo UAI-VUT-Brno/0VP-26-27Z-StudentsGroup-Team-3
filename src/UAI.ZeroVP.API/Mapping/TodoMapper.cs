@@ -19,7 +19,8 @@ public static class TodoMapper
         IsCompleted = entity.IsCompleted,
         CreatedAtUtc = entity.CreatedAtUtc,
         DueAtUtc = entity.DueAtUtc,
-        CompletedAtUtc = entity.CompletedAtUtc
+        CompletedAtUtc = entity.CompletedAtUtc,
+        Version = entity.Version,
     };
 
     /// <summary>Creates a new entity from a request to create a todo item.</summary>

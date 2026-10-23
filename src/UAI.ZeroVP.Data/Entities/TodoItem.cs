@@ -36,6 +36,9 @@ public sealed class TodoItem
     /// <summary>Internal audit timestamp for the last modification. Not exposed in the DTO.</summary>
     public DateTimeOffset UpdatedAtUtc { get; set; }
 
+    /// <summary>Version used for optimistic concurrency control. Incremented after every successful update.</summary>
+    public long Version { get; set; } = 1;
+
     /// <summary>
     /// Creates a deep copy of the entity. Used by the in-memory repository to prevent
     /// callers from mutating stored state outside the repository
@@ -51,6 +54,7 @@ public sealed class TodoItem
         CreatedAtUtc = CreatedAtUtc,
         DueAtUtc = DueAtUtc,
         CompletedAtUtc = CompletedAtUtc,
-        UpdatedAtUtc = UpdatedAtUtc
+        UpdatedAtUtc = UpdatedAtUtc,
+        Version = Version
     };
 }
