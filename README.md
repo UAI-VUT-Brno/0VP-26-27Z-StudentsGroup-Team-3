@@ -1,143 +1,201 @@
-# UAI.ZeroVP – ukázkové API pro výuku Dockeru
+# UAI.ZeroVP – ToDo REST API
 
-Jednoduché REST API pro správu úkolů (ToDo), rozdělené do tří projektů.
-Slouží jako výchozí bod pro navazující lekce o kontejnerizaci.
+**Language:** **English** | [Čeština](README.cs.md)
 
-## Struktura repozitáře
+A sample REST API for managing ToDo items, developed as a .NET 10 teaching project. The solution demonstrates layered architecture, HTTP endpoints, automated testing, persistent JSON storage, concurrency control, and running multiple API instances on one host.
+
+## Repository structure
 
 ```text
-UAI.ZeroVP.sln                 solution – zůstává v kořeni
-src/                           zdrojový kód aplikace
-├─ UAI.ZeroVP.DTO/             kontrakt API
-├─ UAI.ZeroVP.Data/            entita a paměťové úložiště
-└─ UAI.ZeroVP.API/             webové API, kontrolery, mapování
-case-study-a-dockerfile/       výuka – vrstvení Dockerfile
-case-study-b-tooling/          výuka – nástroje a workflow
-case-study-c-configuration/    výuka – konfigurace aplikace
+UAI.ZeroVP.sln                  Solution file
+src/
+├── UAI.ZeroVP.DTO/            API contracts and validation
+├── UAI.ZeroVP.Data/           Entities and repository implementations
+└── UAI.ZeroVP.API/            ASP.NET Core API, controllers and mapping
+tests/                          xUnit tests
+docs/                           Technical documentation
+scripts/                        Local integration-test scripts
 ```
 
-Aplikace i výukové materiály sdílejí jeden kontext, proto se **sestavuje vždy
-z kořene repozitáře** – jak `dotnet build`, tak `docker build`. Podrobnosti
-v sekci [Výukové materiály k Dockeru](#výukové-materiály-k-dockeru).
+The solution has three main projects:
 
-| Projekt | Typ | Obsah | Závislosti |
-|---|---|---|---|
-| `UAI.ZeroVP.DTO` | Class library | Kontrakt API – `TodoItemDto`, `CreateTodoItemRequest`, `UpdateTodoItemRequest`, `InstanceInfoDto`, výčet `TodoPriority` | žádné |
-| `UAI.ZeroVP.Data` | Class library | Entita `TodoItem`, rozhraní `ITodoRepository`, paměťová implementace `InMemoryTodoRepository`, registrace do DI | `DTO` |
-| `UAI.ZeroVP.API` | ASP.NET Core Web API | Kontrolery, mapování entita ↔ DTO, konfigurace pipeline | `DTO`, `Data` |
+| Project | Responsibility | Dependencies |
+| --- | --- | --- |
+| `UAI.ZeroVP.DTO` | Request/response DTOs, validation, priority enum | None |
+| `UAI.ZeroVP.Data` | `TodoItem`, `ITodoRepository`, in-memory and JSON repositories | DTO |
+| `UAI.ZeroVP.API` | HTTP endpoints, mapping, dependency injection and middleware | DTO, Data |
 
-Závislosti tvoří jednosměrný řetěz **DTO → Data → API**. Kontroler zná jen rozhraní
-`ITodoRepository`, takže výměna paměťového úložiště za databázi se ho nedotkne.
+Controllers depend on the `ITodoRepository` abstraction rather than a concrete storage implementation.
 
-## Úložiště dat
+## Requirements and local setup
 
-Data žijí **pouze v operační paměti procesu** (`ConcurrentDictionary`).
-Zastavením aplikace nebo kontejneru se nenávratně ztratí a každá replika má vlastní,
-na ostatních nezávislou sadu dat. To je záměr a navazuje se na něj:
-[case study A](case-study-a-dockerfile/) to ukazuje v příkladech 4 a 5 (restart
-kontejneru, replikace za nginx), [case study B](case-study-b-tooling/05-compose/)
-pak protiklad – pojmenovaný svazek, který restart přežije.
+- .NET 10 SDK
+- PowerShell for the Windows examples and the optional two-process integration test
+- A writable directory for persistent JSON data
 
-Při startu se vkládají čtyři ukázkové úkoly. Vypnout je lze nastavením:
+Build and run from the repository root:
 
-```jsonc
-// appsettings.json
-"Todo": { "SeedSampleData": false }
-```
-
-nebo proměnnou prostředí `Todo__SeedSampleData=false` (dvojité podtržítko = oddělovač sekcí).
-
-## Spuštění
-
-```bash
+```powershell
+dotnet build UAI.ZeroVP.sln --configuration Release
 dotnet run --project src/UAI.ZeroVP.API
 ```
 
-API naslouchá na `http://localhost:5258`. Kořen `/` přesměruje na Swagger UI
-(nebo na seznam úkolů, pokud je Swagger vypnutý).
+The project's HTTP launch profile uses **http://localhost:5258**. Other launch configurations may use different URLs. The root route `/` redirects to Swagger UI when enabled, or to `/api/todos` otherwise.
 
-## Endpointy
+## Data storage
 
-| Metoda | Cesta | Popis |
-|---|---|---|
-| `GET` | `/api/todos` | Seznam úkolů; volitelný filtr `?isCompleted=true\|false` |
-| `GET` | `/api/todos/{id}` | Detail úkolu |
-| `POST` | `/api/todos` | Založení úkolu → `201 Created` + hlavička `Location` |
-| `PUT` | `/api/todos/{id}` | Úplná aktualizace úkolu |
-| `POST` | `/api/todos/{id}/complete` | Označení úkolu za dokončený |
-| `DELETE` | `/api/todos/{id}` | Smazání úkolu → `204 No Content` |
-| `GET` | `/api/info` | Hostname instance, prostředí, doba běhu, počet úkolů v paměti |
-| `GET` | `/health` | Kontrola zdraví – použije ji `HEALTHCHECK` v Dockerfile |
-| `GET` | `/swagger` | Interaktivní dokumentace Swagger UI |
-| `GET` | `/openapi/v1.json` | Popis API ve formátu OpenAPI |
+The API has two `ITodoRepository` implementations:
 
-Chybové odpovědi mají jednotný tvar `ProblemDetails` (RFC 9457).
-Připravené požadavky k odzkoušení jsou v souboru `src/UAI.ZeroVP.API/UAI.ZeroVP.API.http`.
+| Implementation | Used when | Persistence | Sharing between processes |
+| --- | --- | --- | --- |
+| `JsonFileTodoRepository` | Normal application environments | JSON file | Yes, with the same file path |
+| `InMemoryTodoRepository` | `LoadTest` environment | Process memory only | No |
 
-## Swagger
+### Persistent JSON storage
 
-Dokument OpenAPI generuje vestavěná knihovna .NET 10 (`Microsoft.AspNetCore.OpenApi`)
-a vystavuje ho na `/openapi/v1.json`. Balíček `Swashbuckle.AspNetCore.SwaggerUI`
-nad ním přidává jen interaktivní uživatelské rozhraní na `/swagger` – druhý generátor
-dokumentu se tedy nepoužívá.
+Normal application runs use `JsonFileTodoRepository` by default. The `TodoStorage` configuration section specifies the file path and whether sample items are seeded. The current configuration uses `data/todos.json` and enables sample data when a new store is initialized.
 
-Popisy operací a vlastností ve Swaggeru pocházejí z XML komentářů v kódu;
-proto mají všechny tři projekty zapnuté `<GenerateDocumentationFile>`.
+Override the configuration using environment variables, for example in PowerShell:
 
-Swagger je zapnutý v prostředí Development a vypnutý v Production.
-Přepnout ho lze nastavením nebo proměnnou prostředí:
-
-```jsonc
-// appsettings.json
-"Swagger": { "Enabled": true }
+```powershell
+$env:TodoStorage__FilePath = "C:\Temp\ZeroVP\todos.json"
+$env:TodoStorage__SeedSampleData = "false"
 ```
 
-```bash
-# například při spuštění kontejneru
-ASPNETCORE_ENVIRONMENT=Production Swagger__Enabled=true dotnet UAI.ZeroVP.API.dll
+All API processes that share a store must use the **same absolute file path**. A relative path depends on the process working directory and should not be relied on for multi-instance operation.
+
+The JSON repository uses a cross-process lock file, reloads the current content before operations, and writes updates through a temporary file followed by file replacement. Invalid JSON detected during startup is backed up; corruption encountered during normal operation does not silently overwrite the file.
+
+For Docker deployment, keeping data after container replacement requires a correctly configured volume or bind mount. Multiple containers must have suitable access to the same storage and locking semantics.
+
+### In-memory storage
+
+The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriented HTTP tests. Its data is lost when the process terminates. **Do not use `LoadTest` to demonstrate shared JSON storage.**
+
+## API endpoints
+
+| Method | Route | Description |
+| --- | --- | --- |
+| `GET` | `/api/todos` | List todos; optional `?isCompleted=true` or `false` |
+| `GET` | `/api/todos/{id}` | Get a todo by ID |
+| `POST` | `/api/todos` | Create a todo (`201 Created`, `Location` header) |
+| `POST` | `/api/todos/repeat` | Create a weekly series of independent todos |
+| `PUT` | `/api/todos/{id}` | Fully update a todo, including its expected version |
+| `POST` | `/api/todos/{id}/complete` | Mark a todo as completed |
+| `DELETE` | `/api/todos/{id}` | Delete a todo (`204 No Content`) |
+| `GET` | `/api/info` | Instance details, including unique `instanceId` |
+| `GET` | `/health` | Health-check endpoint |
+| `GET` | `/swagger` | Interactive Swagger UI, when enabled |
+| `GET` | `/openapi/v1.json` | Machine-readable OpenAPI description, when enabled |
+
+Failed requests return standard ASP.NET Core `ProblemDetails` responses.
+
+`POST /api/todos/repeat` accepts a title, optional description, priority, UTC `firstDueAtUtc`, and `repeatCount` (1–52 additional weekly occurrences). Each occurrence has its own ID.
+
+### Optimistic concurrency
+
+Every todo has a `version` value starting at `1`. Successful updates increment it. A `PUT` request must include the version read by the client:
+
+```json
+{
+  "title": "Updated task",
+  "description": "Example update",
+  "priority": "Normal",
+  "isCompleted": false,
+  "version": 1
+}
 ```
 
-### Rychlý test
+If another operation has already updated the todo, the stale request receives **HTTP `409 Conflict`**, and the newer stored data is preserved. Clients should reload the current todo and resolve the conflict before retrying.
 
-```bash
-curl http://localhost:5258/api/todos
-curl -X POST http://localhost:5258/api/todos \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Napsat Dockerfile","priority":"High"}'
-curl http://localhost:5258/api/info
+## Running two API instances
+
+Build in Release mode first, then open **two separate PowerShell terminals** at the repository root. Both must reference exactly the same absolute JSON file.
+
+**Terminal A:**
+
+```powershell
+$env:TodoStorage__FilePath = Join-Path $env:TEMP "ZeroVP-MultiInstance\todos.json"
+$env:TodoStorage__SeedSampleData = "false"
+$env:DOTNET_ENVIRONMENT = "Production"
+dotnet run --project src/UAI.ZeroVP.API --configuration Release --no-build --no-launch-profile -- --urls http://127.0.0.1:5258
 ```
 
-## Poznámka ke kódování
+**Terminal B:**
 
-Zdrojové soubory jsou uloženy jako **UTF-8 s BOM**. Bez BOM dekóduje kompilátor C#
-na Windows zdrojový kód systémovou ANSI kódovou stránkou a diakritika v řetězcích
-se rozbije. Pravidlo hlídá `.editorconfig` (`charset = utf-8-bom`).
-
-## Výukové materiály k Dockeru
-
-Nad touto aplikací jsou postavené tři nezávislé case studies, každá o pěti příkladech.
-Každý příklad má zadání pro studenta a komentované řešení. Náročnost stoupá
-od case study A k case study C.
-
-| Case study | Úroveň | Téma |
-|---|---|---|
-| [A – vrstvení Dockerfile](case-study-a-dockerfile/) | začátečníci | jeden Dockerfile, který se postupně zlepšuje: od 1,34 GB k zpevněnému image za 352 MB |
-| [B – nástroje a workflow](case-study-b-tooling/) | mírně pokročilí | životní cyklus, diagnostika rozbitých kontejnerů, vrstvy, registry |
-| [C – konfigurace aplikace](case-study-c-configuration/) | pokročilí | jeden image, mnoho prostředí: proměnné, soubory, priorita zdrojů, tajemství |
-
-Materiály case studies jsou psané **anglicky**; samotná aplikace a tento soubor zůstávají v češtině.
-
-Každá case study končí příkladem s Docker Compose. Všechny tři jsou samostatné –
-lze je probírat v libovolném pořadí nebo jen některý.
-
-### Společné pro všechny case studies
-
-Sestavuje se vždy **z kořene projektu**, Dockerfile se uvádí přepínačem `-f`:
-
-```bash
-docker build -f case-study-a-dockerfile/02-multi-stage-build/Dockerfile -t zerovp:a02 .
+```powershell
+$env:TodoStorage__FilePath = Join-Path $env:TEMP "ZeroVP-MultiInstance\todos.json"
+$env:TodoStorage__SeedSampleData = "false"
+$env:DOTNET_ENVIRONMENT = "Production"
+dotnet run --project src/UAI.ZeroVP.API --configuration Release --no-build --no-launch-profile -- --urls http://127.0.0.1:5259
 ```
 
-Ignorovací soubory jsou uložené vedle jednotlivých Dockerfile jako
-`<jméno Dockerfile>.dockerignore`, protože všechny příklady sdílejí jeden kontext.
-V běžném projektu patří `.dockerignore` do kořene repozitáře.
+Check their different instance IDs in a third terminal:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:5258/api/info
+Invoke-RestMethod http://127.0.0.1:5259/api/info
+```
+
+Create a task through A and retrieve it immediately through B:
+
+```powershell
+$task = Invoke-RestMethod -Uri http://127.0.0.1:5258/api/todos `
+    -Method Post -ContentType "application/json" `
+    -Body '{"title":"Shared storage test","priority":"Normal"}'
+Invoke-RestMethod "http://127.0.0.1:5259/api/todos/$($task.id)"
+```
+
+Stop each API instance with `Ctrl+C`. See [the full multi-instance guide](docs/multi-instance.md) for details.
+
+## Testing
+
+Run the entire .NET test suite from the repository root:
+
+```powershell
+dotnet test UAI.ZeroVP.sln --configuration Release
+```
+
+The last verified local run passed **84/84 xUnit tests**. Relevant suites include:
+
+- `JsonFileTodoRepositoryTests` — JSON persistence and initialization.
+- `JsonFileMultiInstanceTests` — two repository objects sharing a file, concurrent writes, version conflicts and file integrity.
+- `TodoConcurrencyTests` — HTTP version increments, stale updates and `409 Conflict`.
+- `ApiLoadTests` and `HttpPerformanceTests` — HTTP load and response-time measurements.
+
+The six JSON multi-instance tests use separate repository objects **within one OS process**. To test two actual API processes and shared storage, run the standalone PowerShell integration test:
+
+```powershell
+dotnet build UAI.ZeroVP.sln --configuration Release
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\test-multi-instance.ps1"
+```
+
+This script starts two APIs, checks distinct instance IDs, shared-data visibility, stale-update protection, 40 concurrent writes and JSON validity, then stops the processes. It uses temporary test data. The latest execution completed with `ALL MULTI-PROCESS TESTS PASSED`.
+
+The PowerShell test is **not** included in `dotnet test` or automatically executed by CI. Run it separately; `ExecutionPolicy Bypass` applies only to the child PowerShell process in the shown command. Ensure the script comes from a trusted source before running it.
+
+## Swagger and OpenAPI
+
+The API exposes its OpenAPI document through .NET 10 and Swagger UI when enabled. Swagger is enabled by default in `Development` and can be enabled explicitly with:
+
+```powershell
+$env:Swagger__Enabled = "true"
+```
+
+The project also includes sample HTTP requests in [`src/UAI.ZeroVP.API/UAI.ZeroVP.API.http`](src/UAI.ZeroVP.API/UAI.ZeroVP.API.http).
+
+## Docker learning materials
+
+The API is intended as a foundation for exercises on Dockerfiles, container tooling and configuration. Some original course exercises assume process-local storage; with the current JSON implementation, their restart and replication scenarios may behave differently unless configured accordingly.
+
+Build Docker images from the repository root when using the relevant teaching Dockerfiles. The `case-study-a-dockerfile`, `case-study-b-tooling` and `case-study-c-configuration` directories referenced by earlier README versions were **not present in the supplied project snapshot**; consult the course materials if you need those examples.
+
+## Further documentation
+
+- [Multi-instance JSON storage](docs/multi-instance.md)
+- [API performance](docs/api-performance.md)
+- [HTTP load testing](docs/api-load-testing.md)
+- [OpenAPI documentation](docs/OpenAPI.md)
+- [Security](docs/security.md)
+
+C# source files use UTF-8 with BOM according to `.editorconfig`; Markdown files use UTF-8 with LF line endings.
