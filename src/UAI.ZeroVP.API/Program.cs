@@ -57,10 +57,20 @@ builder.Services.AddProblemDetails();
 // Time abstraction registered as a singleton service across DI.
 builder.Services.AddSingleton(TimeProvider.System);
 
-// Data layer: in-memory storage. Configuration is bound from the "Todo" section,
-// can be overridden in container via Todo__SeedSampleData environment variable.
-builder.Services.AddInMemoryTodoData(options =>
-    builder.Configuration.GetSection(InMemoryTodoOptions.SectionName).Bind(options));
+// Data layer: in-memory storage for high-load performance profiling,
+// persistent JSON file storage for development, Docker and production.
+if (builder.Environment.IsEnvironment("LoadTest"))
+{
+    builder.Services.AddInMemoryTodoData(options =>
+    {
+        options.SeedSampleData = false;
+    });
+}
+else
+{
+    builder.Services.AddJsonFileTodoData(options =>
+        builder.Configuration.GetSection(UAI.ZeroVP.Data.Json.JsonFileTodoOptions.SectionName).Bind(options));
+}
 
 // Health checks service for Docker container monitoring.
 builder.Services.AddHealthChecks();
