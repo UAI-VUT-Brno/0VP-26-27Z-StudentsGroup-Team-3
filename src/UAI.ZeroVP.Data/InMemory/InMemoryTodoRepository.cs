@@ -154,9 +154,10 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         }
     }
 
-
     /// <inheritdoc />
-    public Task<bool> UpdateAsync(TodoItem item, CancellationToken cancellationToken = default)
+    public Task<bool> UpdateAsync(
+        TodoItem item,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(item);
         cancellationToken.ThrowIfCancellationRequested();
@@ -167,19 +168,28 @@ public sealed class InMemoryTodoRepository : ITodoRepository
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            while (_items.TryGetValue(item.Id, out var existing))
+            if (!_items.TryGetValue(replacement.Id, out var existing))
             {
-                if (_items.TryUpdate(item.Id, replacement, existing))
-                {
-                    return Task.FromResult(true);
-                }
+                return Task.FromResult(false);
             }
 
-            return Task.FromResult(false);
+            if (existing.Version != replacement.Version)
+            {
+                throw new TodoConcurrencyException(
+                    replacement.Id,
+                    replacement.Version,
+                    existing.Version);
+            }
+
+            replacement.Version = checked(existing.Version + 1);
+
+            _items[replacement.Id] = replacement;
+
+            item.Version = replacement.Version;
+
+            return Task.FromResult(true);
         }
     }
-
-
 
     /// <inheritdoc />
     public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)

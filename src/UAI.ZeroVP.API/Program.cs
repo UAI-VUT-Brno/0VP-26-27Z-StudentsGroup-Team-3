@@ -84,8 +84,11 @@ builder.Services.AddOpenApi(options =>
         {
             Title = "UAI.ZeroVP – ToDo API",
             Version = "v1",
-            Description = "Sample API for Docker learning purposes. Data is stored purely "
-                        + "in process memory and is lost once the container stops."
+
+            Description = "Sample ToDo API for Docker learning purposes. " +
+                          "Supports persistent JSON storage, shared access " +
+                          "across multiple API instances, and optimistic concurrency."
+
         };
 
         return Task.CompletedTask;

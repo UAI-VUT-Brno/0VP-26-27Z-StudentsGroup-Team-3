@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace UAI.ZeroVP.Tests.Performance;
@@ -26,6 +28,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/todos");
@@ -45,6 +48,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         await MeasureAsync(
@@ -58,6 +62,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         await MeasureAsync(
@@ -77,6 +82,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         var id = await CreateTodoAsync(client);
@@ -93,6 +99,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
@@ -111,7 +118,8 @@ public class HttpPerformanceTests
                     title = "Updated performance task",
                     description = "Performance measurement",
                     priority = "Normal",
-                    isCompleted = false
+                    isCompleted = false,
+                    version = 1L
                 }),
             HttpStatusCode.OK,
             PrepareAsync);
@@ -122,6 +130,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
@@ -145,6 +154,7 @@ public class HttpPerformanceTests
     {
         await using var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder => builder.UseEnvironment("LoadTest"));
+
         using var client = factory.CreateClient();
 
         Guid currentId = Guid.Empty;
@@ -187,7 +197,7 @@ public class HttpPerformanceTests
     {
         var durations = new List<double>();
 
-        // Warm-up: doesnt count towards statistics.
+        // Warm-up: doesn't count towards statistics.
         for (var i = 0; i < WarmupCount; i++)
         {
             if (prepareRequest is not null)

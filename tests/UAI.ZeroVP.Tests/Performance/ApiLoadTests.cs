@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -108,7 +109,8 @@ public class ApiLoadTests
                             title = $"Updated load test task {index}",
                             description = "Concurrent load testing",
                             priority = "Normal",
-                            isCompleted = false
+                            isCompleted = false,
+                            version = 1L
                         }),
 
                 "POST /api/todos/{id}/complete" =>

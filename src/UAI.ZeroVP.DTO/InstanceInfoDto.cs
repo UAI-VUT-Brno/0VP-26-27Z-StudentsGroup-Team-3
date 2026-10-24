@@ -24,4 +24,7 @@ public sealed record InstanceInfoDto
 
     /// <summary>Number of todo items currently held in memory by this instance.</summary>
     public required int TodoCount { get; init; }
+
+    /// <summary>Unique identifier of the running API instance.</summary>
+    public string InstanceId { get; init; } = string.Empty;
 }

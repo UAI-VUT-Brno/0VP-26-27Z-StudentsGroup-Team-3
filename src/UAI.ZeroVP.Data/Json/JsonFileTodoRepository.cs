@@ -49,46 +49,185 @@ public sealed class JsonFileTodoRepository : ITodoRepository
         InitializeStorage();
     }
 
+    /// <summary>
+    /// Acquires an exclusive cross-process lock for the shared JSON storage.
+    /// The lock is released when the returned stream is disposed.
+    /// </summary>
+    private FileStream AcquireCrossProcessLock(
+        CancellationToken cancellationToken = default)
+    {
+        var lockPath = Path.GetFullPath(_filePath) + ".lock";
+        var directory = Path.GetDirectoryName(lockPath)!;
+
+        Directory.CreateDirectory(directory);
+
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            try
+            {
+                return new FileStream(
+                    lockPath,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.None);
+            }
+            catch (IOException)
+            {
+                Thread.Sleep(50);
+            }
+        }
+
+        throw new TimeoutException(
+            $"Could not acquire storage lock for '{_filePath}'.");
+    }
+
     private void InitializeStorage()
     {
         lock (FileLock)
         {
+            using var processLock = AcquireCrossProcessLock();
+
             if (!File.Exists(_filePath))
             {
+                _items.Clear();
+
                 if (_seedSampleData)
                 {
                     Seed();
                     PersistToFile();
                 }
+
                 return;
             }
 
             try
             {
-                var json = File.ReadAllText(_filePath);
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return;
-                }
-
-                var deserialized = JsonSerializer.Deserialize<List<TodoItem>>(json, JsonOptions);
-                if (deserialized is not null)
-                {
-                    foreach (var item in deserialized)
-                    {
-                        _items[item.Id] = item;
-                    }
-                }
+                ReloadFromFile();
             }
             catch (JsonException ex)
             {
-                _logger.LogError(ex, "Persistent JSON file at '{FilePath}' is corrupted. Initializing clean repository state.", _filePath);
+                var backupPath = _filePath
+                    + ".corrupt-"
+                    + Guid.NewGuid().ToString("N")
+                    + ".bak";
+
+                File.Move(_filePath, backupPath);
+
+                _logger.LogError(
+                    ex,
+                    "Corrupted JSON storage moved from '{FilePath}' to '{BackupPath}'.",
+                    _filePath,
+                    backupPath);
+
                 _items.Clear();
+
+                if (_seedSampleData)
+                {
+                    Seed();
+                }
+
+                PersistToFile();
             }
-            catch (Exception ex)
+        }
+    }
+
+    /// <summary>
+    /// Reloads the latest tasks from the shared JSON file.
+    /// Must be called while holding both storage locks.
+    /// Invalid JSON must never silently replace the current state.
+    /// </summary>
+    private void ReloadFromFile()
+    {
+        if (!File.Exists(_filePath))
+        {
+            _items.Clear();
+            return;
+        }
+
+        var json = File.ReadAllText(_filePath);
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            throw new JsonException("JSON storage file is empty.");
+        }
+
+        var items = JsonSerializer.Deserialize<List<TodoItem>>(
+            json, JsonOptions)
+            ?? throw new JsonException("JSON storage contains null.");
+
+        var loaded = new Dictionary<Guid, TodoItem>();
+
+        foreach (var item in items)
+        {
+            if (item is null)
             {
-                _logger.LogError(ex, "Unexpected error loading tasks from '{FilePath}'. Initializing clean state.", _filePath);
+                throw new JsonException(
+                    "JSON storage contains a null todo item.");
+            }
+
+            if (!loaded.TryAdd(item.Id, item))
+            {
+                throw new JsonException(
+                    $"JSON storage contains duplicate ID {item.Id}.");
+            }
+        }
+
+        _items.Clear();
+
+        foreach (var item in loaded.Values)
+        {
+            _items[item.Id] = item;
+        }
+    }
+
+    /// <summary>
+    /// Executes a synchronized read-modify-write operation.
+    /// Prevents concurrent processes from overwriting each other's changes.
+    /// Restores the previous in-memory state if the operation fails.
+    /// </summary>
+    private TResult ExecuteWrite<TResult>(
+        Func<(TResult Result, bool Changed)> mutation,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(mutation);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        lock (FileLock)
+        {
+            using var processLock = AcquireCrossProcessLock(cancellationToken);
+
+            ReloadFromFile();
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var previousState = _items.Values
+                .Select(item => item.Clone())
+                .ToList();
+
+            try
+            {
+                var (result, changed) = mutation();
+
+                if (changed)
+                {
+                    PersistToFile();
+                }
+
+                return result;
+            }
+            catch
+            {
                 _items.Clear();
+
+                foreach (var item in previousState)
+                {
+                    _items[item.Id] = item;
+                }
+
+                throw;
             }
         }
     }
@@ -113,12 +252,17 @@ public sealed class JsonFileTodoRepository : ITodoRepository
     }
 
     /// <inheritdoc />
-    public Task<IReadOnlyList<TodoItem>> GetAllAsync(bool? isCompleted = null, CancellationToken cancellationToken = default)
+    public Task<IReadOnlyList<TodoItem>> GetAllAsync(
+        bool? isCompleted = null,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         lock (FileLock)
         {
+            using var processLock = AcquireCrossProcessLock(cancellationToken);
+            ReloadFromFile();
+
             IReadOnlyList<TodoItem> result = _items.Values
                 .Where(item => isCompleted is null || item.IsCompleted == isCompleted)
                 .OrderByDescending(item => item.Priority)
@@ -131,42 +275,53 @@ public sealed class JsonFileTodoRepository : ITodoRepository
     }
 
     /// <inheritdoc />
-    public Task<TodoItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<TodoItem?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         lock (FileLock)
         {
-            return Task.FromResult(_items.TryGetValue(id, out var item) ? item.Clone() : null);
+            using var processLock = AcquireCrossProcessLock(cancellationToken);
+            ReloadFromFile();
+
+            return Task.FromResult(
+                _items.TryGetValue(id, out var item)
+                    ? item.Clone()
+                    : null);
         }
     }
 
     /// <inheritdoc />
-    public Task<TodoItem> AddAsync(TodoItem item, CancellationToken cancellationToken = default)
+    public Task<TodoItem> AddAsync(
+        TodoItem item,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(item);
-        cancellationToken.ThrowIfCancellationRequested();
 
         var stored = item.Clone();
 
-        lock (FileLock)
+        var created = ExecuteWrite(() =>
         {
             if (!_items.TryAdd(stored.Id, stored))
             {
-                throw new InvalidOperationException($"A todo item with ID {stored.Id} already exists.");
+                throw new InvalidOperationException(
+                    $"A todo item with ID {stored.Id} already exists.");
             }
 
-            PersistToFile();
-        }
+            return (Result: stored.Clone(), Changed: true);
+        }, cancellationToken);
 
-        return Task.FromResult(stored.Clone());
+        return Task.FromResult(created);
     }
 
     /// <inheritdoc />
-    public Task<IReadOnlyList<TodoItem>> AddRangeAsync(IReadOnlyList<TodoItem> items, CancellationToken cancellationToken = default)
+    public Task<IReadOnlyList<TodoItem>> AddRangeAsync(
+        IReadOnlyList<TodoItem> items,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(items);
-        cancellationToken.ThrowIfCancellationRequested();
 
         var stored = items.Select(item =>
         {
@@ -174,96 +329,99 @@ public sealed class JsonFileTodoRepository : ITodoRepository
             return item.Clone();
         }).ToList();
 
-        lock (FileLock)
+        IReadOnlyList<TodoItem> created = ExecuteWrite(() =>
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             var ids = new HashSet<Guid>();
+
             foreach (var item in stored)
             {
                 if (!ids.Add(item.Id) || _items.ContainsKey(item.Id))
                 {
-                    throw new InvalidOperationException($"A todo item with ID {item.Id} already exists.");
+                    throw new InvalidOperationException(
+                        $"A todo item with ID {item.Id} already exists.");
                 }
             }
 
-            var addedIds = new List<Guid>();
-            try
+            foreach (var item in stored)
             {
-                foreach (var item in stored)
-                {
-                    if (!_items.TryAdd(item.Id, item))
-                    {
-                        throw new InvalidOperationException($"Failed to add todo item with ID {item.Id}.");
-                    }
-                    addedIds.Add(item.Id);
-                }
-
-                PersistToFile();
-
-                IReadOnlyList<TodoItem> result = stored.Select(item => item.Clone()).ToList();
-                return Task.FromResult(result);
+                _items[item.Id] = item;
             }
-            catch
-            {
-                foreach (var id in addedIds)
-                {
-                    _items.TryRemove(id, out _);
-                }
-                throw;
-            }
-        }
+
+            IReadOnlyList<TodoItem> result = stored
+                .Select(item => item.Clone())
+                .ToList();
+
+            return (Result: result, Changed: stored.Count > 0);
+        }, cancellationToken);
+
+        return Task.FromResult(created);
     }
 
     /// <inheritdoc />
-    public Task<bool> UpdateAsync(TodoItem item, CancellationToken cancellationToken = default)
+    public Task<bool> UpdateAsync(
+        TodoItem item,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(item);
-        cancellationToken.ThrowIfCancellationRequested();
 
         var replacement = item.Clone();
 
-        lock (FileLock)
+        var updated = ExecuteWrite(() =>
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            while (_items.TryGetValue(item.Id, out var existing))
+            if (!_items.TryGetValue(replacement.Id, out var existing))
             {
-                if (_items.TryUpdate(item.Id, replacement, existing))
-                {
-                    PersistToFile();
-                    return Task.FromResult(true);
-                }
+                return (Result: false, Changed: false);
             }
 
-            return Task.FromResult(false);
+            if (existing.Version != replacement.Version)
+            {
+                throw new TodoConcurrencyException(
+                    replacement.Id,
+                    replacement.Version,
+                    existing.Version);
+            }
+
+            replacement.Version = checked(existing.Version + 1);
+
+            _items[replacement.Id] = replacement;
+
+            return (Result: true, Changed: true);
+        }, cancellationToken);
+
+        if (updated)
+        {
+            item.Version = replacement.Version;
         }
+
+        return Task.FromResult(updated);
     }
 
     /// <inheritdoc />
-    public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var deleted = ExecuteWrite(() =>
+        {
+            var removed = _items.TryRemove(id, out _);
+
+            return (Result: removed, Changed: removed);
+        }, cancellationToken);
+
+        return Task.FromResult(deleted);
+    }
+
+    /// <inheritdoc />
+    public Task<int> CountAsync(
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         lock (FileLock)
         {
-            if (_items.TryRemove(id, out _))
-            {
-                PersistToFile();
-                return Task.FromResult(true);
-            }
+            using var processLock = AcquireCrossProcessLock(cancellationToken);
+            ReloadFromFile();
 
-            return Task.FromResult(false);
-        }
-    }
-
-    /// <inheritdoc />
-    public Task<int> CountAsync(CancellationToken cancellationToken = default)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        lock (FileLock)
-        {
             return Task.FromResult(_items.Count);
         }
     }

@@ -30,4 +30,8 @@ public sealed record TodoItemDto
 
     /// <summary>Completion timestamp (UTC), or <c>null</c> if the item is not completed.</summary>
     public DateTimeOffset? CompletedAtUtc { get; init; }
+
+    /// <summary>Current version of the todo item for optimistic concurrency control.</summary>
+    public long Version { get; init; } = 1;
+
 }
