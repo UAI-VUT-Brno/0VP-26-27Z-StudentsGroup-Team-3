@@ -237,17 +237,48 @@ public sealed class JsonFileTodoRepository : ITodoRepository
         lock (FileLock)
         {
             var directory = Path.GetDirectoryName(_filePath);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+
+            if (!string.IsNullOrEmpty(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            var itemsList = _items.Values.Select(i => i.Clone()).ToList();
-            var json = JsonSerializer.Serialize(itemsList, JsonOptions);
+            var itemsList = _items.Values
+                .Select(item => item.Clone())
+                .ToList();
 
-            var tempFilePath = _filePath + "." + Guid.NewGuid().ToString("N") + ".tmp";
-            File.WriteAllText(tempFilePath, json);
-            File.Move(tempFilePath, _filePath, overwrite: true);
+            var json = JsonSerializer.Serialize(
+                itemsList,
+                JsonOptions);
+
+            var tempFilePath = _filePath + "." +
+                Guid.NewGuid().ToString("N") + ".tmp";
+
+            try
+            {
+                File.WriteAllText(tempFilePath, json);
+
+                File.Move(
+                    tempFilePath,
+                    _filePath,
+                    overwrite: true);
+            }
+            finally
+            {
+                // Remove an unfinished temporary file if persistence fails.
+                try
+                {
+                    File.Delete(tempFilePath);
+                }
+                catch (Exception ex) when (
+                    ex is IOException or UnauthorizedAccessException)
+                {
+                    _logger.LogWarning(
+                        ex,
+                        "Could not delete temporary JSON file '{FilePath}'.",
+                        tempFilePath);
+                }
+            }
         }
     }
 
