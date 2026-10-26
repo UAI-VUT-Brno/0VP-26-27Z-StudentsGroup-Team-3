@@ -1,0 +1,28 @@
+# Build outputs
+**/bin/
+**/obj/
+artifacts/
+
+# IDE / user files
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.user
+**/*.suo
+
+# Not needed inside the image
+.git/
+.github/
+docs/
+scripts/
+tests/
+**/TestResults/
+**/*.md
+**/appsettings.*.local.json
+**/data/
+*.log
+
+# Docker files themselves
+Dockerfile
+.dockerignore
+docker-compose*.yml
