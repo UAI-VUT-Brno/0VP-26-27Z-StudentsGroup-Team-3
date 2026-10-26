@@ -35,10 +35,13 @@ public sealed class TodosController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a list of todos, optionally filtered by completion status.
+    /// Returns a list of todos, optionally filtered by completion status and user.
     /// </summary>
     /// <param name="isCompleted">
     /// Optional filter (true/false); omit for all items.
+    /// </param>
+    /// <param name="userId">
+    /// Optional user identifier ("My Tasks"); omit for todos of all users.
     /// </param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <response code="200">
@@ -50,10 +53,12 @@ public sealed class TodosController : ControllerBase
         StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<TodoItemDto>>> GetAll(
         [FromQuery] bool? isCompleted,
+        [FromQuery] string? userId,
         CancellationToken cancellationToken)
     {
         var items = await _repository.GetAllAsync(
             isCompleted,
+            TodoMapper.NormalizeUserId(userId),
             cancellationToken);
 
         return Ok(items.Select(item => item.ToDto()).ToList());
@@ -151,6 +156,7 @@ public sealed class TodosController : ControllerBase
                 Description = string.IsNullOrWhiteSpace(request.Description)
                     ? null
                     : request.Description.Trim(),
+                UserId = TodoMapper.NormalizeUserId(request.UserId),
                 Priority = request.Priority,
                 IsCompleted = false,
                 CreatedAtUtc = nowUtc,

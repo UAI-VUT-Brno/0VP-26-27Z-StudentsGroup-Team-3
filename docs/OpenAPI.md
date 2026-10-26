@@ -14,7 +14,7 @@ All controllers are annotated with XML documentation comments and `[ProducesResp
 
 ### TodosController (`/api/todos`)
 
-- `GET /api/todos` – 200 OK (task list with optional `isCompleted` filter)
+- `GET /api/todos` – 200 OK (task list with optional `isCompleted` and `userId` filters)
 - `GET /api/todos/{id}` – 200 OK / 404 Not Found (ProblemDetails)
 - `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails)
 - `POST /api/todos/repeat` – 201 Created (created occurrences) / 400 Bad Request (ValidationProblemDetails)
@@ -54,6 +54,7 @@ The total number of created items is `repeatCount + 1`.
 |---|---|
 | `title` | Required, 1–200 characters |
 | `description` | Optional, maximum 1000 characters |
+| `userId` | Optional, maximum 100 characters |
 | `priority` | Valid TodoPriority value; defaults to Normal |
 | `firstDueAtUtc` | Required, valid UTC date and time (offset +00:00) |
 | `repeatCount` | Required integer between 1 and 52 |
@@ -100,7 +101,7 @@ The example shows only the first two occurrences. The complete response contains
 ### Recurrence Behavior
 
 - Every occurrence has a unique identifier.
-- Title, description and priority are copied to each occurrence.
+- Title, description, priority and user identifier are copied to each occurrence.
 - Every occurrence starts incomplete.
 - Every occurrence has its own due date.
 - Completing or deleting one occurrence does not affect the others.
@@ -112,3 +113,52 @@ The example shows only the first two occurrences. The complete response contains
 The existing `POST /api/todos` endpoint remains unchanged.
 
 Tasks created without a due date have `dueAtUtc: null`. The `dueAtUtc` field is included in the standard todo API response.
+
+
+## User Identification and "My Tasks" Filtering
+
+Todo items can be tagged with an optional string user identifier (`userId`).
+It is a simple label, not an authentication mechanism.
+
+### Assigning a user
+
+`userId` can be sent in the body of `POST /api/todos`, `POST /api/todos/repeat`
+and `PUT /api/todos/{id}`:
+
+```json
+{
+  "title": "Prepare presentation",
+  "priority": "High",
+  "userId": "karel"
+}
+```
+
+| Field | Validation |
+|---|---|
+| `userId` | Optional, maximum 100 characters |
+
+- Surrounding whitespace is trimmed (`" karel "` is stored as `"karel"`).
+- An empty or whitespace-only value is stored as `null` (no user assigned).
+- `PUT` is a full update: omitting `userId` removes the assignment.
+
+The `userId` field is included in every todo response (`null` when not assigned).
+
+### Filtering
+
+`GET /api/todos` accepts an optional `userId` query parameter:
+
+| Request | Result |
+|---|---|
+| `GET /api/todos` | All todos (all users and unassigned) |
+| `GET /api/todos?userId=karel` | Only todos of user `karel` |
+| `GET /api/todos?userId=karel&isCompleted=false` | Open todos of user `karel` |
+
+- Matching is exact and case-sensitive (`karel` ≠ `Karel`).
+- An empty `userId` parameter is ignored (no filtering).
+
+### Backward Compatibility
+
+- `userId` is optional in all requests; existing clients keep working unchanged.
+- Todos created before this change (or without `userId`) have `userId: null`
+  and are returned when no `userId` filter is applied.
+- Existing JSON storage files without the `userId` field load without migration.

@@ -9,10 +9,14 @@ namespace UAI.ZeroVP.Data.Abstractions;
 /// </summary>
 public interface ITodoRepository
 {
-    /// <summary>Returns all todo items, optionally filtered by completion status.</summary>
+    /// <summary>Returns all todo items, optionally filtered by completion status and owner.</summary>
     /// <param name="isCompleted">Completion status filter; <c>null</c> = no filter.</param>
+    /// <param name="userId">User identifier filter; <c>null</c> = no filter (all users).</param>
     /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
-    Task<IReadOnlyList<TodoItem>> GetAllAsync(bool? isCompleted = null, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<TodoItem>> GetAllAsync(
+        bool? isCompleted = null,
+        string? userId = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Returns a todo item by its identifier, or <c>null</c> if it does not exist.</summary>
     Task<TodoItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);

@@ -30,8 +30,9 @@ public class TodosControllerTests
         var controller = CreateController();
 
         // Act
-        var result = await controller.GetAll(
+            var result = await controller.GetAll(
             isCompleted: null,
+            userId: null,
             cancellationToken: CancellationToken.None);
 
         // Assert
