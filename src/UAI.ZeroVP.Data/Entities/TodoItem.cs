@@ -18,6 +18,9 @@ public sealed class TodoItem
     /// <summary>Optional detailed description.</summary>
     public string? Description { get; set; }
 
+    /// <summary>Optional identifier of the user the todo item belongs to.</summary>
+    public string? UserId { get; set; }
+
     /// <summary>Priority of the todo item.</summary>
     public TodoPriority Priority { get; set; } = TodoPriority.Normal;
 
@@ -49,6 +52,7 @@ public sealed class TodoItem
         Id = Id,
         Title = Title,
         Description = Description,
+        UserId = UserId,
         Priority = Priority,
         IsCompleted = IsCompleted,
         CreatedAtUtc = CreatedAtUtc,

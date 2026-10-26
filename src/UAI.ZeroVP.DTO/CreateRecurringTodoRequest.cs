@@ -19,6 +19,10 @@ public sealed record CreateRecurringTodoRequest : IValidatableObject
     [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
     public string? Description { get; init; }
 
+    /// <summary>Optional identifier of the user the todo item belongs to, maximum of 100 characters.</summary>
+    [StringLength(100, ErrorMessage = "User ID cannot exceed 100 characters.")]
+    public string? UserId { get; init; }
+
     /// <summary>Task priority.</summary>
     [EnumDataType(typeof(TodoPriority), ErrorMessage = "Invalid priority value.")]
     public TodoPriority Priority { get; init; } = TodoPriority.Normal;

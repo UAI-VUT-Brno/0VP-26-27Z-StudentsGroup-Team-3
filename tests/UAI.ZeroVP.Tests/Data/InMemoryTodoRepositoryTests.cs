@@ -376,4 +376,94 @@ public class InMemoryTodoRepositoryTests
         Assert.Null(await repository.GetByIdAsync(duplicateId));
     }
 
+    private static TodoItem CreateUserItem(string title, string? userId, bool isCompleted = false) => new()
+    {
+        Id = Guid.NewGuid(),
+        Title = title,
+        UserId = userId,
+        Priority = TodoPriority.Normal,
+        IsCompleted = isCompleted,
+        CreatedAtUtc = DateTimeOffset.UtcNow,
+        UpdatedAtUtc = DateTimeOffset.UtcNow
+    };
+
+    [Fact]
+    public async Task AddAsync_StoresUserId()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        var item = CreateUserItem("Karel task", "karel");
+
+        // Act
+        await repository.AddAsync(item);
+        var loaded = await repository.GetByIdAsync(item.Id);
+
+        // Assert
+        Assert.NotNull(loaded);
+        Assert.Equal("karel", loaded.UserId);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_FilterByUserId_ReturnsOnlyItemsOfThatUser()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        await repository.AddAsync(CreateUserItem("Karel task", "karel"));
+        await repository.AddAsync(CreateUserItem("Jana task", "jana"));
+        await repository.AddAsync(CreateUserItem("Unassigned task", null));
+
+        // Act
+        var items = await repository.GetAllAsync(userId: "karel");
+
+        // Assert
+        var item = Assert.Single(items);
+        Assert.Equal("Karel task", item.Title);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_UserIdAndIsCompleted_CombinesFilters()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        await repository.AddAsync(CreateUserItem("Karel open", "karel"));
+        await repository.AddAsync(CreateUserItem("Karel done", "karel", isCompleted: true));
+        await repository.AddAsync(CreateUserItem("Jana open", "jana"));
+
+        // Act
+        var openKarel = await repository.GetAllAsync(isCompleted: false, userId: "karel");
+        var doneKarel = await repository.GetAllAsync(isCompleted: true, userId: "karel");
+
+        // Assert
+        Assert.Equal("Karel open", Assert.Single(openKarel).Title);
+        Assert.Equal("Karel done", Assert.Single(doneKarel).Title);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_WithoutUserIdFilter_ReturnsAllItemsIncludingUnassigned()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        await repository.AddAsync(CreateUserItem("Karel task", "karel"));
+        await repository.AddAsync(CreateUserItem("Unassigned task", null));
+
+        // Act
+        var items = await repository.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, items.Count);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_UserIdFilter_IsCaseSensitive()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        await repository.AddAsync(CreateUserItem("Karel task", "karel"));
+
+        // Act
+        var items = await repository.GetAllAsync(userId: "Karel");
+
+        // Assert
+        Assert.Empty(items);
+    }
 }

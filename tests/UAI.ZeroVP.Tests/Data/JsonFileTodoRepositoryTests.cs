@@ -239,4 +239,67 @@ public sealed class JsonFileTodoRepositoryTests : IDisposable
         }
     }
 
+    [Fact]
+    public async Task UserId_PersistsAcrossRepositoryInstances()
+    {
+        var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };
+        var repo1 = new JsonFileTodoRepository(options, TimeProvider.System, NullLogger<JsonFileTodoRepository>.Instance);
+
+        var item = new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Karel task",
+            UserId = "karel",
+            Priority = TodoPriority.Normal,
+            IsCompleted = false,
+            CreatedAtUtc = DateTimeOffset.UtcNow,
+            UpdatedAtUtc = DateTimeOffset.UtcNow
+        };
+
+        await repo1.AddAsync(item);
+
+        // Act - a second instance reads the same file
+        var repo2 = new JsonFileTodoRepository(options, TimeProvider.System, NullLogger<JsonFileTodoRepository>.Instance);
+        var filtered = await repo2.GetAllAsync(userId: "karel");
+
+        // Assert
+        var loaded = Assert.Single(filtered);
+        Assert.Equal(item.Id, loaded.Id);
+        Assert.Equal("karel", loaded.UserId);
+    }
+
+    [Fact]
+    public async Task LegacyFileWithoutUserId_LoadsWithNullUserId()
+    {
+        // Arrange - storage file created before the UserId field existed
+        var legacyId = Guid.NewGuid();
+        var legacyJson = $$"""
+        [
+          {
+            "Id": "{{legacyId}}",
+            "Title": "Legacy task",
+            "Priority": "Normal",
+            "IsCompleted": false,
+            "CreatedAtUtc": "2026-10-01T10:00:00+00:00",
+            "UpdatedAtUtc": "2026-10-01T10:00:00+00:00",
+            "Version": 1
+          }
+        ]
+        """;
+        await File.WriteAllTextAsync(_tempFilePath, legacyJson);
+
+        var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };
+        var repo = new JsonFileTodoRepository(options, TimeProvider.System, NullLogger<JsonFileTodoRepository>.Instance);
+
+        // Act
+        var loaded = await repo.GetByIdAsync(legacyId);
+        var all = await repo.GetAllAsync();
+        var filtered = await repo.GetAllAsync(userId: "karel");
+
+        // Assert
+        Assert.NotNull(loaded);
+        Assert.Null(loaded.UserId);
+        Assert.Single(all);
+        Assert.Empty(filtered);
+    }
 }

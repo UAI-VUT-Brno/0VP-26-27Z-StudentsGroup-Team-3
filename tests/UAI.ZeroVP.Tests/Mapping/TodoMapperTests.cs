@@ -142,4 +142,28 @@ public class TodoMapperTests
         Assert.Equal(updateTime, entity.CompletedAtUtc);
         Assert.Equal(updateTime, entity.UpdatedAtUtc);
     }
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData("", null)]
+    [InlineData("   ", null)]
+    [InlineData("karel", "karel")]
+    [InlineData("  karel  ", "karel")]
+    public void NormalizeUserId_TrimsAndConvertsEmptyToNull(string? input, string? expected)
+    {
+        Assert.Equal(expected, TodoMapper.NormalizeUserId(input));
+    }
+
+    [Fact]
+    public void ToEntity_MapsNormalizedUserId()
+    {
+        var request = new CreateTodoItemRequest
+        {
+            Title = "Task",
+            UserId = "  karel  "
+        };
+
+        var entity = request.ToEntity(DateTimeOffset.UtcNow);
+
+        Assert.Equal("karel", entity.UserId);
+    }
 }
