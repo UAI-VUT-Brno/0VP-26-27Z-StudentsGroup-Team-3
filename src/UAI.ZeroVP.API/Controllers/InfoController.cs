@@ -28,7 +28,7 @@ public sealed class InfoController : ControllerBase
     }
 
     /// <summary>Returns information about the running API instance.</summary>
-    /// <response code="200">Instance description including the count of in-memory todos.</response>
+    /// <response code="200">Instance description including the count of stored todos.</response>
     [HttpGet]
     [ProducesResponseType(typeof(InstanceInfoDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<InstanceInfoDto>> Get(CancellationToken cancellationToken)

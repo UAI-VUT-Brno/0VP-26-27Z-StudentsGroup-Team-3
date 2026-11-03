@@ -156,7 +156,7 @@ Kompletní sadu .NET testů spusť z kořenového adresáře:
 dotnet test UAI.ZeroVP.sln --configuration Release
 ```
 
-Poslední ověřený lokální běh: **84/84 úspěšných testů xUnit**. Relevantní testovací třídy:
+Autoritativním zdrojem aktuálního počtu a výsledků testů je výstup příkazu `dotnet test`. Relevantní testovací třídy:
 
 - `JsonFileTodoRepositoryTests` — JSON persistence a inicializace.
 - `JsonFileMultiInstanceTests` — dvě instance repozitáře nad jedním souborem, souběžné zápisy, konflikty verzí a integrita souboru.

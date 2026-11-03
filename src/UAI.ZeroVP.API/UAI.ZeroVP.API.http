@@ -8,7 +8,7 @@ Accept: application/json
 GET {{UAI.ZeroVP.API_HostAddress}}/api/info
 Accept: application/json
 
-### Health check – endpoint invoked by Dockerfile HEALTHCHECK
+### Health check – endpoint indicating application health status
 GET {{UAI.ZeroVP.API_HostAddress}}/health
 
 ### All todos

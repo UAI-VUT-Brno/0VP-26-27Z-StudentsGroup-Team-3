@@ -156,7 +156,7 @@ Run the entire .NET test suite from the repository root:
 dotnet test UAI.ZeroVP.sln --configuration Release
 ```
 
-The last verified local run passed **84/84 xUnit tests**. Relevant suites include:
+The output of `dotnet test` is the authoritative source for the current test count and results. Relevant test suites include:
 
 - `JsonFileTodoRepositoryTests` — JSON persistence and initialization.
 - `JsonFileMultiInstanceTests` — two repository objects sharing a file, concurrent writes, version conflicts and file integrity.

@@ -18,13 +18,13 @@ All controllers are annotated with XML documentation comments and `[ProducesResp
 - `GET /api/todos/{id}` – 200 OK / 404 Not Found (ProblemDetails)
 - `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails)
 - `POST /api/todos/repeat` – 201 Created (created occurrences) / 400 Bad Request (ValidationProblemDetails)
-- `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found
-- `POST /api/todos/{id}/complete` – 200 OK / 404 Not Found
+- `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found / 409 Conflict (ProblemDetails)
+- `POST /api/todos/{id}/complete` – 200 OK / 404 Not Found / 409 Conflict (ProblemDetails)
 - `DELETE /api/todos/{id}` – 204 No Content / 404 Not Found
 
 ### InfoController (`/api/info`)
 
-- `GET /api/info` – 200 OK (diagnostic information about the instance and in-memory storage)
+- `GET /api/info` – 200 OK (diagnostic information about the instance including unique `instanceId`, machine name, environment, version, uptime, and total count of stored todos)
 
 ## Weekly Recurring Todo Creation
 
@@ -77,21 +77,25 @@ Example response (IDs and creation timestamps are illustrative):
     "id": "c7c1d760-1234-4567-8901-111111111111",
     "title": "Weekly team meeting",
     "description": "Project status meeting",
+    "userId": null,
     "priority": "High",
     "isCompleted": false,
     "createdAtUtc": "2026-10-19T20:00:00+00:00",
     "dueAtUtc": "2026-10-20T10:00:00+00:00",
-    "completedAtUtc": null
+    "completedAtUtc": null,
+    "version": 1
   },
   {
     "id": "c7c1d760-1234-4567-8901-222222222222",
     "title": "Weekly team meeting",
     "description": "Project status meeting",
+    "userId": null,
     "priority": "High",
     "isCompleted": false,
     "createdAtUtc": "2026-10-19T20:00:00+00:00",
     "dueAtUtc": "2026-10-27T10:00:00+00:00",
-    "completedAtUtc": null
+    "completedAtUtc": null,
+    "version": 1
   }
 ]
 ```
@@ -106,7 +110,7 @@ The example shows only the first two occurrences. The complete response contains
 - Every occurrence has its own due date.
 - Completing or deleting one occurrence does not affect the others.
 - Occurrences are regular todo items, not persistent recurrence rules.
-- Data is stored in memory and does not survive an application restart.
+- In normal application environments, items are stored in persistent JSON storage and survive restarts. In-memory storage is used exclusively in the `LoadTest` environment.
 
 ### Backward Compatibility
 
@@ -162,3 +166,12 @@ The `userId` field is included in every todo response (`null` when not assigned)
 - Todos created before this change (or without `userId`) have `userId: null`
   and are returned when no `userId` filter is applied.
 - Existing JSON storage files without the `userId` field load without migration.
+
+## Optimistic Concurrency Control
+
+Updates via `PUT /api/todos/{id}` require optimistic concurrency control to prevent lost updates across multiple clients and instances:
+
+- The request body must include the `version` property with a minimum value of `1`.
+- A successful update increments the stored `version` by `1`.
+- If the supplied `version` does not match the currently stored version, the update is rejected with `409 Conflict`, leaving stored data unchanged.
+- Existing clients performing `PUT` requests must be updated to retrieve and send the current `version`.
