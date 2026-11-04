@@ -175,3 +175,14 @@ Updates via `PUT /api/todos/{id}` require optimistic concurrency control to prev
 - A successful update increments the stored `version` by `1`.
 - If the supplied `version` does not match the currently stored version, the update is rejected with `409 Conflict`, leaving stored data unchanged.
 - Existing clients performing `PUT` requests must be updated to retrieve and send the current `version`.
+
+## Request Validation and Error Handling
+
+The API provides standardized RFC 9457 `ProblemDetails` and `ValidationProblemDetails` responses:
+
+- **Invalid Requests:** Malformed JSON, missing required fields, or invalid parameter types return `400 Bad Request`.
+- **Unsupported Content-Type:** Non-JSON payloads for write requests return `415 Unsupported Media Type`.
+- **Non-existent Traces and IDs:** Unknown paths under `/api` or validly formatted IDs that do not exist return `404 Not Found`.
+- **Unsupported Methods:** Invoking unsupported HTTP methods on existing routes returns `405 Method Not Allowed` with a valid `Allow` header.
+- **Unknown Parameters and Fields:** Extra query parameters or unexpected JSON properties in request bodies are ignored and not persisted. Known fields continue to be strictly validated.
+- **State Isolation:** Rejected requests do not modify stored items or increment version counters.
