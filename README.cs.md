@@ -199,3 +199,7 @@ Docker image sestavuj z kořenového adresáře repozitáře, pokud používáš
 - [Zabezpečení](docs/security.md)
 
 Zdrojové soubory C# používají podle `.editorconfig` UTF-8 s BOM; Markdown soubory používají UTF-8 a konce řádků LF.
+
+## MCP
+
+Lokální spuštění, kontrakty nástrojů a omezení popisuje [dokumentace MCP](docs/MCP.md).
