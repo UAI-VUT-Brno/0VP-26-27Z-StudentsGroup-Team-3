@@ -18,3 +18,7 @@ appsettings.*.local.json
 ## Ostatní
 *.log
 **/logs/
+
+# Local MCP test data
+/src/UAI.ZeroVP.API/data/mcp-dev-todos.json
+/src/UAI.ZeroVP.API/data/mcp-dev-todos.json.lock
