@@ -57,7 +57,7 @@ Optional arguments:
 | `isCompleted` | boolean | Omit or use null to include both completion states. |
 | `userId` | string | Omit or use null to include all users and unassigned todos. |
 
-User IDs are trimmed and matched exactly, with case sensitivity, following REST API behavior. Empty or whitespace-only values are rejected.
+User IDs are trimmed and matched exactly, with case sensitivity, as in the REST API. Unlike the REST API, which treats an empty or whitespace-only `userId` as no filter, `list_todos` rejects such values with `INVALID_ARGUMENT`.
 
 When both filters are supplied, todos must match both.
 
