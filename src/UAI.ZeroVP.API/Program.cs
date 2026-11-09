@@ -1,6 +1,8 @@
 ﻿using Serilog;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi;
+using ModelContextProtocol.AspNetCore;
+using UAI.ZeroVP.API.Mcp;
 using UAI.ZeroVP.Data.DependencyInjection;
 using UAI.ZeroVP.Data.InMemory;
 
@@ -41,14 +43,14 @@ Log.Logger = loggerConfiguration.CreateLogger();
 
 builder.Host.UseSerilog();
 
-
 // --- Services -------------------------------------------------------------
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Enums are serialized as strings ("High") instead of numbers for better readability in curl and Swagger.
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        // Serialize enums as strings for readability in curl and Swagger.
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter());
     });
 
 // Standardized error responses using ProblemDetails (RFC 9457).
@@ -57,9 +59,8 @@ builder.Services.AddProblemDetails();
 // Time abstraction registered as a singleton service across DI.
 builder.Services.AddSingleton(TimeProvider.System);
 
-// Data layer: in-memory storage for high-load performance profiling,
-// persistent JSON file storage for development, Docker and production.
-if (builder.Environment.IsEnvironment("LoadTest"))
+// In-memory storage for load tests; persistent JSON storage otherwise.
+if (isLoadTest)
 {
     builder.Services.AddInMemoryTodoData(options =>
     {
@@ -69,10 +70,13 @@ if (builder.Environment.IsEnvironment("LoadTest"))
 else
 {
     builder.Services.AddJsonFileTodoData(options =>
-        builder.Configuration.GetSection(UAI.ZeroVP.Data.Json.JsonFileTodoOptions.SectionName).Bind(options));
+        builder.Configuration
+            .GetSection(
+                UAI.ZeroVP.Data.Json.JsonFileTodoOptions.SectionName)
+            .Bind(options));
 }
 
-// Health checks service for Docker container monitoring.
+// Application availability endpoint.
 builder.Services.AddHealthChecks();
 
 // OpenAPI document generator (.NET 10 Microsoft.AspNetCore.OpenApi).
@@ -84,11 +88,9 @@ builder.Services.AddOpenApi(options =>
         {
             Title = "UAI.ZeroVP – ToDo API",
             Version = "v1",
-
             Description = "Sample ToDo API for Docker learning purposes. " +
                           "Supports persistent JSON storage, shared access " +
                           "across multiple API instances, and optimistic concurrency."
-
         };
 
         return Task.CompletedTask;
@@ -98,25 +100,49 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register MCP services before building the application.
+// MCP requires both Development and explicit configuration.
+var mcpEnabled = builder.Environment.IsDevelopment()
+    && builder.Configuration.GetValue<bool>("Mcp:Enabled");
+
+if (mcpEnabled)
+{
+    var mcpJsonOptions = new System.Text.Json.JsonSerializerOptions(
+        System.Text.Json.JsonSerializerDefaults.Web)
+    {
+        TypeInfoResolver =
+            new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver()
+    };
+
+    mcpJsonOptions.Converters.Add(new JsonStringEnumConverter());
+
+    builder.Services.AddMcpServer()
+        .WithHttpTransport(options =>
+        {
+            options.SessionMode = HttpServerSessionMode.Stateless;
+        })
+        .WithTools<TodoTools>(serializerOptions: mcpJsonOptions);
+}
+
 var app = builder.Build();
+
 app.UseSerilogRequestLogging();
 
-// Swagger UI is enabled by default in Development; in container (Production) it can be
-// enabled via Swagger__Enabled=true environment variable.
-var swaggerEnabled = app.Configuration.GetValue("Swagger:Enabled", app.Environment.IsDevelopment());
+// Swagger can be enabled explicitly, including in containers.
+var swaggerEnabled = app.Configuration.GetValue(
+    "Swagger:Enabled",
+    app.Environment.IsDevelopment());
 
 // --- HTTP pipeline --------------------------------------------------------
 
-// No HTTPS redirection: container exposes HTTP only; TLS termination is handled by reverse proxy.
+// No HTTPS redirection: TLS termination is handled by a reverse proxy.
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 if (swaggerEnabled)
 {
-    // Machine-readable OpenAPI JSON document.
     app.MapOpenApi();
 
-    // Interactive Swagger UI documentation.
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -129,9 +155,15 @@ if (swaggerEnabled)
 app.MapHealthChecks("/health");
 app.MapControllers();
 
-// Root route redirects to Swagger documentation if enabled, otherwise to todos endpoint.
-app.MapGet("/", () => Results.Redirect(swaggerEnabled ? "/swagger" : "/api/todos"))
-   .ExcludeFromDescription();
+if (mcpEnabled)
+{
+    app.MapMcp("/mcp");
+}
+
+// Redirect to Swagger when enabled, otherwise to the todos endpoint.
+app.MapGet("/", () =>
+        Results.Redirect(swaggerEnabled ? "/swagger" : "/api/todos"))
+    .ExcludeFromDescription();
 
 app.Run();
 

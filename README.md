@@ -199,3 +199,7 @@ Build Docker images from the repository root when using the relevant teaching Do
 - [Security](docs/security.md)
 
 C# source files use UTF-8 with BOM according to `.editorconfig`; Markdown files use UTF-8 with LF line endings.
+
+## MCP
+
+For local setup, tool contracts, and limitations, see [MCP documentation](docs/MCP.md).

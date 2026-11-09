@@ -18,3 +18,7 @@ appsettings.*.local.json
 ## Ostatní
 *.log
 **/logs/
+
+# Local MCP test data
+mcp-dev-todos.json
+mcp-dev-todos.json.lock
