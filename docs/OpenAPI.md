@@ -110,7 +110,7 @@ The example shows only the first two occurrences. The complete response contains
 - Every occurrence has its own due date.
 - Completing or deleting one occurrence does not affect the others.
 - Occurrences are regular todo items, not persistent recurrence rules.
-- In normal application environments, items are stored in persistent JSON storage and survive restarts. In-memory storage is used exclusively in the `LoadTest` environment.
+- In normal application environments, items are stored in persistent JSON storage and survive restarts when the storage file is preserved. The `LoadTest` environment uses non-persistent in-memory storage.
 
 ### Backward Compatibility
 
@@ -162,7 +162,7 @@ The `userId` field is included in every todo response (`null` when not assigned)
 
 ### Backward Compatibility
 
-- `userId` is optional in all requests; existing clients keep working unchanged.
+- `userId` remains optional in create and update requests. However, clients performing `PUT /api/todos/{id}` must retrieve and send the current `version`.
 - Todos created before this change (or without `userId`) have `userId: null`
   and are returned when no `userId` filter is applied.
 - Existing JSON storage files without the `userId` field load without migration.
@@ -175,3 +175,17 @@ Updates via `PUT /api/todos/{id}` require optimistic concurrency control to prev
 - A successful update increments the stored `version` by `1`.
 - If the supplied `version` does not match the currently stored version, the update is rejected with `409 Conflict`, leaving stored data unchanged.
 - Existing clients performing `PUT` requests must be updated to retrieve and send the current `version`.
+
+## Request Validation and Error Handling
+
+The API provides standardized RFC 9457 `ProblemDetails` and `ValidationProblemDetails` responses:
+
+- **Invalid Requests:** Malformed JSON, missing required fields, or invalid parameter types return `400 Bad Request`.
+- **Unsupported Content-Type:** Non-JSON payloads for write requests return `415 Unsupported Media Type`.
+- **Unknown Routes and Nonexistent IDs:** Unknown paths under `/api` or validly formatted IDs that do not exist return `404 Not Found`.
+- **Unsupported Methods:** Invoking unsupported HTTP methods on existing routes returns `405 Method Not Allowed` with a valid `Allow` header.
+- **Unknown Parameters and Fields:** Extra query parameters or unexpected JSON properties in request bodies are ignored and not persisted. Known fields continue to be strictly validated.
+- **State Isolation:** Rejected requests do not modify stored items or increment version counters.
+- **Malformed IDs:** Todo ID routes use the `{id:guid}` constraint. An incorrectly formatted GUID does not match the route and returns `404 Not Found`.
+- **Invalid Query Values:** Invalid values of known typed query parameters, such as `isCompleted=not-a-boolean`, return `400 Bad Request` with validation errors.
+- **Required Fields:** Unknown JSON properties do not bypass required-field validation.
