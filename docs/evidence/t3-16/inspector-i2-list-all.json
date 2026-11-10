@@ -1,0 +1,76 @@
+{
+  "todos": [
+    {
+      "id": "19675897-977d-4777-8e16-4cdbe499fa79",
+      "title": "T3-16 user-a completed 1",
+      "description": "T3-16 MCP verification",
+      "userId": "user-a",
+      "priority": "High",
+      "isCompleted": true,
+      "createdAtUtc": "2026-11-10T16:34:47.0518094+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": "2026-11-10T16:34:47.1813779+00:00",
+      "version": 2
+    },
+    {
+      "id": "4e6f7f59-6206-46a8-aaa5-33791db05633",
+      "title": "T3-16 user-a incomplete 2",
+      "description": "T3-16 MCP verification",
+      "userId": "user-a",
+      "priority": "High",
+      "isCompleted": false,
+      "createdAtUtc": "2026-11-10T16:34:47.2690299+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": null,
+      "version": 1
+    },
+    {
+      "id": "bace383b-d6b5-4a6d-887a-7f347a7cc0a4",
+      "title": "T3-16 user-a completed 2",
+      "description": "T3-16 MCP verification",
+      "userId": "user-a",
+      "priority": "Normal",
+      "isCompleted": true,
+      "createdAtUtc": "2026-11-10T16:34:47.2169704+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": "2026-11-10T16:34:47.2360683+00:00",
+      "version": 2
+    },
+    {
+      "id": "fcc2be22-2d0e-43a7-bae5-4d6dd2d1664f",
+      "title": "T3-16 user-b incomplete 1",
+      "description": "T3-16 MCP verification",
+      "userId": "user-b",
+      "priority": "Normal",
+      "isCompleted": false,
+      "createdAtUtc": "2026-11-10T16:34:47.2884031+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": null,
+      "version": 1
+    },
+    {
+      "id": "07576a52-61a0-4934-842b-8ac083cd0164",
+      "title": "T3-16 user-a incomplete 1",
+      "description": "T3-16 MCP verification",
+      "userId": "user-a",
+      "priority": "Low",
+      "isCompleted": false,
+      "createdAtUtc": "2026-11-10T16:34:47.250775+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": null,
+      "version": 1
+    },
+    {
+      "id": "d5df5ff1-e206-42aa-acb6-98f16f19376d",
+      "title": "T3-16 no-user completed 1",
+      "description": "T3-16 MCP verification",
+      "userId": null,
+      "priority": "Low",
+      "isCompleted": true,
+      "createdAtUtc": "2026-11-10T16:34:47.3033346+00:00",
+      "dueAtUtc": null,
+      "completedAtUtc": "2026-11-10T16:34:47.3253365+00:00",
+      "version": 2
+    }
+  ]
+}
