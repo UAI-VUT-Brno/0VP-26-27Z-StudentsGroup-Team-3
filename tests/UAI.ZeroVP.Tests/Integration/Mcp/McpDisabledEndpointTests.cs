@@ -14,8 +14,6 @@ namespace UAI.ZeroVP.Tests.Integration.Mcp;
 /// </summary>
 public sealed class McpDisabledEndpointTests
 {
-    private static readonly TimeSpan StartupTimeout = TimeSpan.FromSeconds(30);
-
     [Theory]
     [InlineData("Development", "false")] // disabled by configuration
     [InlineData("Production", "true")]   // enabled, but outside Development
@@ -31,6 +29,7 @@ public sealed class McpDisabledEndpointTests
         Directory.CreateDirectory(testDirectory);
 
         WebApplicationFactory<Program>? factory = null;
+        Task? startupTask = null;
 
         try
         {
@@ -50,8 +49,8 @@ public sealed class McpDisabledEndpointTests
             server.UseKestrel(options =>
                 options.Listen(IPAddress.Loopback, 0));
 
-            await Task.Run(() => server.StartServer())
-                .WaitAsync(StartupTimeout);
+            startupTask = TestServerStartup.Start(server);
+            await startupTask.WaitAsync(TestServerStartup.Timeout);
 
             var addressesFeature = server.Services
                 .GetRequiredService<IServer>()
@@ -63,7 +62,7 @@ public sealed class McpDisabledEndpointTests
             using var http = new HttpClient
             {
                 BaseAddress = new Uri(addressesFeature.Addresses.Single()),
-                Timeout = StartupTimeout
+                Timeout = TestServerStartup.Timeout
             };
 
             // The API must be running. A connection failure throws
@@ -91,7 +90,9 @@ public sealed class McpDisabledEndpointTests
         }
         finally
         {
-            // Shut down the server and clean up even when the test fails.
+            // Never dispose the factory while StartServer() is still running.
+            await TestServerStartup.WaitUntilStoppedAsync(startupTask);
+
             if (factory is not null)
             {
                 await factory.DisposeAsync();

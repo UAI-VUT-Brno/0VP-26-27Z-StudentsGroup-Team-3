@@ -14,14 +14,13 @@ namespace UAI.ZeroVP.Tests.Integration.Mcp;
 /// </summary>
 public sealed class McpServerFixture : IAsyncLifetime
 {
-    private static readonly TimeSpan StartupTimeout = TimeSpan.FromSeconds(30);
-
     private readonly string _testDirectory = Path.Combine(
         Path.GetTempPath(),
         "ZeroVP-McpTests",
         Guid.NewGuid().ToString("N"));
 
     private WebApplicationFactory<Program>? _factory;
+    private Task? _startupTask;
     private McpClient? _client;
 
     /// <summary>Path to the isolated JSON storage file.</summary>
@@ -59,8 +58,8 @@ public sealed class McpServerFixture : IAsyncLifetime
             _factory.UseKestrel(options =>
                 options.Listen(IPAddress.Loopback, 0));
 
-            await Task.Run(() => _factory.StartServer())
-                .WaitAsync(StartupTimeout);
+            _startupTask = TestServerStartup.Start(_factory);
+            await _startupTask.WaitAsync(TestServerStartup.Timeout);
 
             var addressesFeature = _factory.Services
                 .GetRequiredService<IServer>()
@@ -71,7 +70,7 @@ public sealed class McpServerFixture : IAsyncLifetime
 
             BaseAddress = new Uri(addressesFeature.Addresses.Single());
 
-            using var timeout = new CancellationTokenSource(StartupTimeout);
+            using var timeout = new CancellationTokenSource(TestServerStartup.Timeout);
 
             _client = await McpClient.CreateAsync(
                 new HttpClientTransport(new HttpClientTransportOptions
@@ -96,6 +95,10 @@ public sealed class McpServerFixture : IAsyncLifetime
             await _client.DisposeAsync();
             _client = null;
         }
+
+        // Never dispose the factory while StartServer() is still running.
+        await TestServerStartup.WaitUntilStoppedAsync(_startupTask);
+        _startupTask = null;
 
         if (_factory is not null)
         {
