@@ -57,7 +57,22 @@ The tests verify selected behavior of `TodosController`, including:
 The controller tests use the real `InMemoryTodoRepository` with sample data disabled and `NullLogger`, keeping the tests lightweight without requiring a running web server.
 
 ## Running the tests
+## MCP integration tests
 
+Location:
+
+`tests/UAI.ZeroVP.Tests/Integration/Mcp/`
+
+The tests verify real MCP communication over Streamable HTTP using the official `ModelContextProtocol` client SDK:
+
+- discovery of exactly `list_todos` and `get_todo`, their input schemas and required parameters, and the absence of write tools,
+- `list_todos` results for all filter combinations, compared by count and exact content independently of ordering,
+- `get_todo` returning all public fields, `TODO_NOT_FOUND` for a nonexistent ID, and rejection of missing or malformed IDs,
+- rejection of invalid argument types and empty `userId` values without exposing application internals,
+- unchanged storage contents and versions after tool calls,
+- `/mcp` returning `404` on a running API when MCP is disabled in `Development` or enabled outside `Development`.
+
+Each test class starts the API on a free loopback port (`127.0.0.1`) with a startup timeout. The server uses an isolated temporary JSON file seeded with 100 deterministic todos (40 for `user-a`, 40 for `user-b`, 20 without a user, each group split evenly into completed and incomplete items). The server is stopped and temporary data are deleted even when tests fail. No manually started API, MCP Inspector or AI client is required.
 From the repository root:
 
 ```powershell
