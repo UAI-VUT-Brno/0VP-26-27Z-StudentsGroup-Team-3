@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": 11,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "An error occurred invoking 'get_todo': TODO_NOT_FOUND: No todo exists with the supplied ID."
+      }
+    ],
+    "isError": true
+  }
+}
