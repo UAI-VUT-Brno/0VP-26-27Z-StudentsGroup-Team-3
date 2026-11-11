@@ -43,7 +43,9 @@ Framework: xUnit with `Assert`. All tests are in `tests/UAI.ZeroVP.Tests/`.
 
 - Name tests `Method_Scenario_ExpectedResult`, for example `GetById_UnknownId_ReturnsNotFound`.
 - Structure unit tests with `// Arrange`, `// Act`, `// Assert` comments.
-- Tests that need a repository instance use `InMemoryTodoRepository` with `SeedSampleData = false`, so they start with known data. Tests that do not need storage, such as mapping or DTO validation tests, do not create a repository.
+- Controller unit tests that need in-memory storage use `InMemoryTodoRepository` with `SeedSampleData = false`, so they start with known data.
+- Repository-specific tests exercise the corresponding implementation. JSON repository tests use `JsonFileTodoRepository` with isolated temporary storage: a unique folder under `Path.GetTempPath()`, deleted in `Dispose()`, as in `JsonFileTodoRepositoryTests.cs`. They never modify developer data.
+- Tests that do not need storage, such as mapping or DTO validation tests, do not create a repository.
 - Integration tests use `WebApplicationFactory<Program>` and replace the repository or storage path, so they never touch `data/todos.json` or other developer data.
 - Every new behavior needs at least one success test and one failure test (validation, not found, or stale version, as applicable).
 - Never delete, skip or weaken an existing test to make the suite pass. If an existing test fails, fix the code, unless the issue explicitly changes the tested behavior.
