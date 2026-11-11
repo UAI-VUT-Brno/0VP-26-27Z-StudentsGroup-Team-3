@@ -22,3 +22,6 @@ appsettings.*.local.json
 # Local MCP test data
 mcp-dev-todos.json
 mcp-dev-todos.json.lock
+
+# /issue-to-pr run outputs
+.issue-to-pr/
