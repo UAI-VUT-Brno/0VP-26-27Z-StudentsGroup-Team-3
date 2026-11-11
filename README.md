@@ -203,3 +203,7 @@ C# source files use UTF-8 with BOM according to `.editorconfig`; Markdown files 
 ## MCP
 
 For local setup, tool contracts, and limitations, see [MCP documentation](docs/MCP.md).
+
+## Agentic workflow
+
+The `/issue-to-pr` Claude Code skill implements a GitHub issue autonomously and opens a verified pull request. See [the skill documentation](.claude/skills/issue-to-pr/README.md).
