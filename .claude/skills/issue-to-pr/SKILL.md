@@ -53,23 +53,40 @@ Stop if:
 
 Create the run folder `.issue-to-pr/<number>/` in the repository root (ignored by git) and save the issue JSON as `issue.json`. All stages exchange data through files in this folder, so every run can be reviewed afterwards.
 
-## 3. Dry run
+## 3. Rules
 
-If `--dry-run` is present, stop after ingestion and reply with:
+The workflow is grounded in these rule files in `rules/`:
+
+| File | Content |
+|---|---|
+| `rules/architecture.md` | Layered structure, where code belongs, layer rules |
+| `rules/domain.md` | Optimistic concurrency, error responses, validation, documentation updates |
+| `rules/code-style.md` | Formatting, C# conventions, tests, verification commands |
+| `rules/git-conventions.md` | Task ID, branch names, commits, pull requests, forbidden operations |
+
+- Read all four files after ingestion. If any of them is missing, stop before stage 1 and report which one.
+- Derive the task ID (`OVP-T3-<nn>`) and the branch name from the issue title as defined in `rules/git-conventions.md`, and record both in the run folder.
+- Pass the paths of the rule files to every subagent and instruct it to read them before acting. Rules take precedence over the subagent's own assumptions; only an explicit requirement in the issue may override them.
+
+## 4. Dry run
+
+If `--dry-run` is present, stop after reading the rules and reply with:
 
 - the parsed issue number and title,
+- the derived task ID and branch name,
+- the rule files found, and any that are missing,
 - the stages that would run and the subagent assigned to each,
 - the result of the working-tree check (`git status --porcelain`), without changing anything.
 
 Do not create branches, edit files outside `.issue-to-pr/` or call subagents in a dry run.
 
-## 4. Stages
+## 5. Stages
 
 Run the stages in this order. Pass each subagent the issue number and the run folder path. Each stage must finish with the listed output file before the next stage starts.
 
 | # | Stage | Subagent | Output in `.issue-to-pr/<number>/` |
 |---|---|---|---|
-| 1 | Prepare: check a clean working tree, determine the base branch, create the feature branch | `issue-to-pr-release` | `branch.md` |
+| 1 | Prepare: check a clean working tree, determine the base branch, create the feature branch named per `rules/git-conventions.md` | `issue-to-pr-release` | `branch.md` |
 | 2 | Plan: analyze the issue and the repository, list affected files | `issue-to-pr-planner` | `plan.md` |
 | 3 | Implement: change code in `src/` and tests in `tests/`, commit | `issue-to-pr-implementer` | `implementation.md` |
 | 4 | Verify: build and test with self-healing, at most 4 attempts; list every file changed by repairs | `issue-to-pr-qa` | `qa-report.md` |
@@ -96,11 +113,12 @@ Run these steps in order. If any step fails, stop without pushing and without cr
 
 Never merge the pull request.
 
-## 5. Stop conditions
+## 6. Stop conditions
 
 Stop the workflow and report the reason if:
 
 - the input is invalid or the issue cannot be used (sections 1 and 2),
+- a rule file is missing (section 3),
 - the working tree is not clean before stage 1,
 - a subagent is not available or does not produce its output file,
 - stage 4 reports failure after 4 attempts,
@@ -109,7 +127,7 @@ Stop the workflow and report the reason if:
 
 Never leave the repository in a half-finished state without saying so: report the current branch, the last completed stage and what remains.
 
-## 6. Final report
+## 7. Final report
 
 At the end, reply with a short summary:
 

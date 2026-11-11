@@ -18,7 +18,7 @@ Run from the repository root, with a clean working tree and an authenticated Git
 /issue-to-pr https://github.com/UAI-VUT-Brno/0VP-26-27Z-StudentsGroup-Team-3/issues/42
 ```
 
-Add `--dry-run` to validate the input, fetch the issue and show the planned stages without changing anything:
+Add `--dry-run` to validate the input, fetch the issue, check the rule files and show the derived branch name and planned stages without changing anything:
 
 ```text
 /issue-to-pr #42 --dry-run
@@ -42,8 +42,8 @@ flowchart LR
 
 | Component | Location | Responsibility |
 |---|---|---|
-| Orchestrator | `SKILL.md` | Input validation, issue ingestion, stage order, stop conditions, final report |
-| Rules | `rules/` | Architecture, domain, code style and git conventions shared by all agents |
+| Orchestrator | `SKILL.md` | Input validation, issue ingestion, loading rules, stage order, stop conditions, final report |
+| Rules | `rules/` | Architecture, domain, code style and git conventions; read by the orchestrator and passed to every subagent |
 | Prompts | `prompts/` | Stage-specific instructions for planning, implementation, repair and PR text |
 | Agent roles | `agents/`, `.claude/agents/` | Role descriptions and tool permissions of the subagents |
 
