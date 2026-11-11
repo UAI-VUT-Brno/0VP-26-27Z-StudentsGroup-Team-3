@@ -2,15 +2,26 @@
 
 ## Optimistic concurrency (`version`)
 
-The API uses optimistic concurrency on every write to an existing todo. Reference: `TodoItem.Version`, `UpdateAsync` in both repositories, `TodoConcurrencyException`, `TodoConcurrencyTests`.
+Optimistic concurrency protects updates of existing todos. Reference: `TodoItem.Version`, `UpdateAsync` in both repositories, `TodoConcurrencyException`, `TodoConcurrencyTests`.
+
+Repository behavior:
 
 - A new todo starts with `Version = 1`.
-- Every successful update increments the version by exactly 1, using `checked(existing.Version + 1)`.
-- An update with a version different from the stored one fails with `TodoConcurrencyException` and must not change any stored data.
-- The version check and the increment happen inside the repository, atomically with the write. Controllers never compare versions themselves.
-- Endpoints that update a todo with a client-supplied version (`PUT /api/todos/{id}`) take it from the request body: `UpdateTodoItemRequest.Version`, validated with `[Range(1, long.MaxValue)]`.
+- `UpdateAsync` compares the supplied version with the stored one. On a mismatch it throws `TodoConcurrencyException` and changes no stored data. On success it increments the version by exactly 1, using `checked(existing.Version + 1)`.
+- The check and the increment happen inside the repository, atomically with the write. Controllers never compare versions themselves.
 - Every response DTO exposes the current `Version`.
-- A new write operation must follow the same pattern and must be covered by a test with a stale version.
+
+Which operations use a client-supplied version:
+
+| Operation | Client sends `version` | Concurrency behavior |
+|---|---|---|
+| `PUT /api/todos/{id}` | Yes, `UpdateTodoItemRequest.Version` with `[Range(1, long.MaxValue)]` | 409 on a stale version |
+| `POST /api/todos/{id}/complete` | No | Uses the version read from storage; 409 only if the item changed in the meantime |
+| `POST /api/todos`, `POST /api/todos/repeat` | No | Creates new items with `Version = 1` |
+| `DELETE /api/todos/{id}` | No | No version check |
+
+- Do not add a `version` parameter to existing operations that do not have one, and do not remove it from `PUT`. That would break the public API contract.
+- A new operation that updates an existing todo must go through `UpdateAsync` and must have a test for the 409 case. Require a client-supplied version only if the issue asks for it.
 
 ## Error responses
 

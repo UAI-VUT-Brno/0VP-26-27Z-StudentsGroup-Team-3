@@ -31,7 +31,7 @@ These rules describe the existing structure of the solution. Every change must f
 
 - Controllers and MCP tools depend only on `ITodoRepository`, never on a concrete repository class.
 - A change to `ITodoRepository` must be implemented in both `InMemoryTodoRepository` and `JsonFileTodoRepository`, with the same behavior, and covered by tests for both.
-- Mapping between `TodoItem` and DTOs happens only in `TodoMapper`. Controllers do not copy fields by hand.
+- New mapping between `TodoItem` and DTOs belongs in `TodoMapper`, so normalization (trimming, `NormalizeUserId`) stays in one place. One existing exception: `TodosController.Repeat()` builds `TodoItem` instances directly because each occurrence needs its own due date. Do not refactor it unless the issue asks for it, and do not copy this pattern into new endpoints; add a mapper method instead.
 - The entity is never returned from the API. Internal fields such as `UpdatedAtUtc` must not appear in DTOs.
 - Use the injected `TimeProvider` for the current time. Never call `DateTime.Now`, `DateTime.UtcNow` or `DateTimeOffset.UtcNow` directly.
 - Pass `CancellationToken` through every asynchronous call down to the repository.

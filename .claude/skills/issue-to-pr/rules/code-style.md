@@ -25,7 +25,8 @@ Follow the style of the surrounding code, for example `TodosController.cs` and `
 - Asynchronous methods end with `Async` (repositories) and accept a `CancellationToken`.
 - Private fields use the `_camelCase` prefix; dependencies are injected through the constructor.
 - Long method calls and signatures are wrapped with one argument per line, as in the existing controllers.
-- All code, comments and documentation are in English.
+- Code, comments and documentation in `docs/` are in English.
+- User documentation is bilingual: `README.md` in English and `README.cs.md` in Czech. When one of them changes, update the other with the same content in its language.
 - The build must not produce new warnings.
 
 ## Tests
@@ -42,12 +43,14 @@ Framework: xUnit with `Assert`. All tests are in `tests/UAI.ZeroVP.Tests/`.
 
 - Name tests `Method_Scenario_ExpectedResult`, for example `GetById_UnknownId_ReturnsNotFound`.
 - Structure unit tests with `// Arrange`, `// Act`, `// Assert` comments.
-- Unit tests use `InMemoryTodoRepository` with `SeedSampleData = false`.
+- Tests that need a repository instance use `InMemoryTodoRepository` with `SeedSampleData = false`, so they start with known data. Tests that do not need storage, such as mapping or DTO validation tests, do not create a repository.
 - Integration tests use `WebApplicationFactory<Program>` and replace the repository or storage path, so they never touch `data/todos.json` or other developer data.
 - Every new behavior needs at least one success test and one failure test (validation, not found, or stale version, as applicable).
 - Never delete, skip or weaken an existing test to make the suite pass. If an existing test fails, fix the code, unless the issue explicitly changes the tested behavior.
 
 ## Verification commands
+
+Local verification, used by the agents:
 
 ```powershell
 dotnet build UAI.ZeroVP.sln --configuration Release
@@ -55,4 +58,12 @@ dotnet test UAI.ZeroVP.sln --configuration Release
 git diff --check
 ```
 
-These are the same commands CI runs (`.github/workflows/ci.yml`).
+CI (`.github/workflows/ci.yml`) runs a stricter sequence. It is listed here for reference, so local results can be compared with CI:
+
+```bash
+dotnet restore UAI.ZeroVP.sln -p:NuGetAudit=true -p:NuGetAuditMode=all -p:NuGetAuditLevel=low -warnaserror:NU1900,NU1901,NU1902,NU1903,NU1904,NU1905
+dotnet build UAI.ZeroVP.sln --no-restore --configuration Release
+dotnet test UAI.ZeroVP.sln --no-build --configuration Release --verbosity normal
+```
+
+A change that passes locally can still fail in CI on a vulnerable NuGet package, which is one more reason not to add packages unless the issue requires it.

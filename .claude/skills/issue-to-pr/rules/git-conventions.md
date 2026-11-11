@@ -6,6 +6,8 @@ Issues are titled `OVP-T3-<nn> <summary>`, for example `OVP-T3-14 Expose read-on
 
 ## Branches
 
+The orchestrator (`SKILL.md`) and all subagents use this convention.
+
 Format:
 
 ```text
