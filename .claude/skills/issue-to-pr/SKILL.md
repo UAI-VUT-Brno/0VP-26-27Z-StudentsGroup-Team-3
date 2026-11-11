@@ -69,14 +69,32 @@ Run the stages in this order. Pass each subagent the issue number and the run fo
 
 | # | Stage | Subagent | Output in `.issue-to-pr/<number>/` |
 |---|---|---|---|
-| 1 | Prepare: check a clean working tree and create the feature branch | `issue-to-pr-release` | `branch.md` |
+| 1 | Prepare: check a clean working tree, determine the base branch, create the feature branch | `issue-to-pr-release` | `branch.md` |
 | 2 | Plan: analyze the issue and the repository, list affected files | `issue-to-pr-planner` | `plan.md` |
 | 3 | Implement: change code in `src/` and tests in `tests/`, commit | `issue-to-pr-implementer` | `implementation.md` |
-| 4 | Verify: build and test with self-healing, at most 4 attempts | `issue-to-pr-qa` | `qa-report.md` |
-| 5 | Document: update `docs/` and `README.md` if contracts or configuration changed | `issue-to-pr-release` | `docs.md` |
-| 6 | Publish: `git diff --check`, push, create the pull request | `issue-to-pr-release` | `pr.md` |
+| 4 | Verify: build and test with self-healing, at most 4 attempts; list every file changed by repairs | `issue-to-pr-qa` | `qa-report.md` |
+| 5 | Document: update `docs/` and `README.md` if contracts or configuration changed; list every changed file | `issue-to-pr-release` | `docs.md` |
+| 6 | Publish: commit remaining verified changes, validate the full branch diff, push, create the pull request | `issue-to-pr-release` | `pr.md` |
 
 All subagents follow the rules in `rules/` and use the stage prompts in `prompts/`. Their roles and tool permissions are described in `agents/`.
+
+Stage 1 determines the base branch as the repository default branch (`gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`) and records it in `branch.md`. All later stages use this recorded value; never assume `main`.
+
+Stages 4 and 5 do not commit. They leave their changes in the working tree and list every changed file in their output file, so stage 6 can commit exactly these files.
+
+### Stage 6: publish sequence
+
+Run these steps in order. If any step fails, stop without pushing and without creating the pull request.
+
+1. **Confirm verification.** `qa-report.md` must report that the build and all tests passed.
+2. **Check the working tree.** Run `git status --porcelain`. Every changed or new file must be listed in `qa-report.md` or `docs.md`. If any other file is changed or untracked, stop and report it; do not commit it.
+3. **Commit remaining changes.** Stage only the listed files, by explicit path; never use `git add -A` or `git add .`. Commit QA repairs and documentation separately, using the commit format from `rules/git-conventions.md`, for example `fix(OVP-T3-<nn>): ...` and `docs(OVP-T3-<nn>): ...`. Before each commit, run `git diff --cached --check`.
+4. **Confirm a clean working tree.** `git status --porcelain` must be empty and `git diff --check` must pass. Files in `.issue-to-pr/` are ignored by git and are never committed.
+5. **Validate the full branch diff.** Run `git fetch origin <base>` and `git diff --check origin/<base>...HEAD`. This checks every commit of the branch, not only pending changes.
+6. **Push.** `git push -u origin <branch>`.
+7. **Create the pull request.** `gh pr create --base <base> --head <branch> --title "<title>" --body-file <file>`, with the title and body defined in `rules/git-conventions.md`. Record the URL in `pr.md`.
+
+Never merge the pull request.
 
 ## 5. Stop conditions
 
@@ -85,7 +103,9 @@ Stop the workflow and report the reason if:
 - the input is invalid or the issue cannot be used (sections 1 and 2),
 - the working tree is not clean before stage 1,
 - a subagent is not available or does not produce its output file,
-- stage 4 reports failure after 4 attempts.
+- stage 4 reports failure after 4 attempts,
+- stage 6 finds unexpected or unrelated changes in the working tree,
+- any `git diff --check` validation in stage 6 fails.
 
 Never leave the repository in a half-finished state without saying so: report the current branch, the last completed stage and what remains.
 

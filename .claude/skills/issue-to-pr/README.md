@@ -54,14 +54,28 @@ Every run stores its intermediate results in `.issue-to-pr/<issue_number>/`. The
 | File | Written by | Content |
 |---|---|---|
 | `issue.json` | Orchestrator | Issue metadata from `gh issue view` |
-| `branch.md` | Release & PR agent | Working-tree check and created branch |
+| `branch.md` | Release & PR agent | Working-tree check, base branch and created branch |
 | `plan.md` | Planner agent | Requirements, acceptance criteria, affected files |
 | `implementation.md` | Implementation agent | Changed files and commits |
-| `qa-report.md` | QA agent | Build and test results of every attempt |
-| `docs.md` | Release & PR agent | Documentation changes, or the reason none were needed |
+| `qa-report.md` | QA agent | Build and test results of every attempt, files changed by repairs |
+| `docs.md` | Release & PR agent | Changed documentation files, or the reason none were needed |
 | `pr.md` | Release & PR agent | Pull request URL and body |
 
 These files serve as the execution record for the benchmark and the report.
+
+## Commits and publication
+
+Stage 3 commits the implementation. Stages 4 (QA repairs) and 5 (documentation) leave their changes uncommitted and list every changed file. Stage 6 then publishes in this order and stops before pushing if any step fails:
+
+1. Confirm that QA reported a successful build and test run.
+2. Check the working tree: only files listed by stages 4 and 5 may be changed. Unexpected or unrelated changes stop the workflow instead of being committed.
+3. Commit QA repairs and documentation as separate commits, staging files by explicit path and running `git diff --cached --check` before each commit.
+4. Confirm a clean working tree: `git status --porcelain` is empty and `git diff --check` passes.
+5. Validate the complete branch against the base branch: `git diff --check origin/<base>...HEAD`. The base branch is the repository default branch recorded in stage 1.
+6. Push the feature branch.
+7. Create the pull request against the base branch.
+
+The workflow never merges the pull request.
 
 ## Implementation status
 
