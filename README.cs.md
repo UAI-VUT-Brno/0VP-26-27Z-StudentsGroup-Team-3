@@ -203,3 +203,7 @@ Zdrojové soubory C# používají podle `.editorconfig` UTF-8 s BOM; Markdown so
 ## MCP
 
 Lokální spuštění, kontrakty nástrojů a omezení popisuje [dokumentace MCP](docs/MCP.md).
+
+## Agentní workflow
+
+Skill `/issue-to-pr` pro Claude Code autonomně implementuje GitHub issue a vytvoří ověřený pull request. Podrobnosti popisuje [dokumentace skillu](.claude/skills/issue-to-pr/README.md).
