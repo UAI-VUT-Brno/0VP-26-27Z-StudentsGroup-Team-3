@@ -84,6 +84,8 @@ Do not create branches, edit files outside `.issue-to-pr/` or call subagents in 
 
 Run the stages in this order. Pass each subagent the issue number and the run folder path. Each stage must finish with the listed output file before the next stage starts.
 
+`issue-to-pr-release` handles three stages, so also pass it the stage name: `prepare` (stage 1), `document` (stage 5) or `publish` (stage 6).
+
 | # | Stage | Subagent | Output in `.issue-to-pr/<number>/` |
 |---|---|---|---|
 | 1 | Prepare: check a clean working tree, determine the base branch, create the feature branch named per `rules/git-conventions.md` | `issue-to-pr-release` | `branch.md` |
