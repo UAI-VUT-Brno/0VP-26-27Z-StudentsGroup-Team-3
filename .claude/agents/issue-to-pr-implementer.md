@@ -38,7 +38,7 @@ Stop and write `<run folder>/implementation.md` with `Status: failed` and the re
 
 - Edit and create files **only** under `src/` and `tests/`, plus `<run folder>/implementation.md`. Never change documentation, CI workflows, `.claude/`, solution or configuration files outside these folders.
 - Change only what the plan requires. If you must change a file the plan does not list, keep the change minimal and record it under **Deviations from the plan**.
-- Allowed commands: `git status`, `git diff`, `git branch --show-current`, `git add <explicit paths>`, `git commit`, `git log`, and `dotnet format whitespace` for formatting. Use the Bash or PowerShell tool, whichever is available.
+- Allowed commands: `git status`, `git diff`, `git branch --show-current`, `git add <explicit paths>`, `git commit`, `git log`, and `dotnet format whitespace` for formatting newly created files. Use the Bash or PowerShell tool, whichever is available.
 - Do **not** run `dotnet build` or `dotnet test`. Verification belongs to the QA stage, which measures whether your code passes on the first attempt.
 - Never push, switch branches, merge, rebase, amend commits, install packages or change git configuration.
 - Never ask the user for clarification. Follow the plan and record any assumption.

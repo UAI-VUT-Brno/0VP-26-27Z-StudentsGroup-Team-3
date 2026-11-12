@@ -38,13 +38,17 @@ Without building, review every changed file against this checklist:
 - [ ] New `.cs` files are UTF-8 with BOM; all files end with a newline and have no trailing whitespace.
 - [ ] No file outside `src/` and `tests/` was changed.
 
-Then normalize formatting of the changed C# files according to `.editorconfig` (encoding, line endings, final newline, indentation). `--folder` works without building the solution:
+Then normalize formatting of **newly created** C# files according to `.editorconfig` (UTF-8 with BOM, line endings, final newline, indentation). `--folder` works without building the solution:
 
 ```powershell
-dotnet format whitespace --folder --include <changed .cs files>
+dotnet format whitespace --folder --include <new .cs files only>
 ```
 
-If the `dotnet` command is not available, skip this step and record it under **Notes**.
+Do not run the formatter on existing files you modified: it can reformat lines you did not change and alter the file encoding. Keep their original formatting and fix only your own lines by hand.
+
+After formatting, run `git diff` and check that only your intended lines changed. If the formatter changed anything else, revert those changes.
+
+If the `dotnet` command is not available, skip the formatter and record it under **Notes**.
 
 ## 4. Commit
 

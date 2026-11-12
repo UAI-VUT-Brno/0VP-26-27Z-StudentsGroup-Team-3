@@ -5,7 +5,7 @@ The subagents are defined in `.claude/agents/`, where Claude Code loads them and
 | Subagent | Stages | Allowed tools | Scope enforced by instructions | Issue |
 |---|---|---|---|---|
 | `issue-to-pr-planner` | 2 Plan | Read, Grep, Glob, Write | Writes only `plan.md` in the run folder; no shell access | OVP-T3-19 |
-| `issue-to-pr-implementer` | 3 Implement | Read, Grep, Glob, Edit, Write, Bash, PowerShell | Edits only `src/` and `tests/`; local git commits and `dotnet format whitespace` only; no build, test or push | OVP-T3-19 |
+| `issue-to-pr-implementer` | 3 Implement | Read, Grep, Glob, Edit, Write, Bash, PowerShell | Edits only `src/` and `tests/`; local git commits and `dotnet format whitespace` on new files only; no build, test or push | OVP-T3-19 |
 | `issue-to-pr-qa` | 4 Verify | Defined in OVP-T3-20 | `dotnet build`, `dotnet test`, edit files in `src/` and `tests/` | OVP-T3-20 |
 | `issue-to-pr-release` | 1 Prepare, 5 Document, 6 Publish | Defined in OVP-T3-21 | git, `gh pr create`, edit files in `docs/` and `README*.md` | OVP-T3-21 |
 
