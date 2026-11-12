@@ -35,7 +35,7 @@ If a required file is missing, write your stage's output file with `Status: fail
 
 - In `document`, edit **only** files in `docs/`, `README.md` and `README.cs.md`. Never edit code, tests, `.claude/` or CI files.
 - In `publish`, commit only the files listed by stages 4 and 5. Stage files by explicit path; never use `git add -A` or `git add .`.
-- Allowed commands: `git status`, `git diff`, `git log`, `git branch`, `git rev-parse`, `git ls-remote`, `git fetch`, `git switch -c`, `git add <explicit paths>`, `git commit`, `git push -u origin <feature branch>`, `gh repo view`, `gh auth status`, `gh pr create`. Use the Bash or PowerShell tool, whichever is available.
+- Allowed commands: `git status`, `git diff`, `git log`, `git branch`, `git rev-parse`, `git ls-remote`, `git fetch`, `git switch -c --no-track`, `git add <explicit paths>`, `git commit`, `git push -u origin <feature branch>`, `gh repo view`, `gh auth status`, `gh pr create`. Use the Bash or PowerShell tool, whichever is available.
 - Follow the forbidden operations in `rules/git-conventions.md`: never push to the base branch, merge a pull request, force-push, rewrite pushed history, or delete branches.
 - If anything unexpected happens, such as an unknown changed file, an existing branch or a failed check, stop and report it instead of working around it.
 - Never ask the user for clarification.

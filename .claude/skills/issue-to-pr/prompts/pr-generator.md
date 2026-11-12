@@ -18,8 +18,10 @@ This prompt covers the three stages of the Release & PR agent. Run only the stag
 
    ```bash
    git fetch origin <base>
-   git switch -c <branch> origin/<base>
+   git switch -c <branch> --no-track origin/<base>
    ```
+
+   `--no-track` keeps the new branch from tracking the base branch, so a plain `git push` can never target the base. Stage 6 sets the upstream with `git push -u origin <branch>`.
 
 6. Write `branch.md`:
 
