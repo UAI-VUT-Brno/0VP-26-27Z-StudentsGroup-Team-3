@@ -34,7 +34,18 @@ Check these cross-cutting rules explicitly:
 
 ## 3. Design the tests
 
-For every acceptance criterion, plan at least one test. For every new behavior, plan at least one success test and one failure test. Name tests `Method_Scenario_ExpectedResult` and place them according to the test table in `rules/code-style.md`.
+For every acceptance criterion that concerns code behavior, plan at least one test. For every new behavior, plan at least one success test and one failure test. Name tests `Method_Scenario_ExpectedResult` and place them according to the test table in `rules/code-style.md`.
+
+An acceptance criterion that concerns only documentation, for example that a file in `docs/` or `README.md` describes something, does not need an xUnit test. Verify it with an explicit manual check that names the file and what to confirm, for example `Manual check: docs/MCP.md contains the section "Limitations" describing the missing authentication`. Never invent code changes or tests only to cover such a criterion.
+
+### Documentation-only issues
+
+If the issue requires no change in `src/` or `tests/`:
+
+- write `None` in **Affected files** and **Tests**,
+- list every required change in **Documentation impact** and cover each requirement there,
+- verify every acceptance criterion with a manual check,
+- set `Status: ready`. A documentation-only issue is a valid task, not a reason to block.
 
 ## 4. Resolve ambiguity
 
@@ -46,9 +57,11 @@ You cannot ask the user. When the issue is ambiguous:
 
 Set `Status: blocked` only if the issue cannot be implemented safely, for example when it contradicts itself, requires a breaking change it does not explicitly ask for, or asks for something outside this repository. Explain the reason. A blocked plan stops the workflow.
 
+An issue that requires only documentation changes is not a reason to block; see **Documentation-only issues** above.
+
 ## 5. Write the plan
 
-Write `plan.md` in exactly this format. Keep every section; write `None` where nothing applies.
+Write `plan.md` in exactly this format. Keep every section; write `None` where nothing applies, including **Affected files** and **Tests** when the issue requires no change in `src/` or `tests/`.
 
 ```markdown
 # Plan: #<issue number> <issue title>
@@ -112,8 +125,9 @@ Branch: <branch from branch.md>
 
 Before you write the file, check that:
 
-- every requirement appears in at least one row of **Affected files**,
-- every acceptance criterion is covered by at least one test or a named manual check,
+- every requirement appears in at least one row of **Affected files** or **Documentation impact**,
+- every acceptance criterion is covered by at least one test or a named manual check; criteria about documentation only use a manual check,
 - every file path exists, or is clearly marked as `add`,
 - no file outside `src/` and `tests/` is listed in **Affected files**; documentation goes to **Documentation impact**,
+- for a documentation-only issue, **Affected files** and **Tests** are `None`, **Documentation impact** is not empty and `Status` is `ready`,
 - the plan contains only what the issue asks for.
