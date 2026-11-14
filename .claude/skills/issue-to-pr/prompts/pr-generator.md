@@ -63,7 +63,7 @@ Status: done | failed
 
 Run these steps in order. How to handle a failure depends on where it happens; see **Publication failures** below. Never claim that nothing was published without checking the remote state.
 
-1. **Confirm verification.** `qa-report.md` has `Status: passed`.
+1. **Confirm the earlier stages.** `qa-report.md` has `Status: passed` and `docs.md` has `Status: done`. Otherwise stop before the push.
 2. **Check the working tree.** Every file in `git status --porcelain` must be listed under **Files changed by repairs** in `qa-report.md` or **Changed files** in `docs.md`. Any other changed or untracked file stops the workflow; do not commit it.
 3. **Commit remaining changes.** Stage the listed files by explicit path. Commit QA repairs and documentation separately, using `rules/git-conventions.md`:
 
