@@ -121,6 +121,7 @@ Stop the workflow and report the reason if:
 - a rule file is missing (section 3),
 - the working tree is not clean before stage 1,
 - a subagent is not available or does not produce its output file,
+- `plan.md` reports `Status: blocked` or `implementation.md` reports `Status: failed`,
 - stage 4 reports failure after 4 attempts,
 - stage 6 finds unexpected or unrelated changes in the working tree,
 - any `git diff --check` validation in stage 6 fails.
