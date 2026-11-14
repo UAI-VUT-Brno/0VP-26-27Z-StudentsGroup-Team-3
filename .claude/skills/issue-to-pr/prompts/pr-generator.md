@@ -61,7 +61,7 @@ Status: done | failed
 
 ## Stage 6: publish
 
-Run these steps in order. If any step fails, write `pr.md` with `Status: failed`, the failed step and its output, and stop **without pushing and without creating the pull request**.
+Run these steps in order. How to handle a failure depends on where it happens; see **Publication failures** below. Never claim that nothing was published without checking the remote state.
 
 1. **Confirm verification.** `qa-report.md` has `Status: passed`.
 2. **Check the working tree.** Every file in `git status --porcelain` must be listed under **Files changed by repairs** in `qa-report.md` or **Changed files** in `docs.md`. Any other changed or untracked file stops the workflow; do not commit it.
@@ -77,14 +77,25 @@ Run these steps in order. If any step fails, write `pr.md` with `Status: failed`
 5. **Validate the full branch diff.** `git fetch origin <base>`, then `git diff --check origin/<base>...HEAD`.
 6. **Check GitHub access.** `gh auth status` succeeds.
 7. **Write the pull request body** to `<run folder>/pr-body.md` using the template below.
-8. **Push.** `git push -u origin <branch>`.
+8. **Push.** `git push -u origin <branch>`. Record the command output.
 9. **Create the pull request:**
 
    ```bash
    gh pr create --base <base> --head <branch> --title "<issue title>" --body-file <run folder>/pr-body.md
    ```
 
-10. Write `pr.md`.
+   Record the command output and the pull request URL.
+10. Write `pr.md` with the actual publication state.
+
+### Publication failures
+
+| Where it fails | What to do | `Publication` in `pr.md` |
+|---|---|---|
+| Steps 1–7, before the push | Stop. Nothing was published. | `not pushed` |
+| Step 8, the push | Record the command output. Check the remote with `git ls-remote --heads origin <branch>` and compare the hash with `git rev-parse HEAD`. Report what is actually on `origin`. | `not pushed`, or `branch pushed, pull request not created` if the check shows the branch on `origin` |
+| Step 9, after a successful push | Record the command output. Check whether a pull request exists anyway with `gh pr list --head <branch> --state all --json url`. Report that the remote branch exists and the pull request was not created. | `branch pushed, pull request not created` |
+
+In every case, write `pr.md` with `Status: failed`, the failed step and its output, and stop. Never delete the remote branch, force-push, retry the push with other options, or claim that the repository is unchanged after a successful push.
 
 Never merge the pull request.
 
@@ -116,9 +127,12 @@ Closes #<issue number>
 # Pull request: #<issue number> <issue title>
 
 Status: done | failed
-URL: <pull request URL>
+Publication: not pushed | branch pushed, pull request not created | pull request created
 Base: <base>
 Head: <branch>
+Remote branch: origin/<branch> at <short hash>, or None
+Pull request created: yes | no
+URL: <pull request URL, or None>
 
 ## Commits
 
