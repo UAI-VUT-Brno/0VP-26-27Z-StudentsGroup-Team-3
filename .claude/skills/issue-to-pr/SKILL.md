@@ -84,6 +84,8 @@ Do not create branches, edit files outside `.issue-to-pr/` or call subagents in 
 
 Run the stages in this order. Pass each subagent the issue number and the run folder path. Each stage must finish with the listed output file before the next stage starts.
 
+`issue-to-pr-release` handles three stages, so also pass it the stage name: `prepare` (stage 1), `document` (stage 5) or `publish` (stage 6).
+
 | # | Stage | Subagent | Output in `.issue-to-pr/<number>/` |
 |---|---|---|---|
 | 1 | Prepare: check a clean working tree, determine the base branch, create the feature branch named per `rules/git-conventions.md` | `issue-to-pr-release` | `branch.md` |
@@ -99,9 +101,24 @@ Stage 1 determines the base branch as the repository default branch (`gh repo vi
 
 Stages 4 and 5 do not commit. They leave their changes in the working tree and list every changed file in their output file, so stage 6 can commit exactly these files.
 
+### Stage results
+
+After each stage, read the `Status:` line of its output file. Continue only when it has the required value:
+
+| # | Stage | Output | Required to continue |
+|---|---|---|---|
+| 1 | Prepare | `branch.md` | `Status: done` |
+| 2 | Plan | `plan.md` | `Status: ready` |
+| 3 | Implement | `implementation.md` | `Status: done` |
+| 4 | Verify | `qa-report.md` | `Status: passed` |
+| 5 | Document | `docs.md` | `Status: done` |
+| 6 | Publish | `pr.md` | `Status: done` |
+
+The existence of an output file is not proof that the stage succeeded. If the file is missing, has no `Status:` line, or reports any other value, stop immediately and do not start the next stage. In particular, never start the planner unless `branch.md` reports `Status: done`, and never start publishing unless `docs.md` reports `Status: done`.
+
 ### Stage 6: publish sequence
 
-Run these steps in order. If any step fails, stop without pushing and without creating the pull request.
+Run these steps in order. If a step before the push fails, stop without pushing and without creating the pull request. If the push or the pull request creation fails, the branch may already be on `origin`; `prompts/pr-generator.md` defines how the Release & PR agent checks and records the actual publication state.
 
 1. **Confirm verification.** `qa-report.md` must report that the build and all tests passed.
 2. **Check the working tree.** Run `git status --porcelain`. Every changed or new file must be listed in `qa-report.md` or `docs.md`. If any other file is changed or untracked, stop and report it; do not commit it.
@@ -121,18 +138,26 @@ Stop the workflow and report the reason if:
 - a rule file is missing (section 3),
 - the working tree is not clean before stage 1,
 - a subagent is not available or does not produce its output file,
-- `plan.md` reports `Status: blocked` or `implementation.md` reports `Status: failed`,
-- stage 4 reports failure after 4 attempts,
+- a stage output file does not report the required status from **Stage results**, for example `branch.md` with `Status: failed`, `plan.md` with `Status: blocked`, `implementation.md` with `Status: failed`, `qa-report.md` with `Status: failed` after at most 4 verification runs, `docs.md` with `Status: failed` or `pr.md` with `Status: failed`,
 - stage 6 finds unexpected or unrelated changes in the working tree,
 - any `git diff --check` validation in stage 6 fails.
 
-Never leave the repository in a half-finished state without saying so: report the current branch, the last completed stage and what remains.
+Never leave the repository in a half-finished state without saying so. When the workflow stops, reply with the failure report from section 7 instead of the summary.
 
 ## 7. Final report
 
-At the end, reply with a short summary:
+When all stages succeed, reply with a short summary:
 
 - issue number and title,
 - branch name and pull request URL,
-- build and test result, including the number of repair attempts,
+- build and test result, including the number of repair cycles,
+- path to the run folder with all stage outputs.
+
+When the workflow stops, reply with a failure report:
+
+- issue number and title,
+- the failed stage, its output file and the reason from that file,
+- the current branch (`git branch --show-current`) and the last stage that succeeded,
+- the publication state: whether the branch exists on `origin` and whether a pull request was created, as recorded in `pr.md` (or "not pushed" if stage 6 did not start),
+- the remaining actions needed to finish the issue,
 - path to the run folder with all stage outputs.
