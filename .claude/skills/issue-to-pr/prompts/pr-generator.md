@@ -93,9 +93,9 @@ Run these steps in order. How to handle a failure depends on where it happens; s
 |---|---|---|
 | Steps 1–7, before the push | Stop. Nothing was published. | `not pushed` |
 | Step 8, the push | Record the command output. Check the remote with `git ls-remote --heads origin <branch>` and compare the hash with `git rev-parse HEAD`. Report what is actually on `origin`. | `not pushed`, or `branch pushed, pull request not created` if the check shows the branch on `origin` |
-| Step 9, after a successful push | Record the command output. Check whether a pull request exists anyway with `gh pr list --head <branch> --state all --json url`. Report that the remote branch exists and the pull request was not created. | `branch pushed, pull request not created` |
+| Step 9, after a successful push | Record the command output. Then check whether a pull request exists anyway with `gh pr list --head <branch> --state all --json url` and report the actual result: if a pull request exists, record its URL; if none exists, report that the remote branch exists and no pull request was created; if the check itself fails, record its output and do not assume either result. | `pull request created`, `branch pushed, pull request not created`, or `branch pushed, pull request unverified` |
 
-In every case, write `pr.md` with `Status: failed`, the failed step and its output, and stop. Never delete the remote branch, force-push, retry the push with other options, or claim that the repository is unchanged after a successful push.
+Write `pr.md` with `Status: failed`, the failed step and its output, and stop. The only exception is step 9: if the check finds an existing pull request, write `Status: done` with its URL and keep the `gh pr create` output under **Failed step** as a note. Never delete the remote branch, force-push, retry the push with other options, or claim that the repository is unchanged after a successful push.
 
 Never merge the pull request.
 
@@ -127,11 +127,11 @@ Closes #<issue number>
 # Pull request: #<issue number> <issue title>
 
 Status: done | failed
-Publication: not pushed | branch pushed, pull request not created | pull request created
+Publication: not pushed | branch pushed, pull request not created | branch pushed, pull request unverified | pull request created
 Base: <base>
 Head: <branch>
 Remote branch: origin/<branch> at <short hash>, or None
-Pull request created: yes | no
+Pull request created: yes | no | unverified
 URL: <pull request URL, or None>
 
 ## Commits
