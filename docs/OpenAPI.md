@@ -19,6 +19,7 @@ All controllers are annotated with XML documentation comments and `[ProducesResp
 - `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails)
 - `POST /api/todos/repeat` – 201 Created (created occurrences) / 400 Bad Request (ValidationProblemDetails)
 - `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found / 409 Conflict (ProblemDetails)
+- `PATCH /api/todos/{id}/priority` – 200 OK / 400 Bad Request (ValidationProblemDetails) / 404 Not Found / 409 Conflict (ProblemDetails)
 - `POST /api/todos/{id}/complete` – 200 OK / 404 Not Found / 409 Conflict (ProblemDetails)
 - `DELETE /api/todos/{id}` – 204 No Content / 404 Not Found
 
@@ -167,6 +168,60 @@ The `userId` field is included in every todo response (`null` when not assigned)
   and are returned when no `userId` filter is applied.
 - Existing JSON storage files without the `userId` field load without migration.
 
+## Changing Todo Priority
+
+### PATCH /api/todos/{id}/priority
+
+Changes only the priority of an existing todo item. All other fields (title, description, user identifier, due date and completion state) stay unchanged.
+
+The request uses optimistic concurrency control in the same way as `PUT /api/todos/{id}`: the client must send the `version` it last read.
+
+The request body is a plain JSON object (`application/json`), not a JSON Patch document.
+
+### Request Body
+
+```json
+{
+  "priority": "High",
+  "version": 3
+}
+```
+
+### Request Validation
+
+| Field | Validation |
+|---|---|
+| `priority` | Required, valid TodoPriority value (`Low`, `Normal` or `High`) |
+| `version` | Required integer, minimum `1`; must match the currently stored version |
+
+Invalid requests (missing or invalid `priority`, missing `version`, or `version` lower than `1`) return `400 Bad Request` with standard `ValidationProblemDetails`. The stored todo item is not modified.
+
+### Responses
+
+| Status | Body | Meaning |
+|---|---|---|
+| `200 OK` | `TodoItemDto` | The priority was changed; the response contains the updated todo with the incremented `version` |
+| `400 Bad Request` | `ValidationProblemDetails` | Request validation failed |
+| `404 Not Found` | `ProblemDetails` | No todo item with the given ID exists |
+| `409 Conflict` | `ProblemDetails` | The supplied `version` is outdated; stored data stays unchanged |
+
+Example successful response for the request above (values are illustrative):
+
+```json
+{
+  "id": "c7c1d760-1234-4567-8901-111111111111",
+  "title": "Weekly team meeting",
+  "description": "Project status meeting",
+  "userId": null,
+  "priority": "High",
+  "isCompleted": false,
+  "createdAtUtc": "2026-10-19T20:00:00+00:00",
+  "dueAtUtc": "2026-10-20T10:00:00+00:00",
+  "completedAtUtc": null,
+  "version": 4
+}
+```
+
 ## Optimistic Concurrency Control
 
 Updates via `PUT /api/todos/{id}` require optimistic concurrency control to prevent lost updates across multiple clients and instances:
@@ -175,6 +230,7 @@ Updates via `PUT /api/todos/{id}` require optimistic concurrency control to prev
 - A successful update increments the stored `version` by `1`.
 - If the supplied `version` does not match the currently stored version, the update is rejected with `409 Conflict`, leaving stored data unchanged.
 - Existing clients performing `PUT` requests must be updated to retrieve and send the current `version`.
+- `PATCH /api/todos/{id}/priority` follows the same rules: it requires `version`, increments it on success and returns `409 Conflict` for a stale `version`.
 
 ## Request Validation and Error Handling
 

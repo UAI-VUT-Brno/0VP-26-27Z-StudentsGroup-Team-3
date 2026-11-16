@@ -81,6 +81,7 @@ Prostředí `LoadTest` používá `InMemoryTodoRepository` pro výkonnostní HTT
 | `POST` | `/api/todos` | Vytvoření úkolu (`201 Created`, hlavička `Location`) |
 | `POST` | `/api/todos/repeat` | Vytvoření týdenní řady samostatných úkolů |
 | `PUT` | `/api/todos/{id}` | Úplná aktualizace včetně očekávané verze |
+| `PATCH` | `/api/todos/{id}/priority` | Změna pouze priority včetně očekávané verze |
 | `POST` | `/api/todos/{id}/complete` | Označení úkolu za dokončený |
 | `DELETE` | `/api/todos/{id}` | Smazání úkolu (`204 No Content`) |
 | `GET` | `/api/info` | Informace o instanci včetně unikátního `instanceId` |
@@ -107,6 +108,8 @@ Každý úkol obsahuje hodnotu `version`, která začíná na `1`. Úspěšné a
 ```
 
 Pokud mezitím úkol změnila jiná operace, požadavek se zastaralou verzí dostane **HTTP `409 Conflict`** a novější uložená data zůstanou zachována. Klient by měl aktuální úkol znovu načíst a před opakováním aktualizace konflikt vyřešit.
+
+Stejná pravidla platí pro `PATCH /api/todos/{id}/priority`: jeho tělo obsahuje pouze `priority` a `version`, například `{ "priority": "High", "version": 1 }`.
 
 ## Spuštění dvou instancí API
 

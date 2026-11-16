@@ -81,6 +81,7 @@ The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriente
 | `POST` | `/api/todos` | Create a todo (`201 Created`, `Location` header) |
 | `POST` | `/api/todos/repeat` | Create a weekly series of independent todos |
 | `PUT` | `/api/todos/{id}` | Fully update a todo, including its expected version |
+| `PATCH` | `/api/todos/{id}/priority` | Change only the priority, including its expected version |
 | `POST` | `/api/todos/{id}/complete` | Mark a todo as completed |
 | `DELETE` | `/api/todos/{id}` | Delete a todo (`204 No Content`) |
 | `GET` | `/api/info` | Instance details, including unique `instanceId` |
@@ -107,6 +108,8 @@ Every todo has a `version` value starting at `1`. Successful updates increment i
 ```
 
 If another operation has already updated the todo, the stale request receives **HTTP `409 Conflict`**, and the newer stored data is preserved. Clients should reload the current todo and resolve the conflict before retrying.
+
+`PATCH /api/todos/{id}/priority` follows the same rules: its body contains only `priority` and `version`, for example `{ "priority": "High", "version": 1 }`.
 
 ## Running two API instances
 
