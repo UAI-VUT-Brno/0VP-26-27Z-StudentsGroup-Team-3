@@ -245,6 +245,81 @@ public sealed class TodosController : ControllerBase
     }
 
     /// <summary>
+    /// Changes only the priority of an existing todo item
+    /// using optimistic concurrency control.
+    /// </summary>
+    /// <remarks>
+    /// All other fields stay unchanged. The client must supply
+    /// the version it last read.
+    /// </remarks>
+    /// <response code="200">
+    /// Todo item with the new priority and incremented version.
+    /// </response>
+    /// <response code="400">Request validation failed.</response>
+    /// <response code="404">Todo item was not found.</response>
+    /// <response code="409">
+    /// The supplied todo version is outdated.
+    /// </response>
+    [HttpPatch("{id:guid}/priority")]
+    [ProducesResponseType(
+        typeof(TodoItemDto),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(ValidationProblemDetails),
+        StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(
+        typeof(ProblemDetails),
+        StatusCodes.Status404NotFound)]
+    [ProducesResponseType(
+        typeof(ProblemDetails),
+        StatusCodes.Status409Conflict)]
+    public async Task<ActionResult<TodoItemDto>> UpdatePriority(
+        Guid id,
+        [FromBody] UpdateTodoPriorityRequest request,
+        CancellationToken cancellationToken)
+    {
+        var entity = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (entity is null)
+        {
+            return NotFoundTodo(id);
+        }
+
+        request.ApplyTo(
+            entity,
+            _timeProvider.GetUtcNow());
+
+        // Use the version supplied by the client.
+        // The repository validates it atomically.
+        entity.Version = request.Version!.Value;
+
+        try
+        {
+            var updated = await _repository.UpdateAsync(
+                entity,
+                cancellationToken);
+
+            if (!updated)
+            {
+                return NotFoundTodo(id);
+            }
+
+            _logger.LogInformation(
+                "Changed priority of todo item {TodoId} to {Priority}.",
+                entity.Id,
+                entity.Priority);
+
+            return Ok(entity.ToDto());
+        }
+        catch (TodoConcurrencyException ex)
+        {
+            return VersionConflict(ex);
+        }
+    }
+
+    /// <summary>
     /// Marks a todo item as completed using optimistic concurrency control.
     /// </summary>
     /// <response code="200">

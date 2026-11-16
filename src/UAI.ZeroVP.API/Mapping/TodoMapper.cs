@@ -55,6 +55,19 @@ public static class TodoMapper
         entity.UpdatedAtUtc = nowUtc;
     }
 
+    /// <summary>
+    /// Maps a priority change onto an existing entity.
+    /// Changes only the priority and the internal audit timestamp; all other fields stay unchanged.
+    /// </summary>
+    /// <param name="request">Validated request data with a non-null priority.</param>
+    /// <param name="entity">Entity to update.</param>
+    /// <param name="nowUtc">Current timestamp passed externally to ensure testability.</param>
+    public static void ApplyTo(this UpdateTodoPriorityRequest request, TodoItem entity, DateTimeOffset nowUtc)
+    {
+        entity.Priority = request.Priority!.Value;
+        entity.UpdatedAtUtc = nowUtc;
+    }
+
     /// <summary>Sets the completion flag and calculates the completion timestamp.</summary>
     public static void SetCompletionState(this TodoItem entity, bool isCompleted, DateTimeOffset nowUtc)
     {
