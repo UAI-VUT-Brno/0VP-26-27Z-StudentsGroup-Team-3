@@ -142,6 +142,55 @@ public class TodoMapperTests
         Assert.Equal(updateTime, entity.CompletedAtUtc);
         Assert.Equal(updateTime, entity.UpdatedAtUtc);
     }
+
+    [Fact]
+    public void ApplyTo_PriorityRequest_ChangesOnlyPriorityAndUpdatedAtUtc()
+    {
+        // Arrange
+        var originalTime = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+        var completedTime = new DateTimeOffset(2026, 10, 6, 13, 0, 0, TimeSpan.Zero);
+        var dueTime = new DateTimeOffset(2026, 10, 20, 10, 0, 0, TimeSpan.Zero);
+        var updateTime = new DateTimeOffset(2026, 10, 6, 15, 0, 0, TimeSpan.Zero);
+        var id = Guid.NewGuid();
+
+        var entity = new UAI.ZeroVP.Data.Entities.TodoItem
+        {
+            Id = id,
+            Title = "Existing title",
+            Description = "Existing description",
+            UserId = "karel",
+            Priority = TodoPriority.Low,
+            IsCompleted = true,
+            CreatedAtUtc = originalTime,
+            DueAtUtc = dueTime,
+            CompletedAtUtc = completedTime,
+            UpdatedAtUtc = completedTime,
+            Version = 3
+        };
+
+        var request = new UpdateTodoPriorityRequest
+        {
+            Priority = TodoPriority.High,
+            Version = 3
+        };
+
+        // Act
+        request.ApplyTo(entity, updateTime);
+
+        // Assert
+        Assert.Equal(TodoPriority.High, entity.Priority);
+        Assert.Equal(updateTime, entity.UpdatedAtUtc);
+        Assert.Equal(id, entity.Id);
+        Assert.Equal("Existing title", entity.Title);
+        Assert.Equal("Existing description", entity.Description);
+        Assert.Equal("karel", entity.UserId);
+        Assert.True(entity.IsCompleted);
+        Assert.Equal(originalTime, entity.CreatedAtUtc);
+        Assert.Equal(dueTime, entity.DueAtUtc);
+        Assert.Equal(completedTime, entity.CompletedAtUtc);
+        Assert.Equal(3L, entity.Version);
+    }
+
     [Theory]
     [InlineData(null, null)]
     [InlineData("", null)]
