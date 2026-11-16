@@ -14,17 +14,100 @@ All controllers are annotated with XML documentation comments and `[ProducesResp
 
 ### TodosController (`/api/todos`)
 
-- `GET /api/todos` – 200 OK (task list with optional `isCompleted` filter)
+- `GET /api/todos` – 200 OK (task list with optional `isCompleted` and `userId` filters) / 400 Bad Request (ValidationProblemDetails)
 - `GET /api/todos/{id}` – 200 OK / 404 Not Found (ProblemDetails)
-- `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails)
+- `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails); accepts an optional `userId` body field
 - `POST /api/todos/repeat` – 201 Created (created occurrences) / 400 Bad Request (ValidationProblemDetails)
-- `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found
+- `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found; accepts an optional `userId` body field
 - `POST /api/todos/{id}/complete` – 200 OK / 404 Not Found
 - `DELETE /api/todos/{id}` – 204 No Content / 404 Not Found
 
 ### InfoController (`/api/info`)
 
 - `GET /api/info` – 200 OK (diagnostic information about the instance and in-memory storage)
+
+## User Identification and "My Tasks" Filtering
+
+Todos can carry an optional user identifier, `userId`. It is set when a todo is created or updated, returned in every todo response, and can be used to list only the todos of one user.
+
+`userId` is an opaque label, not authentication. The API does not verify that the user exists, and any client can read or set any `userId`.
+
+### Query Parameters of GET /api/todos
+
+| Parameter | Type | Description |
+|---|---|---|
+| `isCompleted` | boolean, optional | `true` returns only completed todos, `false` only open todos; omit for all |
+| `userId` | string, optional | Returns only todos assigned to this user; maximum 100 characters; omit or leave empty for all users |
+
+Example request for the open todos of one user:
+
+```http
+GET /api/todos?userId=alice&isCompleted=false
+```
+
+### Filter Behavior
+
+- The query value is trimmed before matching. An empty or whitespace-only `userId` is treated as no filter, the same as omitting it.
+- Matching is exact and case-sensitive: `alice` and `Alice` are different users.
+- Todos without a `userId` never match a `userId` filter. They are returned only when `userId` is omitted.
+- `userId` and `isCompleted` are combined with a logical AND.
+- An unknown `userId` returns `200 OK` with an empty array.
+- Sorting is unchanged: priority descending, then creation time.
+- A `userId` query value longer than 100 characters returns `400 Bad Request` with `ValidationProblemDetails` and the error message `User ID cannot exceed 100 characters.`
+
+### Request Body Field
+
+`POST /api/todos` and `PUT /api/todos/{id}` accept an optional `userId` field:
+
+```json
+{
+  "title": "Prepare sprint review",
+  "description": "Collect demo notes",
+  "priority": "High",
+  "userId": "alice"
+}
+```
+
+| Field | Validation |
+|---|---|
+| `userId` | Optional, maximum 100 characters; trimmed; empty or whitespace-only means not assigned (`null`) |
+
+A longer value returns `400 Bad Request` with `ValidationProblemDetails`, and no todo is created or changed.
+
+`PUT /api/todos/{id}` is a full update. A `PUT` request without `userId`, or with an empty value, clears the stored user identifier, in the same way as `description`.
+
+`POST /api/todos/repeat` does not accept `userId`. Its occurrences are created with `userId: null`.
+
+### Response Field
+
+Every todo response contains `userId`, either the stored value or `null`:
+
+```json
+{
+  "id": "3f2b8c1e-1234-4567-8901-333333333333",
+  "title": "Prepare sprint review",
+  "description": "Collect demo notes",
+  "priority": "High",
+  "isCompleted": false,
+  "createdAtUtc": "2026-11-16T09:00:00+00:00",
+  "dueAtUtc": null,
+  "completedAtUtc": null,
+  "version": 1,
+  "userId": "alice"
+}
+```
+
+The ID and creation timestamp are illustrative.
+
+### Error Content Type
+
+Validation errors from `TodosController`, including the `userId` errors above, are returned with the content type `application/json`, because the controller declares `[Produces("application/json")]`. The body is a standard `ValidationProblemDetails` object.
+
+### Backward Compatibility
+
+- Requests without `userId` keep working; the created todo has `userId: null`.
+- `GET /api/todos` without `userId` returns the same result as before, including todos with and without a user.
+- Existing todos and existing JSON storage files without a `userId` property load unchanged with `userId: null`.
 
 ## Weekly Recurring Todo Creation
 

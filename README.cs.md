@@ -76,7 +76,7 @@ Prostředí `LoadTest` používá `InMemoryTodoRepository` pro výkonnostní HTT
 
 | Metoda | Cesta | Popis |
 | --- | --- | --- |
-| `GET` | `/api/todos` | Seznam úkolů; volitelný filtr `?isCompleted=true` nebo `false` |
+| `GET` | `/api/todos` | Seznam úkolů; volitelné filtry `?isCompleted=true` nebo `false` a `?userId=<id>` |
 | `GET` | `/api/todos/{id}` | Detail úkolu |
 | `POST` | `/api/todos` | Vytvoření úkolu (`201 Created`, hlavička `Location`) |
 | `POST` | `/api/todos/repeat` | Vytvoření týdenní řady samostatných úkolů |
@@ -91,6 +91,10 @@ Prostředí `LoadTest` používá `InMemoryTodoRepository` pro výkonnostní HTT
 Chybové odpovědi používají standardní ASP.NET Core `ProblemDetails`.
 
 `POST /api/todos/repeat` přijímá název, volitelný popis, prioritu, UTC termín `firstDueAtUtc` a `repeatCount` (1–52 dalších týdenních opakování). Každý výskyt má své ID.
+
+### Identifikace uživatele
+
+`POST /api/todos` a `PUT /api/todos/{id}` přijímají volitelné pole `userId` (maximálně 100 znaků, oříznuté o mezery; prázdná hodnota znamená, že úkol není přiřazen). Každá odpověď s úkolem obsahuje `userId`, nebo `null` u úkolů bez uživatele. `GET /api/todos?userId=alice` vrátí pouze úkoly daného uživatele; porovnání je přesné a rozlišuje velikost písmen a lze ho kombinovat s `isCompleted`, například `?userId=alice&isCompleted=false`. Protože `PUT` je úplná aktualizace, vynechání `userId` hodnotu smaže. `userId` neslouží k autentizaci. Podrobnosti najdeš v [docs/OpenAPI.md](docs/OpenAPI.md).
 
 ### Optimistic concurrency
 

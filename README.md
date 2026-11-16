@@ -76,7 +76,7 @@ The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriente
 
 | Method | Route | Description |
 | --- | --- | --- |
-| `GET` | `/api/todos` | List todos; optional `?isCompleted=true` or `false` |
+| `GET` | `/api/todos` | List todos; optional `?isCompleted=true` or `false` and `?userId=<id>` filters |
 | `GET` | `/api/todos/{id}` | Get a todo by ID |
 | `POST` | `/api/todos` | Create a todo (`201 Created`, `Location` header) |
 | `POST` | `/api/todos/repeat` | Create a weekly series of independent todos |
@@ -91,6 +91,10 @@ The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriente
 Failed requests return standard ASP.NET Core `ProblemDetails` responses.
 
 `POST /api/todos/repeat` accepts a title, optional description, priority, UTC `firstDueAtUtc`, and `repeatCount` (1–52 additional weekly occurrences). Each occurrence has its own ID.
+
+### User identification
+
+`POST /api/todos` and `PUT /api/todos/{id}` accept an optional `userId` (maximum 100 characters, trimmed; an empty value means not assigned). Every todo response contains `userId`, or `null` for todos without a user. `GET /api/todos?userId=alice` returns only the todos of that user; matching is exact and case-sensitive, and it can be combined with `isCompleted`, for example `?userId=alice&isCompleted=false`. Because `PUT` is a full update, omitting `userId` clears it. `userId` is not authentication. See [docs/OpenAPI.md](docs/OpenAPI.md) for details.
 
 ### Optimistic concurrency
 
