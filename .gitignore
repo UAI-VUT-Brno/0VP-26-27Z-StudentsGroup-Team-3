@@ -17,3 +17,6 @@ appsettings.*.local.json
 
 ## Ostatní
 *.log
+
+# /issue-to-pr run outputs
+.issue-to-pr/
