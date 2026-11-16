@@ -233,7 +233,7 @@ public class UserTodoFilterApiTests
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Equal(
-            "application/problem+json",
+            "application/json",
             response.Content.Headers.ContentType?.MediaType);
 
         var problem = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
@@ -241,6 +241,9 @@ public class UserTodoFilterApiTests
         Assert.NotNull(problem);
         Assert.Equal(400, problem.Status);
         Assert.NotEmpty(problem.Errors);
+        Assert.Contains(
+            problem.Errors.Values.SelectMany(messages => messages),
+            message => message == "User ID cannot exceed 100 characters.");
     }
 
     [Fact]
