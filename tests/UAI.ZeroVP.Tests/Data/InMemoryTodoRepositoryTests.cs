@@ -254,6 +254,112 @@ public class InMemoryTodoRepositoryTests
     }
 
     [Fact]
+    public async Task GetByIdAsync_ReturnsStoredUserId()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+        var item = CreateUserItem("Alice task", "alice", isCompleted: false);
+
+        await repository.AddAsync(item);
+
+        // Act
+        var result = await repository.GetByIdAsync(item.Id);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("alice", result.UserId);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_FiltersByUserId()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+
+        await repository.AddAsync(CreateUserItem("Alice task", "alice", isCompleted: false));
+        await repository.AddAsync(CreateUserItem("Bob task", "bob", isCompleted: false));
+
+        // Act
+        var items = await repository.GetAllAsync(userId: "alice");
+
+        // Assert
+        var item = Assert.Single(items);
+        Assert.Equal("Alice task", item.Title);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_FiltersByUserIdAndCompletionStatus()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+
+        await repository.AddAsync(CreateUserItem("Alice open", "alice", isCompleted: false));
+        await repository.AddAsync(CreateUserItem("Alice completed", "alice", isCompleted: true));
+        await repository.AddAsync(CreateUserItem("Bob completed", "bob", isCompleted: true));
+        await repository.AddAsync(CreateUserItem("Untagged completed", null, isCompleted: true));
+
+        // Act
+        var items = await repository.GetAllAsync(isCompleted: true, userId: "alice");
+
+        // Assert
+        var item = Assert.Single(items);
+        Assert.Equal("Alice completed", item.Title);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_UserIdFilter_IsCaseSensitive()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+
+        await repository.AddAsync(CreateUserItem("Alice task", "alice", isCompleted: false));
+
+        // Act
+        var items = await repository.GetAllAsync(userId: "Alice");
+
+        // Assert
+        Assert.Empty(items);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_UserIdFilter_ExcludesTodosWithoutUserId()
+    {
+        // Arrange
+        var repository = CreateEmptyRepository();
+
+        await repository.AddAsync(CreateUserItem("Alice task", "alice", isCompleted: false));
+        await repository.AddAsync(CreateUserItem("Untagged task", null, isCompleted: false));
+
+        // Act
+        var filtered = await repository.GetAllAsync(userId: "alice");
+        var all = await repository.GetAllAsync();
+
+        // Assert
+        var item = Assert.Single(filtered);
+        Assert.Equal("Alice task", item.Title);
+
+        Assert.Equal(2, all.Count);
+        Assert.Contains(all, todo => todo.UserId is null);
+    }
+
+    private static TodoItem CreateUserItem(string title, string? userId, bool isCompleted)
+    {
+        var now = DateTimeOffset.UtcNow;
+
+        return new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = title,
+            Priority = TodoPriority.Normal,
+            IsCompleted = isCompleted,
+            CreatedAtUtc = now,
+            CompletedAtUtc = isCompleted ? now : null,
+            UpdatedAtUtc = now,
+            UserId = userId
+        };
+    }
+
+    [Fact]
     public async Task AddRangeAsync_ValidItems_PersistsAllItems()
     {
         // Arrange

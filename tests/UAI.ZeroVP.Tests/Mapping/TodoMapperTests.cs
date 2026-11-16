@@ -142,4 +142,126 @@ public class TodoMapperTests
         Assert.Equal(updateTime, entity.CompletedAtUtc);
         Assert.Equal(updateTime, entity.UpdatedAtUtc);
     }
+
+    [Fact]
+    public void ToEntity_TrimsUserId()
+    {
+        // Arrange
+        var now = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+
+        var request = new CreateTodoItemRequest
+        {
+            Title = "Test task",
+            UserId = "  alice  "
+        };
+
+        // Act
+        var entity = request.ToEntity(now);
+
+        // Assert
+        Assert.Equal("alice", entity.UserId);
+    }
+
+    [Fact]
+    public void ToEntity_WhitespaceUserId_SetsNull()
+    {
+        // Arrange
+        var now = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+
+        var request = new CreateTodoItemRequest
+        {
+            Title = "Test task",
+            UserId = "   "
+        };
+
+        // Act
+        var entity = request.ToEntity(now);
+
+        // Assert
+        Assert.Null(entity.UserId);
+    }
+
+    [Fact]
+    public void ToDto_MapsUserId()
+    {
+        // Arrange
+        var now = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+
+        var entity = new UAI.ZeroVP.Data.Entities.TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Test task",
+            Priority = TodoPriority.Normal,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now,
+            UserId = "alice"
+        };
+
+        // Act
+        var dto = entity.ToDto();
+
+        // Assert
+        Assert.Equal("alice", dto.UserId);
+    }
+
+    [Fact]
+    public void ApplyTo_SetsTrimmedUserId()
+    {
+        // Arrange
+        var originalTime = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+        var updateTime = new DateTimeOffset(2026, 10, 6, 15, 0, 0, TimeSpan.Zero);
+
+        var entity = new UAI.ZeroVP.Data.Entities.TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Test task",
+            Priority = TodoPriority.Normal,
+            CreatedAtUtc = originalTime,
+            UpdatedAtUtc = originalTime,
+            UserId = "alice"
+        };
+
+        var request = new UpdateTodoItemRequest
+        {
+            Title = "Test task",
+            UserId = "  bob  ",
+            Version = 1
+        };
+
+        // Act
+        request.ApplyTo(entity, updateTime);
+
+        // Assert
+        Assert.Equal("bob", entity.UserId);
+    }
+
+    [Fact]
+    public void ApplyTo_OmittedUserId_ClearsUserId()
+    {
+        // Arrange
+        var originalTime = new DateTimeOffset(2026, 10, 6, 12, 0, 0, TimeSpan.Zero);
+        var updateTime = new DateTimeOffset(2026, 10, 6, 15, 0, 0, TimeSpan.Zero);
+
+        var entity = new UAI.ZeroVP.Data.Entities.TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Test task",
+            Priority = TodoPriority.Normal,
+            CreatedAtUtc = originalTime,
+            UpdatedAtUtc = originalTime,
+            UserId = "alice"
+        };
+
+        var request = new UpdateTodoItemRequest
+        {
+            Title = "Test task",
+            Version = 1
+        };
+
+        // Act
+        request.ApplyTo(entity, updateTime);
+
+        // Assert
+        Assert.Null(entity.UserId);
+    }
 }

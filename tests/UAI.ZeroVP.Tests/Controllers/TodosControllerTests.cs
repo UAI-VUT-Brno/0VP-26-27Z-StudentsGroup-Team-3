@@ -32,6 +32,7 @@ public class TodosControllerTests
         // Act
         var result = await controller.GetAll(
             isCompleted: null,
+            userId: null,
             cancellationToken: CancellationToken.None);
 
         // Assert
@@ -39,6 +40,87 @@ public class TodosControllerTests
         var items = Assert.IsAssignableFrom<IReadOnlyList<TodoItemDto>>(okResult.Value);
 
         Assert.Empty(items);
+    }
+
+    [Fact]
+    public async Task Create_WithUserId_ReturnsTrimmedUserId()
+    {
+        // Arrange
+        var controller = CreateController();
+
+        var request = new CreateTodoItemRequest
+        {
+            Title = "User task",
+            UserId = "  alice  "
+        };
+
+        // Act
+        var result = await controller.Create(
+            request,
+            CancellationToken.None);
+
+        // Assert
+        var createdResult = Assert.IsType<CreatedAtRouteResult>(result.Result);
+        var todo = Assert.IsType<TodoItemDto>(createdResult.Value);
+
+        Assert.Equal("alice", todo.UserId);
+    }
+
+    [Fact]
+    public async Task GetAll_WithUserIdFilter_ReturnsOnlyMatchingTodos()
+    {
+        // Arrange
+        var controller = CreateController();
+
+        await controller.Create(
+            new CreateTodoItemRequest { Title = "Alice task", UserId = "alice" },
+            CancellationToken.None);
+        await controller.Create(
+            new CreateTodoItemRequest { Title = "Bob task", UserId = "bob" },
+            CancellationToken.None);
+        await controller.Create(
+            new CreateTodoItemRequest { Title = "Untagged task" },
+            CancellationToken.None);
+
+        // Act
+        var result = await controller.GetAll(
+            isCompleted: null,
+            userId: "  alice  ",
+            cancellationToken: CancellationToken.None);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var items = Assert.IsAssignableFrom<IReadOnlyList<TodoItemDto>>(okResult.Value);
+
+        var item = Assert.Single(items);
+        Assert.Equal("Alice task", item.Title);
+        Assert.Equal("alice", item.UserId);
+    }
+
+    [Fact]
+    public async Task GetAll_WhitespaceUserId_ReturnsAllTodos()
+    {
+        // Arrange
+        var controller = CreateController();
+
+        await controller.Create(
+            new CreateTodoItemRequest { Title = "Alice task", UserId = "alice" },
+            CancellationToken.None);
+        await controller.Create(
+            new CreateTodoItemRequest { Title = "Untagged task" },
+            CancellationToken.None);
+
+        // Act
+        var result = await controller.GetAll(
+            isCompleted: null,
+            userId: "   ",
+            cancellationToken: CancellationToken.None);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var items = Assert.IsAssignableFrom<IReadOnlyList<TodoItemDto>>(okResult.Value);
+
+        Assert.Equal(2, items.Count);
     }
 
     [Fact]

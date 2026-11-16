@@ -209,6 +209,111 @@ public sealed class JsonFileTodoRepositoryTests : IDisposable
                     StringComparison.Ordinal));
     }
 
+    [Fact]
+    public async Task UserId_PersistsAcrossRepositoryInstances()
+    {
+        // Arrange
+        var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };
+        var repository = new JsonFileTodoRepository(options);
+        var item = CreateUserItem("Alice task", "alice", isCompleted: false);
+
+        await repository.AddAsync(item);
+
+        // Act
+        var anotherRepository = new JsonFileTodoRepository(options);
+        var loaded = await anotherRepository.GetByIdAsync(item.Id);
+
+        // Assert
+        Assert.NotNull(loaded);
+        Assert.Equal("alice", loaded.UserId);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_FiltersByUserIdAndCompletionStatus()
+    {
+        // Arrange
+        var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };
+        var repository = new JsonFileTodoRepository(options);
+
+        await repository.AddAsync(CreateUserItem("Alice open", "alice", isCompleted: false));
+        await repository.AddAsync(CreateUserItem("Alice completed", "alice", isCompleted: true));
+        await repository.AddAsync(CreateUserItem("Bob completed", "bob", isCompleted: true));
+        await repository.AddAsync(CreateUserItem("Untagged completed", null, isCompleted: true));
+
+        // Act
+        var aliceItems = await repository.GetAllAsync(userId: "alice");
+        var aliceCompleted = await repository.GetAllAsync(isCompleted: true, userId: "alice");
+
+        // Assert
+        Assert.Equal(2, aliceItems.Count);
+        Assert.All(aliceItems, todo => Assert.Equal("alice", todo.UserId));
+
+        var item = Assert.Single(aliceCompleted);
+        Assert.Equal("Alice completed", item.Title);
+    }
+
+    [Fact]
+    public async Task LegacyJsonWithoutUserId_LoadsWithNullUserId()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var legacyJson = $$"""
+            [
+              {
+                "Id": "{{id}}",
+                "Title": "Legacy task",
+                "Description": null,
+                "Priority": "Normal",
+                "IsCompleted": false,
+                "CreatedAtUtc": "2026-10-01T10:00:00+00:00",
+                "DueAtUtc": null,
+                "CompletedAtUtc": null,
+                "UpdatedAtUtc": "2026-10-01T10:00:00+00:00",
+                "Version": 1
+              }
+            ]
+            """;
+
+        await File.WriteAllTextAsync(_tempFilePath, legacyJson);
+
+        var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };
+
+        // Act
+        var repository = new JsonFileTodoRepository(options);
+        var loaded = await repository.GetByIdAsync(id);
+        var all = await repository.GetAllAsync();
+        var filtered = await repository.GetAllAsync(userId: "alice");
+
+        // Assert
+        Assert.NotNull(loaded);
+        Assert.Equal("Legacy task", loaded.Title);
+        Assert.Null(loaded.UserId);
+
+        var stored = Assert.Single(all);
+        Assert.Equal(id, stored.Id);
+
+        Assert.Empty(filtered);
+
+        Assert.Empty(Directory.GetFiles(_tempDirectory, "todos.json.corrupt-*.bak"));
+    }
+
+    private static TodoItem CreateUserItem(string title, string? userId, bool isCompleted)
+    {
+        var now = DateTimeOffset.UtcNow;
+
+        return new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = title,
+            Priority = TodoPriority.Normal,
+            IsCompleted = isCompleted,
+            CreatedAtUtc = now,
+            CompletedAtUtc = isCompleted ? now : null,
+            UpdatedAtUtc = now,
+            UserId = userId
+        };
+    }
+
     private sealed class RecordingLogger : ILogger<JsonFileTodoRepository>
     {
         public List<(LogLevel Level, string Message, Exception? Exception)>
