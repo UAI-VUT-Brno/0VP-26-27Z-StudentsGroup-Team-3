@@ -19,8 +19,36 @@ All controllers are annotated with XML documentation comments and `[ProducesResp
 - `POST /api/todos` – 201 Created (Location header) / 400 Bad Request (ValidationProblemDetails)
 - `POST /api/todos/repeat` – 201 Created (created occurrences) / 400 Bad Request (ValidationProblemDetails)
 - `PUT /api/todos/{id}` – 200 OK / 400 Bad Request / 404 Not Found / 409 Conflict (ProblemDetails)
+- `PATCH /api/todos/{id}/priority` – 200 OK / 400 Bad Request / 404 Not Found / 409 Conflict (ProblemDetails)
 - `POST /api/todos/{id}/complete` – 200 OK / 404 Not Found / 409 Conflict (ProblemDetails)
 - `DELETE /api/todos/{id}` – 204 No Content / 404 Not Found
+
+## Changing Todo Priority
+
+### PATCH /api/todos/{id}/priority
+
+Changes only the priority of the specified todo item. All other fields remain unchanged.
+
+### Request Body
+
+```json
+{
+  "priority": "High",
+  "version": 1
+}
+```
+
+| Field | Validation |
+|---|---|
+| `priority` | Required; `Low`, `Normal` or `High` |
+| `version` | Required; integer greater than or equal to 1 and matching the current todo version |
+
+### Responses
+
+- **200 OK** – Updated todo item, including its incremented `version`.
+- **400 Bad Request** – Invalid or missing priority, or missing/invalid version; returned as `ValidationProblemDetails`.
+- **404 Not Found** – No todo exists with the specified ID; returned as `ProblemDetails`.
+- **409 Conflict** – The supplied version is stale; returned as `ProblemDetails` and no data is changed.
 
 ### InfoController (`/api/info`)
 

@@ -245,6 +245,62 @@ public sealed class TodosController : ControllerBase
     }
 
     /// <summary>
+    /// Changes only the priority of an existing todo item using optimistic concurrency control.
+    /// </summary>
+    /// <response code="200">Todo item with updated priority.</response>
+    /// <response code="400">Request validation failed.</response>
+    /// <response code="404">Todo item was not found.</response>
+    /// <response code="409">The supplied todo version is outdated.</response>
+    [HttpPatch("{id:guid}/priority")]
+    [ProducesResponseType(
+        typeof(TodoItemDto),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(ValidationProblemDetails),
+        StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(
+        typeof(ProblemDetails),
+        StatusCodes.Status404NotFound)]
+    [ProducesResponseType(
+        typeof(ProblemDetails),
+        StatusCodes.Status409Conflict)]
+    public async Task<ActionResult<TodoItemDto>> UpdatePriority(
+        Guid id,
+        [FromBody] UpdateTodoPriorityRequest request,
+        CancellationToken cancellationToken)
+    {
+        var entity = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (entity is null)
+        {
+            return NotFoundTodo(id);
+        }
+
+        entity.Priority = request.Priority!.Value;
+        entity.UpdatedAtUtc = _timeProvider.GetUtcNow();
+
+        // The repository validates the client version atomically.
+        entity.Version = request.Version;
+
+        try
+        {
+            var updated = await _repository.UpdateAsync(
+                entity,
+                cancellationToken);
+
+            return updated
+                ? Ok(entity.ToDto())
+                : NotFoundTodo(id);
+        }
+        catch (TodoConcurrencyException ex)
+        {
+            return VersionConflict(ex);
+        }
+    }
+
+    /// <summary>
     /// Marks a todo item as completed using optimistic concurrency control.
     /// </summary>
     /// <response code="200">
