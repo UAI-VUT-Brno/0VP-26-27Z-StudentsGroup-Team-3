@@ -21,6 +21,7 @@ public static class TodoMapper
         DueAtUtc = entity.DueAtUtc,
         CompletedAtUtc = entity.CompletedAtUtc,
         Version = entity.Version,
+        UserId = entity.UserId,
     };
 
     /// <summary>Creates a new entity from a request to create a todo item.</summary>
@@ -36,7 +37,8 @@ public static class TodoMapper
         CreatedAtUtc = nowUtc,
         DueAtUtc = null,
         CompletedAtUtc = null,
-        UpdatedAtUtc = nowUtc
+        UpdatedAtUtc = nowUtc,
+        UserId = NormalizeUserId(request.UserId)
     };
 
     /// <summary>
@@ -48,9 +50,17 @@ public static class TodoMapper
         entity.Title = request.Title.Trim();
         entity.Description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim();
         entity.Priority = request.Priority;
+        entity.UserId = NormalizeUserId(request.UserId);
         entity.SetCompletionState(request.IsCompleted, nowUtc);
         entity.UpdatedAtUtc = nowUtc;
     }
+
+    /// <summary>
+    /// Normalizes a user identifier: trims it and converts empty or whitespace-only input to <c>null</c>.
+    /// </summary>
+    /// <param name="userId">User identifier from a request body or query string.</param>
+    public static string? NormalizeUserId(string? userId) =>
+        string.IsNullOrWhiteSpace(userId) ? null : userId.Trim();
 
     /// <summary>Sets the completion flag and calculates the completion timestamp.</summary>
     public static void SetCompletionState(this TodoItem entity, bool isCompleted, DateTimeOffset nowUtc)

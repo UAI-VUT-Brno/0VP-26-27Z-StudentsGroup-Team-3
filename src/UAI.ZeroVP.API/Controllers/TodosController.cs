@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UAI.ZeroVP.API.Mapping;
 using UAI.ZeroVP.Data.Abstractions;
@@ -35,25 +36,37 @@ public sealed class TodosController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a list of todos, optionally filtered by completion status.
+    /// Returns a list of todos, optionally filtered by completion status and user.
     /// </summary>
     /// <param name="isCompleted">
     /// Optional filter (true/false); omit for all items.
+    /// </param>
+    /// <param name="userId">
+    /// Optional user identifier filter (exact, case-sensitive match after trimming,
+    /// maximum of 100 characters); omit or leave empty for all users.
     /// </param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <response code="200">
     /// List of todos sorted by priority and creation date.
     /// </response>
+    /// <response code="400">Query parameter validation failed.</response>
     [HttpGet]
     [ProducesResponseType(
         typeof(IReadOnlyList<TodoItemDto>),
         StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(ValidationProblemDetails),
+        StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IReadOnlyList<TodoItemDto>>> GetAll(
         [FromQuery] bool? isCompleted,
+        [FromQuery]
+        [StringLength(100, ErrorMessage = "User ID cannot exceed 100 characters.")]
+        string? userId,
         CancellationToken cancellationToken)
     {
         var items = await _repository.GetAllAsync(
             isCompleted,
+            TodoMapper.NormalizeUserId(userId),
             cancellationToken);
 
         return Ok(items.Select(item => item.ToDto()).ToList());

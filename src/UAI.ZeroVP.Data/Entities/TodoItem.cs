@@ -39,6 +39,9 @@ public sealed class TodoItem
     /// <summary>Version used for optimistic concurrency control. Incremented after every successful update.</summary>
     public long Version { get; set; } = 1;
 
+    /// <summary>Optional identifier of the user the todo belongs to; <c>null</c> = not assigned.</summary>
+    public string? UserId { get; set; }
+
     /// <summary>
     /// Creates a deep copy of the entity. Used by the in-memory repository to prevent
     /// callers from mutating stored state outside the repository
@@ -55,6 +58,7 @@ public sealed class TodoItem
         DueAtUtc = DueAtUtc,
         CompletedAtUtc = CompletedAtUtc,
         UpdatedAtUtc = UpdatedAtUtc,
-        Version = Version
+        Version = Version,
+        UserId = UserId
     };
 }

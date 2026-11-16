@@ -34,4 +34,7 @@ public sealed record TodoItemDto
     /// <summary>Current version of the todo item for optimistic concurrency control.</summary>
     public long Version { get; init; } = 1;
 
+    /// <summary>Optional identifier of the user the todo belongs to, or <c>null</c>.</summary>
+    public string? UserId { get; init; }
+
 }

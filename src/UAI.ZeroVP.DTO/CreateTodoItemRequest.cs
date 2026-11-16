@@ -27,4 +27,8 @@ public sealed record CreateTodoItemRequest
     /// <summary>Priority of the todo item. Defaults to <see cref="TodoPriority.Normal"/>.</summary>
     [EnumDataType(typeof(TodoPriority), ErrorMessage = "Invalid priority value.")]
     public TodoPriority Priority { get; init; } = TodoPriority.Normal;
+
+    /// <summary>Optional user identifier, maximum of 100 characters. Trimmed; empty means not assigned.</summary>
+    [StringLength(100, ErrorMessage = "User ID cannot exceed 100 characters.")]
+    public string? UserId { get; init; }
 }

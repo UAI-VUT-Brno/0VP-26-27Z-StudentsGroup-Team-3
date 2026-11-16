@@ -34,4 +34,11 @@ public sealed record UpdateTodoItemRequest
     /// Must match the currently stored version.</summary>
     [Range(1, long.MaxValue)]
     public long Version { get; init; }
+
+    /// <summary>
+    /// Optional user identifier, maximum of 100 characters. Trimmed; empty means not assigned.
+    /// This is a full update, so omitting the value clears the stored user identifier.
+    /// </summary>
+    [StringLength(100, ErrorMessage = "User ID cannot exceed 100 characters.")]
+    public string? UserId { get; init; }
 }
