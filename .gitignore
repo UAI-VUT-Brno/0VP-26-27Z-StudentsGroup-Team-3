@@ -25,3 +25,5 @@ mcp-dev-todos.json.lock
 
 # /issue-to-pr run outputs
 .issue-to-pr/
+# Keep raw benchmark logs
+!docs/benchmark/evidence/**/*.log
