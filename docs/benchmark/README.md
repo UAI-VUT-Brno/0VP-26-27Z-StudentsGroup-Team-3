@@ -155,7 +155,7 @@ For reference, PR #30 (the original human solution of B1) changed 18 files and a
 
 ### Requirement coverage
 
-- **B1 Agent** did not add `userId` to `POST /api/todos/repeat` (`CreateRecurringTodoRequest`). The issue asks for `userId` in all creation contracts; the reference solution and Copilot include it.
+- **B1 Agent** did not add `userId` to `POST /api/todos/repeat` (`CreateRecurringTodoRequest`). The issue asks for `userId` in "creation/update contracts"; the reference solution and Copilot include it. The planner recorded this as an explicit assumption (A7 in `evidence/b1-agent/plan.md`), limiting the change to `POST` and `PUT` to avoid touching the `Repeat()` exception in `rules/architecture.md`.
 - All other runs cover every acceptance criterion of their issue.
 
 ### Observations
@@ -165,7 +165,7 @@ For reference, PR #30 (the original human solution of B1) changed 18 files and a
 - **Tests:** the agent wrote considerably more tests (29 vs. 3 on B1, 20 vs. 6 on B2), including validation, 404 and 409 cases, and on B1 more than the reference solution (17 methods).
 - **Self-healing:** on B1 the QA agent diagnosed a failing new test (wrong expected content type) and corrected the test instead of changing the shared `[Produces]` attribute of the controller, with a documented reasoning. On B2 the first run passed.
 - **Documentation:** the agent updated `docs/OpenAPI.md` and both READMEs; Copilot updated only `docs/OpenAPI.md`.
-- **Deviations of the agent:** a missed requirement on B1 (see above), and pull request descriptions ending with a "Generated with Claude Code" line that is not part of the template in `prompts/pr-generator.md`.
+- **Deviations of the agent:** a requirement interpreted too narrowly on B1 (see above), and pull request descriptions ending with a "Generated with Claude Code" line that is not part of the template in `prompts/pr-generator.md`.
 - **Measurement limits:** Copilot runs were timed and logged by hand. In B2 the intermediate Copilot steps were not recorded, so its first-attempt result is unknown.
 
 ## Evidence
