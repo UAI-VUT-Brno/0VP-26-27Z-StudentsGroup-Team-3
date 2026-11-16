@@ -15,6 +15,7 @@ public class TodoMapperTests
         {
             Title = "  Test task  ",
             Description = "  Test description  ",
+            UserId = "user-123",
             Priority = TodoPriority.High
         };
 
@@ -25,6 +26,7 @@ public class TodoMapperTests
         Assert.NotEqual(Guid.Empty, entity.Id);
         Assert.Equal("Test task", entity.Title);
         Assert.Equal("Test description", entity.Description);
+        Assert.Equal("user-123", entity.UserId);
         Assert.Equal(TodoPriority.High, entity.Priority);
         Assert.False(entity.IsCompleted);
         Assert.Equal(now, entity.CreatedAtUtc);
@@ -127,6 +129,7 @@ public class TodoMapperTests
         {
             Title = "  New title  ",
             Description = "  New description  ",
+            UserId = "user-456",
             Priority = TodoPriority.High,
             IsCompleted = true
         };
@@ -137,6 +140,7 @@ public class TodoMapperTests
         // Assert
         Assert.Equal("New title", entity.Title);
         Assert.Equal("New description", entity.Description);
+        Assert.Equal("user-456", entity.UserId);
         Assert.Equal(TodoPriority.High, entity.Priority);
         Assert.True(entity.IsCompleted);
         Assert.Equal(updateTime, entity.CompletedAtUtc);

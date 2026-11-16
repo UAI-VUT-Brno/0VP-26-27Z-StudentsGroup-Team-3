@@ -46,7 +46,7 @@ public class PerformanceProfilingTests
         Assert.IsType<OkObjectResult>(getResult.Result);
 
         // 3. Measuring retrieval of entire list
-        var listResult = await _todosController.GetAll(null, ct);
+        var listResult = await _todosController.GetAll(null, null, ct);
         Assert.IsType<OkObjectResult>(listResult.Result);
 
         // 4. Measuring deletion of task

@@ -16,6 +16,9 @@ public sealed record TodoItemDto
     /// <summary>Optional detailed description.</summary>
     public string? Description { get; init; }
 
+    /// <summary>Optional identifier of the user who owns the todo item.</summary>
+    public string? UserId { get; init; }
+
     /// <summary>Priority of the todo item.</summary>
     public TodoPriority Priority { get; init; }
 

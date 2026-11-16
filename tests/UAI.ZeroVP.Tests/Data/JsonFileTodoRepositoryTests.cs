@@ -56,6 +56,50 @@ public sealed class JsonFileTodoRepositoryTests : IDisposable
     }
 
     [Fact]
+    public async Task GetAllAsync_FiltersByUserIdAndPersistsUserId()
+    {
+        var options = new JsonFileTodoOptions
+        {
+            FilePath = _tempFilePath,
+            SeedSampleData = false
+        };
+        var repository = new JsonFileTodoRepository(options);
+        var now = DateTimeOffset.UtcNow;
+        var aliceTask = new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Alice task",
+            UserId = "alice",
+            IsCompleted = true,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        };
+        var bobTask = new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Bob task",
+            UserId = "bob",
+            IsCompleted = true,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        };
+
+        await repository.AddAsync(aliceTask);
+        await repository.AddAsync(bobTask);
+
+        var filtered = await repository.GetAllAsync(
+            isCompleted: true,
+            userId: "alice");
+        var reloaded = new JsonFileTodoRepository(options);
+        var persistedAliceTask = await reloaded.GetByIdAsync(aliceTask.Id);
+
+        var result = Assert.Single(filtered);
+        Assert.Equal(aliceTask.Id, result.Id);
+        Assert.NotNull(persistedAliceTask);
+        Assert.Equal("alice", persistedAliceTask.UserId);
+    }
+
+    [Fact]
     public async Task NonExistingFile_InitializesCleanStateWithoutCrashing()
     {
         var options = new JsonFileTodoOptions { FilePath = _tempFilePath, SeedSampleData = false };

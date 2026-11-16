@@ -32,6 +32,7 @@ public class TodosControllerTests
         // Act
         var result = await controller.GetAll(
             isCompleted: null,
+            userId: null,
             cancellationToken: CancellationToken.None);
 
         // Assert
@@ -51,6 +52,7 @@ public class TodosControllerTests
         {
             Title = "  New task  ",
             Description = "  Test description  ",
+            UserId = "user-123",
             Priority = TodoPriority.High
         };
 
@@ -67,6 +69,7 @@ public class TodosControllerTests
         Assert.NotEqual(Guid.Empty, todo.Id);
         Assert.Equal("New task", todo.Title);
         Assert.Equal("Test description", todo.Description);
+        Assert.Equal("user-123", todo.UserId);
         Assert.Equal(TodoPriority.High, todo.Priority);
         Assert.False(todo.IsCompleted);
         Assert.Null(todo.CompletedAtUtc);

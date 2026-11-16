@@ -58,6 +58,7 @@ public class RecurringTodoApiTests
         {
             title = "Weekly meeting",
             description = "Team sync",
+            userId = "team-user",
             priority = "High",
             firstDueAtUtc = "2026-10-20T10:00:00Z",
             repeatCount = 3
@@ -80,6 +81,7 @@ public class RecurringTodoApiTests
         {
             Assert.Equal(firstDueAt.AddDays(i * 7), created[i].DueAtUtc);
             Assert.False(created[i].IsCompleted);
+            Assert.Equal("team-user", created[i].UserId);
 
             var stored = await client.GetFromJsonAsync<TodoItemDto>(
                 $"/api/todos/{created[i].Id}", JsonOptions);

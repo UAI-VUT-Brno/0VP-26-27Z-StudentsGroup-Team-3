@@ -15,6 +15,7 @@ public static class TodoMapper
         Id = entity.Id,
         Title = entity.Title,
         Description = entity.Description,
+        UserId = entity.UserId,
         Priority = entity.Priority,
         IsCompleted = entity.IsCompleted,
         CreatedAtUtc = entity.CreatedAtUtc,
@@ -31,6 +32,7 @@ public static class TodoMapper
         Id = Guid.NewGuid(),
         Title = request.Title.Trim(),
         Description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim(),
+        UserId = request.UserId,
         Priority = request.Priority,
         IsCompleted = false,
         CreatedAtUtc = nowUtc,
@@ -47,6 +49,7 @@ public static class TodoMapper
     {
         entity.Title = request.Title.Trim();
         entity.Description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim();
+        entity.UserId = request.UserId;
         entity.Priority = request.Priority;
         entity.SetCompletionState(request.IsCompleted, nowUtc);
         entity.UpdatedAtUtc = nowUtc;

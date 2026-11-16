@@ -205,6 +205,59 @@ public class InMemoryTodoRepositoryTests
     }
 
     [Fact]
+    public async Task GetAllAsync_FiltersByUserIdAndCompletionStatus()
+    {
+        var repository = CreateEmptyRepository();
+        var now = DateTimeOffset.UtcNow;
+
+        await repository.AddAsync(new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Alice completed",
+            UserId = "alice",
+            IsCompleted = true,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        });
+        await repository.AddAsync(new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Alice open",
+            UserId = "alice",
+            IsCompleted = false,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        });
+        await repository.AddAsync(new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Bob completed",
+            UserId = "bob",
+            IsCompleted = true,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        });
+        await repository.AddAsync(new TodoItem
+        {
+            Id = Guid.NewGuid(),
+            Title = "Unassigned",
+            IsCompleted = false,
+            CreatedAtUtc = now,
+            UpdatedAtUtc = now
+        });
+
+        var aliceItems = await repository.GetAllAsync(userId: "alice");
+        var aliceCompletedItems = await repository.GetAllAsync(
+            isCompleted: true,
+            userId: "alice");
+
+        Assert.Equal(2, aliceItems.Count);
+        Assert.All(aliceItems, item => Assert.Equal("alice", item.UserId));
+        var completed = Assert.Single(aliceCompletedItems);
+        Assert.Equal("Alice completed", completed.Title);
+    }
+
+    [Fact]
     public async Task GetAllAsync_SortsByPriorityThenCreatedAt()
     {
         // Arrange
