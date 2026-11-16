@@ -11,7 +11,7 @@ This prompt covers the three stages of the Release & PR agent. Run only the stag
 ## Stage 1: prepare
 
 1. **Check the working tree.** `git status --porcelain` must be empty. Files in `.issue-to-pr/` are ignored by git and do not count. If anything is listed, stop with `Status: failed` and list the files.
-2. **Determine the base branch.** `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`. Never assume `main`.
+2. **Determine the base branch.** If the orchestrator passed a base branch (from `--base`), use it and confirm that it exists on `origin` with `git ls-remote --heads origin <base>`; if it does not, stop with `Status: failed`. Otherwise use the repository default branch: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`. Never assume `main`.
 3. **Derive the task ID and branch name** from the issue title as defined in `rules/git-conventions.md`. If the orchestrator already passed them, use the passed values. Choose the branch type from the issue: `feat` for new functionality, `fix` for bugs, `test` for test-only work, `docs` for documentation-only work.
 4. **Check that the branch does not exist** locally (`git rev-parse --verify --quiet refs/heads/<branch>`) or on `origin` (`git ls-remote --heads origin <branch>`). If it exists, stop with `Status: failed`.
 5. **Create the branch from the up-to-date base:**

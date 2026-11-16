@@ -1,9 +1,9 @@
 ---
 name: issue-to-pr
 description: Autonomously implement a GitHub issue of this repository end to end, from issue intake to a verified pull request. Invoke manually with /issue-to-pr <issue>.
-argument-hint: "<#number | number | issue URL> [--dry-run]"
+argument-hint: "<#number | number | issue URL> [--base <branch>] [--dry-run]"
 disable-model-invocation: true
-allowed-tools: Read, Grep, Glob, Write, Edit, Agent, Bash(gh issue view *), Bash(gh repo view *), Bash(git status *), Bash(git rev-parse *), Bash(git remote *), Bash(git branch *), Bash(mkdir *)
+allowed-tools: Read, Grep, Glob, Write, Edit, Agent, Bash(gh issue view *), Bash(gh repo view *), Bash(git status *), Bash(git rev-parse *), Bash(git remote *), Bash(git branch *), Bash(git ls-remote *), Bash(mkdir *)
 ---
 
 # /issue-to-pr
@@ -14,7 +14,12 @@ You are the **orchestrator**. You validate the input, ingest the issue, and dele
 
 ## 1. Input validation
 
-Parse `$ARGUMENTS`. Exactly one issue reference is required. Optionally, the flag `--dry-run` may follow it.
+Parse `$ARGUMENTS`. Exactly one issue reference is required, as the first argument. These optional flags may follow it, in any order:
+
+| Flag | Meaning |
+|---|---|
+| `--base <branch>` | Use `<branch>` instead of the repository default branch as the base of the feature branch and the target of the pull request, for example for benchmark runs on a baseline branch |
+| `--dry-run` | Validate and preview without changing anything (section 4) |
 
 Accepted issue formats:
 
@@ -28,13 +33,14 @@ Rules:
 
 - The number must be a positive integer.
 - A URL must point to an **issue** (`/issues/<number>`), not a pull request, and to the same repository as the `origin` remote. Compare owner and repository name case-insensitively; get them with `gh repo view --json nameWithOwner`.
-- Reject anything else: no argument, several issue references, unknown flags, text instead of a number.
+- `--base` must be followed by a branch name that exists on `origin` (`git ls-remote --heads origin <branch>` returns a line).
+- Reject anything else: no argument, several issue references, unknown flags, `--base` without a branch or with a branch that does not exist on `origin`, text instead of a number.
 
 On invalid input, stop and reply with:
 
 ```text
 issue-to-pr: invalid input "<input>".
-Usage: /issue-to-pr <#number | number | issue URL> [--dry-run]
+Usage: /issue-to-pr <#number | number | issue URL> [--base <branch>] [--dry-run]
 ```
 
 ## 2. Issue ingestion
@@ -74,6 +80,7 @@ If `--dry-run` is present, stop after reading the rules and reply with:
 
 - the parsed issue number and title,
 - the derived task ID and branch name,
+- the base branch: the `--base` value, or the repository default branch,
 - the rule files found, and any that are missing,
 - the stages that would run and the subagent assigned to each,
 - the result of the working-tree check (`git status --porcelain`), without changing anything.
@@ -84,7 +91,7 @@ Do not create branches, edit files outside `.issue-to-pr/` or call subagents in 
 
 Run the stages in this order. Pass each subagent the issue number and the run folder path. Each stage must finish with the listed output file before the next stage starts.
 
-`issue-to-pr-release` handles three stages, so also pass it the stage name: `prepare` (stage 1), `document` (stage 5) or `publish` (stage 6).
+`issue-to-pr-release` handles three stages, so also pass it the stage name: `prepare` (stage 1), `document` (stage 5) or `publish` (stage 6). If `--base` was given, also pass the base branch to the `prepare` stage.
 
 | # | Stage | Subagent | Output in `.issue-to-pr/<number>/` |
 |---|---|---|---|
@@ -97,7 +104,7 @@ Run the stages in this order. Pass each subagent the issue number and the run fo
 
 All subagents follow the rules in `rules/` and use the stage prompts in `prompts/`. Their roles and tool permissions are described in `agents/`.
 
-Stage 1 determines the base branch as the repository default branch (`gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`) and records it in `branch.md`. All later stages use this recorded value; never assume `main`.
+Stage 1 determines the base branch: the `--base` value if it was given, otherwise the repository default branch (`gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`). It records the base in `branch.md`. All later stages, including the pull request target, use this recorded value; never assume `main`.
 
 Stages 4 and 5 do not commit. They leave their changes in the working tree and list every changed file in their output file, so stage 6 can commit exactly these files.
 

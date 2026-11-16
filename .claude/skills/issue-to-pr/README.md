@@ -24,6 +24,12 @@ Add `--dry-run` to validate the input, fetch the issue, check the rule files and
 /issue-to-pr #42 --dry-run
 ```
 
+Add `--base <branch>` to start the feature branch from another existing branch and open the pull request against it instead of the default branch. The benchmark uses this to run issues on baseline branches (see `docs/benchmark/README.md`):
+
+```text
+/issue-to-pr #60 --base benchmark/base-t3-10
+```
+
 For an unattended run, start Claude Code in a permission mode that does not stop for approvals, for example `auto`.
 
 ## Architecture
@@ -71,7 +77,7 @@ Stage 3 commits the implementation. Stages 4 (QA repairs) and 5 (documentation) 
 2. Check the working tree: only files listed by stages 4 and 5 may be changed. Unexpected or unrelated changes stop the workflow instead of being committed.
 3. Commit QA repairs and documentation as separate commits, staging files by explicit path and running `git diff --cached --check` before each commit.
 4. Confirm a clean working tree: `git status --porcelain` is empty and `git diff --check` passes.
-5. Validate the complete branch against the base branch: `git diff --check origin/<base>...HEAD`. The base branch is the repository default branch recorded in stage 1.
+5. Validate the complete branch against the base branch: `git diff --check origin/<base>...HEAD`. The base branch is recorded in stage 1: the `--base` value, or the repository default branch.
 6. Push the feature branch.
 7. Create the pull request against the base branch.
 
