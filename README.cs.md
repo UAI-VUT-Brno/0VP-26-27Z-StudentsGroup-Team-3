@@ -207,3 +207,5 @@ Lokální spuštění, kontrakty nástrojů a omezení popisuje [dokumentace MCP
 ## Agentní workflow
 
 Skill `/issue-to-pr` pro Claude Code autonomně implementuje GitHub issue a vytvoří ověřený pull request. Podrobnosti popisuje [dokumentace skillu](.claude/skills/issue-to-pr/README.md).
+
+Návrh workflow a jeho srovnání s GitHub Copilotem popisuje [technická zpráva s benchmarkem](docs/issue-to-pr-report.md) (v angličtině).

@@ -207,3 +207,5 @@ For local setup, tool contracts, and limitations, see [MCP documentation](docs/M
 ## Agentic workflow
 
 The `/issue-to-pr` Claude Code skill implements a GitHub issue autonomously and opens a verified pull request. See [the skill documentation](.claude/skills/issue-to-pr/README.md).
+
+The design of the workflow and its benchmark against GitHub Copilot are described in the [technical and benchmark report](docs/issue-to-pr-report.md).
