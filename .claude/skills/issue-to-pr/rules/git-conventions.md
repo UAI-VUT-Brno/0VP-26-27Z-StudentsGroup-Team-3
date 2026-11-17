@@ -22,7 +22,7 @@ Format:
 
 Examples from the repository: `feat/t3-14-mcp-tools`, `fix/t3-13-api-validation`, `test/t3-15-mcp-integration`, `docs/t3-16-mcp-verification`.
 
-- Create the branch from an up-to-date `main`.
+- Create the branch from the up-to-date base branch: the repository default branch (`main`), or the branch given with `--base`.
 - If the branch already exists locally or on `origin`, stop and report it. Do not reuse or overwrite it.
 
 ## Commits
@@ -57,7 +57,7 @@ docs(OVP-T3-24): Document priority filter in OpenAPI.md
 ## Pull requests
 
 - **Title:** the issue title, for example `OVP-T3-14 Expose read-only ToDo queries through MCP`.
-- **Base branch:** `main`.
+- **Base branch:** the base branch recorded in `branch.md`: `main`, or the branch given with `--base`.
 - **Body:** follows this structure, as in previous pull requests:
 
 ```markdown
@@ -76,7 +76,7 @@ Closes #<issue_number>
 
 ## Forbidden operations
 
-- Pushing directly to `main`, merging pull requests, or force-pushing.
+- Pushing directly to `main` or to the base branch, merging pull requests, or force-pushing.
 - Rewriting history that is already on `origin` (`rebase`, `reset --hard`, `commit --amend` on pushed commits).
 - Deleting branches, tags or issues.
 - Changing git configuration, remotes or credentials.

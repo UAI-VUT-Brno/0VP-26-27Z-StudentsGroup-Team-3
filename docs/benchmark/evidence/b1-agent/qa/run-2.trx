@@ -1,0 +1,1108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ad3cb58e-8541-417b-b646-456e6d2e9a7f" name="notebook@MARTIN-NOTEBOOK 2026-11-16 21:29:24" runUser="MARTIN-NOTEBOOK\notebook" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T21:29:24.2980192+01:00" queuing="2026-11-16T21:29:24.2980193+01:00" start="2026-11-16T21:29:23.4551490+01:00" finish="2026-11-16T21:29:26.5511163+01:00" />
+  <TestSettings name="default" id="031471e0-d9da-4690-bf29-b9e1ac0d0c17">
+    <Deployment runDeploymentRoot="notebook_MARTIN-NOTEBOOK_2026-11-16_21_29_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a0816998-c385-4ab4-b23a-60ab3bd70020" testId="a4be0dc6-ce49-951c-ba42-dc49845b5d86" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.StaleUpdate_ThrowsConflictAndPreservesLatestData" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1035909" startTime="2026-11-16T21:29:24.2525152+01:00" endTime="2026-11-16T21:29:24.3196180+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0816998-c385-4ab4-b23a-60ab3bd70020" />
+    <UnitTestResult executionId="c2ad308b-a025-4fd3-80e7-6099335b091e" testId="6804343d-6e99-9d8c-a851-4ec3e20f6c57" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.UpdateAsync_ReturnsFalseForUnknownTodoItem" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0004419" startTime="2026-11-16T21:29:24.2892718+01:00" endTime="2026-11-16T21:29:24.2893209+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2ad308b-a025-4fd3-80e7-6099335b091e" />
+    <UnitTestResult executionId="0b43f01b-2472-4f3e-a7af-ba8c5ffb0e94" testId="70ec8f3b-7d48-00b9-8737-aa0fe2529b32" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1830000" startTime="2026-11-16T21:29:25.1036925+01:00" endTime="2026-11-16T21:29:25.2859840+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b43f01b-2472-4f3e-a7af-ba8c5ffb0e94">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos/{id}&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 1,27 ms&#xD;
+Minimum: 0,24 ms&#xD;
+P50: 0,97 ms&#xD;
+P95: 4,36 ms&#xD;
+P99: 4,56 ms&#xD;
+Maximum: 5,01 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a027f85-b855-44fd-9a08-81155eafc38d" testId="717ba064-5970-66e0-1a83-65cd99b17b40" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.TooLongDescription_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0001499" startTime="2026-11-16T21:29:24.2756689+01:00" endTime="2026-11-16T21:29:24.2759440+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a027f85-b855-44fd-9a08-81155eafc38d" />
+    <UnitTestResult executionId="bcd0e400-30af-4071-bebf-4c03fb26dfff" testId="7db2992e-5a6c-0cf1-df73-b6f0fbc61b88" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetAll_HttpRequest_ReturnsOk" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0230465" startTime="2026-11-16T21:29:24.9611434+01:00" endTime="2026-11-16T21:29:24.9845448+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bcd0e400-30af-4071-bebf-4c03fb26dfff" />
+    <UnitTestResult executionId="cd7d41a6-ed1b-49e1-b63d-0ed76fc46f30" testId="40b7f359-15ff-8721-f37b-d8beca9a51cc" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0366390" startTime="2026-11-16T21:29:25.9762095+01:00" endTime="2026-11-16T21:29:26.0130686+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd7d41a6-ed1b-49e1-b63d-0ed76fc46f30">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 1,39 ms&#xD;
+Minimum: 0,20 ms&#xD;
+P50: 1,40 ms&#xD;
+P95: 2,52 ms&#xD;
+P99: 3,29 ms&#xD;
+Maximum: 3,90 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d07af654-e152-4bc6-bc14-3019e372f360" testId="f950dbf4-ef3e-beb6-01bf-99d4360e1bd8" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1026359" startTime="2026-11-16T21:29:25.8732335+01:00" endTime="2026-11-16T21:29:25.9760636+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d07af654-e152-4bc6-bc14-3019e372f360">
+      <Output>
+        <StdOut>Endpoint: DELETE /api/todos/{id}&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 2,06 ms&#xD;
+Minimum: 0,23 ms&#xD;
+P50: 1,70 ms&#xD;
+P95: 5,18 ms&#xD;
+P99: 5,66 ms&#xD;
+Maximum: 5,72 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8196d649-096b-49b6-83e0-4f76cb9c95cc" testId="e10d6610-3bc7-8405-3392-189a23ea85c9" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.AddRangeAsync_WithExistingId_DoesNotPersistPartialBatch" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0348247" startTime="2026-11-16T21:29:25.2473640+01:00" endTime="2026-11-16T21:29:25.2821449+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8196d649-096b-49b6-83e0-4f76cb9c95cc" />
+    <UnitTestResult executionId="583492f2-fafa-41f1-a496-19f9941edaee" testId="8b69cab5-4b47-8a7a-3031-c2da1ea24127" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.ValidRequest_PassesValidation(repeatCount: 52)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002546" startTime="2026-11-16T21:29:24.2785508+01:00" endTime="2026-11-16T21:29:24.2785820+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="583492f2-fafa-41f1-a496-19f9941edaee" />
+    <UnitTestResult executionId="06c01df9-1a6a-4719-87d8-cff9169b24a7" testId="c1c84907-1b61-6505-47f4-4b6513b8e950" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Delete_UnknownTodo_ReturnsNotFound" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0007170" startTime="2026-11-16T21:29:24.2872200+01:00" endTime="2026-11-16T21:29:24.2873968+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06c01df9-1a6a-4719-87d8-cff9169b24a7" />
+    <UnitTestResult executionId="82616e2c-a70d-4e0f-9c57-91ef74b6f25d" testId="d8462da7-f973-3629-e9ac-d332d347e452" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.ConcurrentUpdates_OnlyOneVersionWins" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0333596" startTime="2026-11-16T21:29:25.3002428+01:00" endTime="2026-11-16T21:29:25.3337472+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82616e2c-a70d-4e0f-9c57-91ef74b6f25d" />
+    <UnitTestResult executionId="6edf3876-fb13-429a-9a3c-9d28e44b0010" testId="3f2495c3-1bbb-6d3a-57cb-531fc2a4855b" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.SetCompletionState_CompletingTodoSetsCompletedAtUtc" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0004406" startTime="2026-11-16T21:29:24.2731141+01:00" endTime="2026-11-16T21:29:24.2733243+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6edf3876-fb13-429a-9a3c-9d28e44b0010" />
+    <UnitTestResult executionId="46785b61-1cf9-4a46-abe8-1a3f7db71cce" testId="c09cece2-6e97-cb20-b1a8-5bf386ab1086" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0275813" startTime="2026-11-16T21:29:26.3992559+01:00" endTime="2026-11-16T21:29:26.4270736+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46785b61-1cf9-4a46-abe8-1a3f7db71cce">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 0,66 ms&#xD;
+Minimum: 0,18 ms&#xD;
+P50: 0,69 ms&#xD;
+P95: 1,35 ms&#xD;
+P99: 1,61 ms&#xD;
+Maximum: 1,72 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a4424ba3-4a18-489f-8184-415a86ff1a44" testId="29522a87-b39a-7165-d4c1-ac2931b55b8c" testName="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdAtMaxLength_PassesValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0189360" startTime="2026-11-16T21:29:24.2525925+01:00" endTime="2026-11-16T21:29:24.2584224+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4424ba3-4a18-489f-8184-415a86ff1a44" />
+    <UnitTestResult executionId="eae68535-8576-4642-95b1-1e4a88c06d8b" testId="6c349bda-c0e1-ce9a-cb65-93a0b5d0ea9a" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithUserId_ReturnsOnlyThatUsersTodos" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0261570" startTime="2026-11-16T21:29:24.9339430+01:00" endTime="2026-11-16T21:29:24.9602979+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eae68535-8576-4642-95b1-1e4a88c06d8b" />
+    <UnitTestResult executionId="374848fb-d1f7-437d-84ed-934e31f87869" testId="55cee115-ae22-302e-44ed-84dd87dc5cc5" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0506087" startTime="2026-11-16T21:29:26.1651454+01:00" endTime="2026-11-16T21:29:26.2159304+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="374848fb-d1f7-437d-84ed-934e31f87869">
+      <Output>
+        <StdOut>Endpoint: DELETE /api/todos/{id}&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 0,44 ms&#xD;
+Minimum: 0,20 ms&#xD;
+P50: 0,44 ms&#xD;
+P95: 0,65 ms&#xD;
+P99: 0,66 ms&#xD;
+Maximum: 0,66 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b57679f6-0d69-4ac2-a298-4758487a5303" testId="677d45b4-01e6-c103-e673-ca945d87abcb" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 53)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002630" startTime="2026-11-16T21:29:24.2786585+01:00" endTime="2026-11-16T21:29:24.2786887+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b57679f6-0d69-4ac2-a298-4758487a5303" />
+    <UnitTestResult executionId="aa160b7d-298f-43b0-95b3-23b87af3241f" testId="f0d867f8-3f7a-ee37-907f-122632e85610" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidTitle_FailsValidation(title: &quot;&quot;)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002433" startTime="2026-11-16T21:29:24.2739388+01:00" endTime="2026-11-16T21:29:24.2739956+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa160b7d-298f-43b0-95b3-23b87af3241f" />
+    <UnitTestResult executionId="ea6794bc-8f0d-4eb0-960b-cca75c6bb2b1" testId="338a83d1-2b58-9852-ad60-31901859450d" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_ValidRequest_Returns201AndPersistsAllOccurrences" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0406670" startTime="2026-11-16T21:29:24.8475819+01:00" endTime="2026-11-16T21:29:24.8884516+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea6794bc-8f0d-4eb0-960b-cca75c6bb2b1" />
+    <UnitTestResult executionId="bebafeee-d350-4631-8d30-1d84e4a66109" testId="84502c80-cd6e-019f-c970-880b379ec5e5" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1231473" startTime="2026-11-16T21:29:25.5775654+01:00" endTime="2026-11-16T21:29:25.7000088+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bebafeee-d350-4631-8d30-1d84e4a66109">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos/{id}/complete&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 1,22 ms&#xD;
+Minimum: 0,24 ms&#xD;
+P50: 0,68 ms&#xD;
+P95: 4,52 ms&#xD;
+P99: 4,93 ms&#xD;
+Maximum: 5,20 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85998af1-8041-4011-948c-c9b32307b8f2" testId="c1fa8483-1b0a-544a-4472-4c2b1f3ff85c" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.AddRangeAsync_PersistsAllItemsAcrossInstances" computerName="MARTIN-NOTEBOOK" duration="00:00:00.4070905" startTime="2026-11-16T21:29:24.3244012+01:00" endTime="2026-11-16T21:29:24.7304891+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85998af1-8041-4011-948c-c9b32307b8f2" />
+    <UnitTestResult executionId="b94066b3-1b15-49c6-891d-35387d1df857" testId="10ccb059-7329-eb87-9dfb-db3ff0b07367" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithoutUserId_ReturnsTodosWithAndWithoutUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0777574" startTime="2026-11-16T21:29:24.6147689+01:00" endTime="2026-11-16T21:29:24.6928029+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b94066b3-1b15-49c6-891d-35387d1df857" />
+    <UnitTestResult executionId="0b0b1957-e603-4624-8512-e2f3b62d391c" testId="caa6a180-2ce1-00aa-1bb9-4a4a83f6a034" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.GetAllAsync_FiltersByUserIdAndCompletionStatus" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1964837" startTime="2026-11-16T21:29:25.0508190+01:00" endTime="2026-11-16T21:29:25.2472203+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b0b1957-e603-4624-8512-e2f3b62d391c" />
+    <UnitTestResult executionId="54f19dc2-aaa4-4b57-913f-4976872c2578" testId="098916af-848b-fd53-4b7a-cc8a23f73f0f" testName="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.Update_WithStaleVersion_Returns409AndPreservesData" computerName="MARTIN-NOTEBOOK" duration="00:00:00.4341740" startTime="2026-11-16T21:29:24.2527272+01:00" endTime="2026-11-16T21:29:24.6506153+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54f19dc2-aaa4-4b57-913f-4976872c2578" />
+    <UnitTestResult executionId="9bb9db13-2e31-4463-b8ed-073fb4125e3b" testId="86936530-4b9f-8578-853d-b7bd9e9776f5" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidTitle_Returns400AndCreatesNothing" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0439524" startTime="2026-11-16T21:29:24.8031791+01:00" endTime="2026-11-16T21:29:24.8473749+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bb9db13-2e31-4463-b8ed-073fb4125e3b" />
+    <UnitTestResult executionId="0bda056f-92cd-4751-9783-f6cd03f92291" testId="70cf7013-7213-d1a5-a021-5db629a2423a" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_SortsByPriorityThenCreatedAt" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0007760" startTime="2026-11-16T21:29:24.2876637+01:00" endTime="2026-11-16T21:29:24.2879321+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0bda056f-92cd-4751-9783-f6cd03f92291" />
+    <UnitTestResult executionId="0be5b57b-35ff-4f97-b65a-4d59489263b8" testId="df80dec1-3a97-32cb-0db2-c0522a47d721" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidTitle_FailsValidation(title: &quot; &quot;)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0010443" startTime="2026-11-16T21:29:24.2731874+01:00" endTime="2026-11-16T21:29:24.2737837+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0be5b57b-35ff-4f97-b65a-4d59489263b8" />
+    <UnitTestResult executionId="e7948143-da18-4bd9-9fdd-b1e643b8e9f6" testId="cd26ef84-6011-55fc-e5d8-cb7c9fa8aade" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0593316" startTime="2026-11-16T21:29:26.1052964+01:00" endTime="2026-11-16T21:29:26.1649510+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7948143-da18-4bd9-9fdd-b1e643b8e9f6">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos/{id}/complete&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 0,49 ms&#xD;
+Minimum: 0,22 ms&#xD;
+P50: 0,46 ms&#xD;
+P95: 0,81 ms&#xD;
+P99: 0,93 ms&#xD;
+Maximum: 0,93 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b00b1b68-4738-47f6-be70-d690104fbcd9" testId="b631e1f1-0f8a-8c09-e94a-a7f73a8cf637" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_WhitespaceUserId_SetsNull" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002054" startTime="2026-11-16T21:29:24.2813395+01:00" endTime="2026-11-16T21:29:24.2814014+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b00b1b68-4738-47f6-be70-d690104fbcd9" />
+    <UnitTestResult executionId="796b8597-d6ba-4253-a7f6-cdbbd9288c96" testId="0c48091e-bc70-a618-ab7b-55681ff2a221" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.DateOverflow_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002748" startTime="2026-11-16T21:29:24.2782609+01:00" endTime="2026-11-16T21:29:24.2783139+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="796b8597-d6ba-4253-a7f6-cdbbd9288c96" />
+    <UnitTestResult executionId="6d308d07-e058-4ac9-9a40-eb1022467ed3" testId="9e8c1043-0edf-48e2-2f9a-1afb756bc105" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_SetsTrimmedUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0003044" startTime="2026-11-16T21:29:24.2738654+01:00" endTime="2026-11-16T21:29:24.2741480+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d308d07-e058-4ac9-9a40-eb1022467ed3" />
+    <UnitTestResult executionId="9d0428f5-b3c0-48bf-9538-3215abef1dbd" testId="d52a7db8-88bc-ef9e-08a3-9fd2af456341" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: null)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0416537" startTime="2026-11-16T21:29:24.7278210+01:00" endTime="2026-11-16T21:29:24.7691120+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d0428f5-b3c0-48bf-9538-3215abef1dbd" />
+    <UnitTestResult executionId="6f069620-9f0d-435b-9772-52e1033af9b9" testId="c1e3e563-c966-dee6-e26e-8e6af66a7f1f" testName="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdTooLong_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0043472" startTime="2026-11-16T21:29:24.2731636+01:00" endTime="2026-11-16T21:29:24.2787901+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f069620-9f0d-435b-9772-52e1033af9b9" />
+    <UnitTestResult executionId="c55440db-6088-4a56-a0ca-790cebb85ee7" testId="8202e94f-5468-0088-bd5d-486bd4701ec7" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0550813" startTime="2026-11-16T21:29:25.5211434+01:00" endTime="2026-11-16T21:29:25.5765663+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c55440db-6088-4a56-a0ca-790cebb85ee7">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos/{id}&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 3,38 ms&#xD;
+Minimum: 0,21 ms&#xD;
+P50: 0,45 ms&#xD;
+P95: 9,55 ms&#xD;
+P99: 9,55 ms&#xD;
+Maximum: 9,55 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8fe0f3d9-bf3f-4ee5-9da4-a323f12ccb75" testId="3a0ea098-34c8-dc75-46af-ad37110e86fe" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.MissingFirstDueDate_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0167680" startTime="2026-11-16T21:29:24.2526514+01:00" endTime="2026-11-16T21:29:24.2582946+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8fe0f3d9-bf3f-4ee5-9da4-a323f12ccb75" />
+    <UnitTestResult executionId="0c664088-d949-466a-820f-6b6f5df1cf26" testId="834fe1af-9c1d-1b9c-69ea-f7c977a34892" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0497919" startTime="2026-11-16T21:29:26.0132255+01:00" endTime="2026-11-16T21:29:26.0632696+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c664088-d949-466a-820f-6b6f5df1cf26">
+      <Output>
+        <StdOut>Endpoint: PUT /api/todos/{id}&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 0,44 ms&#xD;
+Minimum: 0,30 ms&#xD;
+P50: 0,46 ms&#xD;
+P95: 0,54 ms&#xD;
+P99: 0,54 ms&#xD;
+Maximum: 0,54 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3cddfd8c-cc58-46ce-89c5-4f0d1e683adf" testId="45dcddca-b4d8-389a-24d4-f39c89c44222" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsExistingTodoItem" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0020240" startTime="2026-11-16T21:29:24.2858740+01:00" endTime="2026-11-16T21:29:24.2863340+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3cddfd8c-cc58-46ce-89c5-4f0d1e683adf" />
+    <UnitTestResult executionId="e0881bde-eff4-407e-af08-618c796b8bb7" testId="6ad900f4-9e16-c6e4-c211-215ec2ac873c" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0402237" startTime="2026-11-16T21:29:26.0646541+01:00" endTime="2026-11-16T21:29:26.1051414+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0881bde-eff4-407e-af08-618c796b8bb7">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 1,16 ms&#xD;
+Minimum: 0,37 ms&#xD;
+P50: 1,16 ms&#xD;
+P95: 1,90 ms&#xD;
+P99: 2,10 ms&#xD;
+Maximum: 2,27 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="53fab1d5-cd90-4983-ae15-9c670e6e5340" testId="bc1c1bfe-d73b-ef79-e1bf-871dae4b4e70" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.DeleteAsync_RemovesExistingTodoItem" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0006252" startTime="2026-11-16T21:29:24.2880567+01:00" endTime="2026-11-16T21:29:24.2881992+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53fab1d5-cd90-4983-ae15-9c670e6e5340" />
+    <UnitTestResult executionId="9ed91d4a-06fd-4304-af55-ba25f417cd9c" testId="546b1ce9-dea4-081f-6861-adc95c6552eb" testName="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 3)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0004212" startTime="2026-11-16T21:29:24.2853343+01:00" endTime="2026-11-16T21:29:24.2855206+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ed91d4a-06fd-4304-af55-ba25f417cd9c" />
+    <UnitTestResult executionId="d69e3d12-0f9f-469f-b31d-41196111f26c" testId="3b56f65e-cb46-73c3-46d6-a75e4d1f4d6d" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.ConcurrentCreates_DoNotLoseRecords" computerName="MARTIN-NOTEBOOK" duration="00:00:00.9306317" startTime="2026-11-16T21:29:24.3198165+01:00" endTime="2026-11-16T21:29:25.2505938+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d69e3d12-0f9f-469f-b31d-41196111f26c" />
+    <UnitTestResult executionId="5fdd5347-aab1-4594-959b-16ea87ca5287" testId="33138ae3-0066-6e9b-d8fc-e7f0e83057ee" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidCount_Returns400AndCreatesNothing(count: 0)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0468447" startTime="2026-11-16T21:29:24.6196896+01:00" endTime="2026-11-16T21:29:24.6667687+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5fdd5347-aab1-4594-959b-16ea87ca5287" />
+    <UnitTestResult executionId="8a40b64f-bbf9-4152-9c6c-9b6a69012758" testId="ff831887-2c8a-72d2-424c-ed4c58acc54e" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.NonUtcFirstDueDate_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0011758" startTime="2026-11-16T21:29:24.2779679+01:00" endTime="2026-11-16T21:29:24.2780223+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a40b64f-bbf9-4152-9c6c-9b6a69012758" />
+    <UnitTestResult executionId="18e962ab-093e-4f8f-9908-984c9543fb2d" testId="8092d635-b968-5b30-74e9-4a91e23be797" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.NonExistingFile_InitializesCleanStateWithoutCrashing" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0028031" startTime="2026-11-16T21:29:25.2823411+01:00" endTime="2026-11-16T21:29:25.2849965+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18e962ab-093e-4f8f-9908-984c9543fb2d" />
+    <UnitTestResult executionId="c1bf2937-983c-44ed-8e43-a944d9f4d1fd" testId="f6567b8c-1743-e176-b838-f607cf0c773d" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_ValidItems_PersistsAllItems" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0027420" startTime="2026-11-16T21:29:24.2899465+01:00" endTime="2026-11-16T21:29:24.2899969+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1bf2937-983c-44ed-8e43-a944d9f4d1fd" />
+    <UnitTestResult executionId="e127e80f-251e-4e98-abae-2c2dd9dd223c" testId="d6735a4e-b5c8-cd0e-9874-a1eb5b622454" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_UnknownUserId_ReturnsEmptyList" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0575748" startTime="2026-11-16T21:29:24.6930955+01:00" endTime="2026-11-16T21:29:24.7508958+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e127e80f-251e-4e98-abae-2c2dd9dd223c" />
+    <UnitTestResult executionId="81305106-cc8f-4aae-8079-eb13a080a354" testId="bae0eca5-72b6-1923-e07a-8b1be19d30bd" testName="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdOmitted_PassesValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0003793" startTime="2026-11-16T21:29:24.2788754+01:00" endTime="2026-11-16T21:29:24.2799161+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81305106-cc8f-4aae-8079-eb13a080a354" />
+    <UnitTestResult executionId="ccc21b97-58f6-4e99-816d-e70fb75764fe" testId="98678091-b853-4459-774a-ba1927499c7f" testName="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 1)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0295082" startTime="2026-11-16T21:29:24.2526649+01:00" endTime="2026-11-16T21:29:24.2845722+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ccc21b97-58f6-4e99-816d-e70fb75764fe" />
+    <UnitTestResult executionId="4ef195c1-cc4a-49ee-a8dc-7936bcefaebc" testId="67a5235d-3c97-d8dc-8777-56d05a57a7ed" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Update_WithUserId_ChangesUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0545272" startTime="2026-11-16T21:29:24.8136573+01:00" endTime="2026-11-16T21:29:24.8684808+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ef195c1-cc4a-49ee-a8dc-7936bcefaebc" />
+    <UnitTestResult executionId="d9e9a9e8-c81b-4c77-b009-afc8ff1bae28" testId="43928f86-6c41-3d0a-773b-7b4d68529c3c" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Create_WithUserId_ReturnsTrimmedUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0006705" startTime="2026-11-16T21:29:24.2861851+01:00" endTime="2026-11-16T21:29:24.2862201+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9e9a9e8-c81b-4c77-b009-afc8ff1bae28" />
+    <UnitTestResult executionId="7cbf0ebd-8f31-4907-9fbb-7705f37cb192" testId="92fc500e-052c-46de-e488-f89875159190" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0005441" startTime="2026-11-16T21:29:24.2882910+01:00" endTime="2026-11-16T21:29:24.2883213+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7cbf0ebd-8f31-4907-9fbb-7705f37cb192" />
+    <UnitTestResult executionId="92afe0ff-bc6a-44d8-9401-05aa945af559" testId="be21a9fc-62ff-ff1b-d5bb-2f591b3b993f" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_WithUserIdFilter_ReturnsOnlyMatchingTodos" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0010748" startTime="2026-11-16T21:29:24.2857341+01:00" endTime="2026-11-16T21:29:24.2860588+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92afe0ff-bc6a-44d8-9401-05aa945af559" />
+    <UnitTestResult executionId="0247b793-96b0-4685-8dd0-1fc2aa8f558a" testId="a11b9d46-dc44-c9a9-74e2-36fc0a25b700" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.CorruptedJson_IsNotSilentlyOverwritten" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0073961" startTime="2026-11-16T21:29:25.3339472+01:00" endTime="2026-11-16T21:29:25.3414839+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0247b793-96b0-4685-8dd0-1fc2aa8f558a" />
+    <UnitTestResult executionId="1ce6d7cc-9b16-4795-ace0-3db3e8a40bdd" testId="e575752f-ae3b-eced-02bf-d2fdad8c5bd4" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Delete_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0671679" startTime="2026-11-16T21:29:25.1588339+01:00" endTime="2026-11-16T21:29:25.2261682+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ce6d7cc-9b16-4795-ace0-3db3e8a40bdd">
+      <Output>
+        <StdOut>DELETE /api/todos/{id}&#xD;
+Requests: 50&#xD;
+Average: 0,24 ms&#xD;
+Minimum: 0,19 ms&#xD;
+Maximum: 0,38 ms&#xD;
+P50: 0,23 ms&#xD;
+P95: 0,31 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="672d35cb-3673-41c2-b554-353f668984a8" testId="2e623b68-6e73-3ee2-d139-1a75f9565833" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1561880" startTime="2026-11-16T21:29:26.2160821+01:00" endTime="2026-11-16T21:29:26.3724411+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="672d35cb-3673-41c2-b554-353f668984a8">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos/{id}/complete&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 0,94 ms&#xD;
+Minimum: 0,18 ms&#xD;
+P50: 0,75 ms&#xD;
+P95: 2,00 ms&#xD;
+P99: 2,51 ms&#xD;
+Maximum: 2,82 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e0c01501-83fa-4886-bac2-be0d6326cbbe" testId="1ede5cb4-9899-dfd4-c006-ff954ca1082c" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_UserIdFilter_IsCaseSensitive" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0008566" startTime="2026-11-16T21:29:24.2901122+01:00" endTime="2026-11-16T21:29:24.2901517+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0c01501-83fa-4886-bac2-be0d6326cbbe" />
+    <UnitTestResult executionId="b6aafa86-44da-47ad-ae42-9f143e17c262" testId="cc3fa7d8-25f9-efde-105d-26a90eeb28f8" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidCount_Returns400AndCreatesNothing(count: 53)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.4030531" startTime="2026-11-16T21:29:24.2525719+01:00" endTime="2026-11-16T21:29:24.6194629+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6aafa86-44da-47ad-ae42-9f143e17c262" />
+    <UnitTestResult executionId="aac487be-9096-472f-b66b-ab763b4c0503" testId="9f254379-6ce8-5cd5-25ec-f3114fea0b54" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002761" startTime="2026-11-16T21:29:24.2787573+01:00" endTime="2026-11-16T21:29:24.2789064+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aac487be-9096-472f-b66b-ab763b4c0503" />
+    <UnitTestResult executionId="f0f3389b-5e46-4ebb-b6e2-5297658acdc1" testId="0242f631-e6b8-135f-dce0-f431113abea0" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetById_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0634324" startTime="2026-11-16T21:29:24.8515407+01:00" endTime="2026-11-16T21:29:24.9150726+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0f3389b-5e46-4ebb-b6e2-5297658acdc1">
+      <Output>
+        <StdOut>GET /api/todos/{id}&#xD;
+Requests: 50&#xD;
+Average: 0,35 ms&#xD;
+Minimum: 0,18 ms&#xD;
+Maximum: 4,67 ms&#xD;
+P50: 0,21 ms&#xD;
+P95: 0,73 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e76c1aa5-dcff-4dba-af77-feca6eab2d38" testId="571157cb-8726-0f3b-8403-8775c389650f" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_EmptyRepository_ReturnsOkWithEmptyList" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0007343" startTime="2026-11-16T21:29:24.2874887+01:00" endTime="2026-11-16T21:29:24.2877132+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e76c1aa5-dcff-4dba-af77-feca6eab2d38" />
+    <UnitTestResult executionId="04ef89e1-aa0c-4012-8a78-eb2c723f711f" testId="f430affc-8bda-8063-7782-45556f160e13" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.LegacyJsonWithoutUserId_LoadsWithNullUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0130946" startTime="2026-11-16T21:29:25.2851148+01:00" endTime="2026-11-16T21:29:25.2985094+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04ef89e1-aa0c-4012-8a78-eb2c723f711f" />
+    <UnitTestResult executionId="f9dd4f0e-3407-413e-bdab-1fa8ba7a283e" testId="47edabcd-eb69-c278-563a-ffd2a7ea5796" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddAsync_AddsTodoItem" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0007882" startTime="2026-11-16T21:29:24.2870070+01:00" endTime="2026-11-16T21:29:24.2872691+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9dd4f0e-3407-413e-bdab-1fa8ba7a283e" />
+    <UnitTestResult executionId="49679b46-af61-4837-b020-7ed35a6c7df6" testId="8940f1c7-65d4-ce5b-ce54-47aa0cac850d" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.ValidRequest_PassesValidation(repeatCount: 1)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002425" startTime="2026-11-16T21:29:24.2784518+01:00" endTime="2026-11-16T21:29:24.2784881+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="49679b46-af61-4837-b020-7ed35a6c7df6" />
+    <UnitTestResult executionId="acf0e17f-ae97-4b86-8662-03a9350b867a" testId="14b50f29-ffa1-56a4-22fd-49611c73c4b8" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.UpdateAsync_UpdatesExistingTodoItem" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0093365" startTime="2026-11-16T21:29:24.2527406+01:00" endTime="2026-11-16T21:29:24.2542084+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="acf0e17f-ae97-4b86-8662-03a9350b867a" />
+    <UnitTestResult executionId="cddd4a9c-38ac-40ba-9492-308148ea59c1" testId="09df7efa-f8cc-6920-a8fd-1c68124cc7a8" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.UserId_PersistsAcrossRepositoryInstances" computerName="MARTIN-NOTEBOOK" duration="00:00:00.3200147" startTime="2026-11-16T21:29:24.7306126+01:00" endTime="2026-11-16T21:29:25.0506259+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cddd4a9c-38ac-40ba-9492-308148ea59c1" />
+    <UnitTestResult executionId="31e3c96b-24a1-4776-9f18-b01cff6017b5" testId="5ec52f44-92b7-d1ac-fd53-a5c09bde644f" testName="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.ConcurrentUpdates_OnlyOneSucceeds" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0650192" startTime="2026-11-16T21:29:24.7269745+01:00" endTime="2026-11-16T21:29:24.7923248+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31e3c96b-24a1-4776-9f18-b01cff6017b5" />
+    <UnitTestResult executionId="eb297fd1-8455-44fa-9b5f-1ed5c5085833" testId="f6e74b6b-68cc-108c-7a13-777709cedbd0" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.Tasks_PersistAcrossRepositoryInstances" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0109598" startTime="2026-11-16T21:29:25.2986709+01:00" endTime="2026-11-16T21:29:25.3095949+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb297fd1-8455-44fa-9b5f-1ed5c5085833" />
+    <UnitTestResult executionId="8638f4a3-88a7-4045-8d05-054787b9433c" testId="a398566f-bc7e-1f01-b504-cb49a093156d" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsNullForUnknownId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0005463" startTime="2026-11-16T21:29:24.2896869+01:00" endTime="2026-11-16T21:29:24.2897301+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8638f4a3-88a7-4045-8d05-054787b9433c" />
+    <UnitTestResult executionId="3dbca7bd-6c5e-4333-81eb-7d1f51960c8d" testId="400c4860-32fc-1547-1822-e17ad8a4e919" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_ConvertsWhitespaceDescriptionToNull" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0001498" startTime="2026-11-16T21:29:24.2802044+01:00" endTime="2026-11-16T21:29:24.2802670+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dbca7bd-6c5e-4333-81eb-7d1f51960c8d" />
+    <UnitTestResult executionId="ad2f83ae-186c-4a0c-ba79-70dd4c3fa2f1" testId="80dd0910-8c60-3365-df29-887d05d00037" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_WithUserId_Returns201WithUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0297418" startTime="2026-11-16T21:29:24.7835957+01:00" endTime="2026-11-16T21:29:24.8135003+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad2f83ae-186c-4a0c-ba79-70dd4c3fa2f1" />
+    <UnitTestResult executionId="15d07715-453c-44ab-aede-c07523de2e7b" testId="e1f7a932-336d-3d87-e770-a145e7d85d43" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Complete_ExistingTodo_ReturnsCompletedTodo" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0012319" startTime="2026-11-16T21:29:24.2833499+01:00" endTime="2026-11-16T21:29:24.2843775+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15d07715-453c-44ab-aede-c07523de2e7b" />
+    <UnitTestResult executionId="80c86f09-7ae3-4012-8f0f-f57b84d5cc8e" testId="a4228e18-7b3e-9c4e-aa64-47fa205641b7" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: &quot;not-a-date&quot;)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0334666" startTime="2026-11-16T21:29:24.7693553+01:00" endTime="2026-11-16T21:29:24.8029727+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80c86f09-7ae3-4012-8f0f-f57b84d5cc8e" />
+    <UnitTestResult executionId="431223d9-433b-4d54-98f8-2fdf8493b034" testId="9308ed2f-e757-dd92-3703-2d649938e618" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_UpdatesTodoEntity" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0202629" startTime="2026-11-16T21:29:24.2526078+01:00" endTime="2026-11-16T21:29:24.2665738+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="431223d9-433b-4d54-98f8-2fdf8493b034" />
+    <UnitTestResult executionId="c3ec3584-ba70-4c9a-9730-f62f82d860fc" testId="9a71b417-139e-f366-8678-f2f13d884ce0" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_WithoutUserId_Returns201WithNullUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.3980852" startTime="2026-11-16T21:29:24.2527132+01:00" endTime="2026-11-16T21:29:24.6145320+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3ec3584-ba70-4c9a-9730-f62f82d860fc" />
+    <UnitTestResult executionId="7ef6b42f-4635-4271-aa68-0da3130c4424" testId="8504265b-755f-5465-c129-75eccdca8ade" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithUserIdAndIsCompleted_ReturnsMatchingSubset" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0365996" startTime="2026-11-16T21:29:24.8968760+01:00" endTime="2026-11-16T21:29:24.9337350+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ef6b42f-4635-4271-aa68-0da3130c4424" />
+    <UnitTestResult executionId="ab09f58a-4e0e-46f0-a52f-8537fb2ceb64" testId="5b127c65-3c32-c2ac-0420-aeb87e5221aa" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidPriority_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0001354" startTime="2026-11-16T21:29:24.2741203+01:00" endTime="2026-11-16T21:29:24.2754619+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab09f58a-4e0e-46f0-a52f-8537fb2ceb64" />
+    <UnitTestResult executionId="3289d7c2-7836-49b6-b8ea-d9d617009b54" testId="65e1bb44-2516-97dd-0d45-37d81771ee93" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Complete_UnknownTodo_ReturnsNotFound" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0029066" startTime="2026-11-16T21:29:24.2797833+01:00" endTime="2026-11-16T21:29:24.2831980+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3289d7c2-7836-49b6-b8ea-d9d617009b54" />
+    <UnitTestResult executionId="19496fad-f269-4127-ac7e-d12ec0617918" testId="2ea2e1a1-0923-3952-f927-9b659ff6bac1" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_TrimsTextAndInitializesNewTodo" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0035500" startTime="2026-11-16T21:29:24.2758849+01:00" endTime="2026-11-16T21:29:24.2800829+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19496fad-f269-4127-ac7e-d12ec0617918" />
+    <UnitTestResult executionId="0d197949-4c7d-4c93-a27e-3eae6a6ac023" testId="f6cf5c6f-3114-41d2-241d-cda9fcfb1966" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1727514" startTime="2026-11-16T21:29:25.7001507+01:00" endTime="2026-11-16T21:29:25.8730823+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d197949-4c7d-4c93-a27e-3eae6a6ac023">
+      <Output>
+        <StdOut>Endpoint: PUT /api/todos/{id}&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 0,57 ms&#xD;
+Minimum: 0,28 ms&#xD;
+P50: 0,47 ms&#xD;
+P95: 1,13 ms&#xD;
+P99: 2,47 ms&#xD;
+Maximum: 2,82 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="27a117d0-1fa0-4bd8-b0c5-3bbd6e5f1cc4" testId="bb6100d4-bc01-4c0b-128e-4fa4232d6301" testName="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: &quot;2026-10-20T12:00:00+02:00&quot;)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0598144" startTime="2026-11-16T21:29:24.6669535+01:00" endTime="2026-11-16T21:29:24.7270153+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27a117d0-1fa0-4bd8-b0c5-3bbd6e5f1cc4" />
+    <UnitTestResult executionId="20d85659-133a-4164-947c-738776344a2f" testId="684ea915-9a2b-700e-9f4e-2fd638f21929" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_UserIdFilter_ExcludesTodosWithoutUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0056516" startTime="2026-11-16T21:29:24.2732036+01:00" endTime="2026-11-16T21:29:24.2804506+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20d85659-133a-4164-947c-738776344a2f" />
+    <UnitTestResult executionId="fa46ab2f-3a42-4d28-ae41-f41fe52a4b6a" testId="4e03fa80-cc1d-b2ef-1d92-3ebb670d42a7" testName="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.Update_IncrementsVersion_AfterEachSuccessfulUpdate" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0757054" startTime="2026-11-16T21:29:24.6507936+01:00" endTime="2026-11-16T21:29:24.7268036+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa46ab2f-3a42-4d28-ae41-f41fe52a4b6a" />
+    <UnitTestResult executionId="8f4a88ed-7e4f-4694-a052-792ba1aceb95" testId="590f5540-26e8-d80a-3b25-b239dd131fd2" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: -1)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0000284" startTime="2026-11-16T21:29:24.2798304+01:00" endTime="2026-11-16T21:29:24.2798610+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f4a88ed-7e4f-4694-a052-792ba1aceb95" />
+    <UnitTestResult executionId="199bbd2d-ab09-4992-95ba-844555599d89" testId="0759d092-b5bd-6e01-2350-04e1cc93aa0e" testName="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.UpdateTodoItemRequest_UserIdTooLong_FailsValidation" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0016779" startTime="2026-11-16T21:29:24.2800208+01:00" endTime="2026-11-16T21:29:24.2817948+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="199bbd2d-ab09-4992-95ba-844555599d89" />
+    <UnitTestResult executionId="9917f77e-b1f1-4412-8d0d-b808242f4b4a" testId="09bccb4f-9abd-36d9-66d8-cf0865e673ef" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0287945" startTime="2026-11-16T21:29:25.4920418+01:00" endTime="2026-11-16T21:29:25.5210269+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9917f77e-b1f1-4412-8d0d-b808242f4b4a">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 0,62 ms&#xD;
+Minimum: 0,38 ms&#xD;
+P50: 0,58 ms&#xD;
+P95: 0,87 ms&#xD;
+P99: 0,90 ms&#xD;
+Maximum: 0,90 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7efb0ca7-7700-473e-b366-f26ac65b18ac" testId="9daeb468-5c6f-231e-4407-c886b94ce938" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.3731656" startTime="2026-11-16T21:29:24.7302496+01:00" endTime="2026-11-16T21:29:25.1026310+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7efb0ca7-7700-473e-b366-f26ac65b18ac">
+      <Output>
+        <StdOut>Endpoint: DELETE /api/todos/{id}&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 6,42 ms&#xD;
+Minimum: 0,29 ms&#xD;
+P50: 3,76 ms&#xD;
+P95: 17,69 ms&#xD;
+P99: 18,22 ms&#xD;
+Maximum: 18,46 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b4f0065f-e4a8-4fb8-8e68-a92d60478e24" testId="8a2788be-2067-89c5-4357-9bfe2c7f6745" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_DuplicateIdsWithinBatch_PersistsNothing" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0035024" startTime="2026-11-16T21:29:24.2811822+01:00" endTime="2026-11-16T21:29:24.2853772+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4f0065f-e4a8-4fb8-8e68-a92d60478e24" />
+    <UnitTestResult executionId="def15944-22e2-42f6-9a61-6e5759015730" testId="21216b83-b5cc-db1e-4e63-f625f16e30eb" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Create_ValidRequest_ReturnsCreatedTodo" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0008929" startTime="2026-11-16T21:29:24.2845313+01:00" endTime="2026-11-16T21:29:24.2856147+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="def15944-22e2-42f6-9a61-6e5759015730" />
+    <UnitTestResult executionId="aa769b8f-9bf9-44b4-9388-a5bcf94d3100" testId="7230f00a-776e-2cd5-0a1f-b36d9b6a19d8" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.NewRepositoryInstance_LoadsPreviouslySavedData" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0180753" startTime="2026-11-16T21:29:25.2820271+01:00" endTime="2026-11-16T21:29:25.3000599+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa769b8f-9bf9-44b4-9388-a5bcf94d3100" />
+    <UnitTestResult executionId="7800cb29-542d-4145-a8ef-627bba197ac4" testId="0e2c0c3b-2e42-09db-b287-abcf11080cb6" testName="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.Changes_AreVisibleAcrossRepositoriesWithoutRestart" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0311828" startTime="2026-11-16T21:29:25.2507502+01:00" endTime="2026-11-16T21:29:25.2818724+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7800cb29-542d-4145-a8ef-627bba197ac4" />
+    <UnitTestResult executionId="50ebd585-6bbf-4b61-8f8f-178e67257eaf" testId="cea76898-0ffb-a597-657e-e1f337fcbcac" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_WhitespaceUserId_ReturnsAllTodos" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0249614" startTime="2026-11-16T21:29:24.2526973+01:00" endTime="2026-11-16T21:29:24.2789988+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50ebd585-6bbf-4b61-8f8f-178e67257eaf" />
+    <UnitTestResult executionId="f0715235-50df-49c9-97ae-62ad9de366cb" testId="72e77548-189f-7d0b-1c99-1b1cd482af33" testName="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 52)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0009370" startTime="2026-11-16T21:29:24.2855828+01:00" endTime="2026-11-16T21:29:24.2859218+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0715235-50df-49c9-97ae-62ad9de366cb" />
+    <UnitTestResult executionId="9f903ca3-e02a-4df0-a2ca-57d5ffe69e70" testId="614bd7ac-9bf9-b1de-b776-4f2bc9573ccd" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_TrimsUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0001662" startTime="2026-11-16T21:29:24.2742877+01:00" endTime="2026-11-16T21:29:24.2757269+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f903ca3-e02a-4df0-a2ca-57d5ffe69e70" />
+    <UnitTestResult executionId="abaaa65a-ed7a-4181-b560-c0d95ab3a5d9" testId="a910079b-939e-b82f-1082-5447ac7ba6d2" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_UserIdTooLong_Returns400" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0277520" startTime="2026-11-16T21:29:24.8687641+01:00" endTime="2026-11-16T21:29:24.8966138+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abaaa65a-ed7a-4181-b560-c0d95ab3a5d9" />
+    <UnitTestResult executionId="6bb200a1-f58f-4888-9111-1dd3d8a166ae" testId="ca2639c3-f48c-e3f7-629b-a8fc963656ec" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1033292" startTime="2026-11-16T21:29:25.3883608+01:00" endTime="2026-11-16T21:29:25.4919150+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6bb200a1-f58f-4888-9111-1dd3d8a166ae">
+      <Output>
+        <StdOut>Endpoint: PUT /api/todos/{id}&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 0,64 ms&#xD;
+Minimum: 0,28 ms&#xD;
+P50: 0,50 ms&#xD;
+P95: 2,14 ms&#xD;
+P99: 2,54 ms&#xD;
+Maximum: 2,59 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="db823615-0c40-426d-8460-349c26048ddf" testId="20ec7a55-a74f-dac5-527d-3dae110860ae" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToDto_MapsUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002865" startTime="2026-11-16T21:29:24.2815495+01:00" endTime="2026-11-16T21:29:24.2816006+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="db823615-0c40-426d-8460-349c26048ddf" />
+    <UnitTestResult executionId="76341f0b-7c81-423a-8f00-3ee6879051bb" testId="0d524be2-ed77-6ed0-da2f-8719f25e1041" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Update_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1188695" startTime="2026-11-16T21:29:25.0397132+01:00" endTime="2026-11-16T21:29:25.1586695+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76341f0b-7c81-423a-8f00-3ee6879051bb">
+      <Output>
+        <StdOut>PUT /api/todos/{id}&#xD;
+Requests: 50&#xD;
+Average: 0,35 ms&#xD;
+Minimum: 0,28 ms&#xD;
+Maximum: 0,51 ms&#xD;
+P50: 0,33 ms&#xD;
+P95: 0,44 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8ae9d646-1c7c-4fd7-b332-f5bbab8135ee" testId="3e5858ab-1ebd-1e88-9641-9dd28b42fb1e" testName="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 0)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0000292" startTime="2026-11-16T21:29:24.2789673+01:00" endTime="2026-11-16T21:29:24.2797260+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ae9d646-1c7c-4fd7-b332-f5bbab8135ee" />
+    <UnitTestResult executionId="8e20f4b6-6ad6-41fb-87d8-1884ab382d59" testId="626c1526-fcc5-06b8-29fa-293d31977c0a" testName="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_UserIdTooLong_Returns400" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0320338" startTime="2026-11-16T21:29:24.7510857+01:00" endTime="2026-11-16T21:29:24.7833768+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e20f4b6-6ad6-41fb-87d8-1884ab382d59" />
+    <UnitTestResult executionId="6b5e3fb5-87ae-4094-8694-60a10f83c4d2" testId="bc30ac56-affd-0037-f086-85be52a32e4a" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByUserIdAndCompletionStatus" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0009799" startTime="2026-11-16T21:29:24.2873650+01:00" endTime="2026-11-16T21:29:24.2875207+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b5e3fb5-87ae-4094-8694-60a10f83c4d2" />
+    <UnitTestResult executionId="8c01a1ac-c4d6-4ccb-b8df-4ed2f5144f06" testId="42891576-e829-e785-9d7d-681d6549577e" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetAll_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0455268" startTime="2026-11-16T21:29:24.9158271+01:00" endTime="2026-11-16T21:29:24.9609953+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c01a1ac-c4d6-4ccb-b8df-4ed2f5144f06">
+      <Output>
+        <StdOut>GET /api/todos&#xD;
+Requests: 50&#xD;
+Average: 0,28 ms&#xD;
+Minimum: 0,18 ms&#xD;
+Maximum: 0,60 ms&#xD;
+P50: 0,20 ms&#xD;
+P95: 0,59 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2094e831-1a00-4735-9bdd-be452b2f2c9d" testId="d3dc4239-4442-ab93-b00a-46f1b52635b1" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetById_UnknownId_ReturnsNotFound" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0006296" startTime="2026-11-16T21:29:24.2878743+01:00" endTime="2026-11-16T21:29:24.2881103+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2094e831-1a00-4735-9bdd-be452b2f2c9d" />
+    <UnitTestResult executionId="88f1de8e-e77a-40a1-8d7e-47b080ab7345" testId="a5c43e52-6255-e8a1-dedc-75275fe105e0" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Create_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0544595" startTime="2026-11-16T21:29:24.9847978+01:00" endTime="2026-11-16T21:29:25.0394408+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88f1de8e-e77a-40a1-8d7e-47b080ab7345">
+      <Output>
+        <StdOut>POST /api/todos&#xD;
+Requests: 50&#xD;
+Average: 0,50 ms&#xD;
+Minimum: 0,31 ms&#xD;
+Maximum: 4,55 ms&#xD;
+P50: 0,34 ms&#xD;
+P95: 0,73 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6e48aec5-3266-4da1-ae28-8403d0b5983c" testId="0fe06359-57b6-cd70-911f-7451a981d5b1" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 50)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1019447" startTime="2026-11-16T21:29:25.2869282+01:00" endTime="2026-11-16T21:29:25.3882316+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e48aec5-3266-4da1-ae28-8403d0b5983c">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos/{id}&#xD;
+Concurrent requests: 50&#xD;
+Rounds: 3&#xD;
+Measured requests: 150&#xD;
+Average: 0,66 ms&#xD;
+Minimum: 0,21 ms&#xD;
+P50: 0,61 ms&#xD;
+P95: 1,18 ms&#xD;
+P99: 1,29 ms&#xD;
+Maximum: 1,51 ms&#xD;
+Responses &gt;= 500 ms: 0/150&#xD;
+500 ms target: MET&#xD;
+HTTP success: 150/150&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="57c8568b-6748-431c-87cd-0a1641dd6ebc" testId="89746235-076f-d1f9-856b-609eeb67abd4" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 100)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.5121786" startTime="2026-11-16T21:29:24.2526782+01:00" endTime="2026-11-16T21:29:24.7296681+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="57c8568b-6748-431c-87cd-0a1641dd6ebc">
+      <Output>
+        <StdOut>Endpoint: POST /api/todos&#xD;
+Concurrent requests: 100&#xD;
+Rounds: 3&#xD;
+Measured requests: 300&#xD;
+Average: 12,30 ms&#xD;
+Minimum: 0,59 ms&#xD;
+P50: 11,83 ms&#xD;
+P95: 26,37 ms&#xD;
+P99: 26,76 ms&#xD;
+Maximum: 27,04 ms&#xD;
+Responses &gt;= 500 ms: 0/300&#xD;
+500 ms target: MET&#xD;
+HTTP success: 300/300&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0c19fdf6-16ae-45b1-b9aa-9ab6c593cec4" testId="65f04d0b-9e27-3746-ac2a-3a9326b269ca" testName="UAI.ZeroVP.Tests.PerformanceProfilingTests.ApiEndpoints_ResponseTime_ShouldBeWellUnder500Milliseconds" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0287149" startTime="2026-11-16T21:29:24.2506387+01:00" endTime="2026-11-16T21:29:24.2816915+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c19fdf6-16ae-45b1-b9aa-9ab6c593cec4" />
+    <UnitTestResult executionId="d5925a4a-fd50-4038-9bdc-798b00a5680f" testId="2326a333-22f8-6c7e-be2a-57c1d582a404" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByCompletionStatus" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0010260" startTime="2026-11-16T21:29:24.2894762+01:00" endTime="2026-11-16T21:29:24.2895255+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5925a4a-fd50-4038-9bdc-798b00a5680f" />
+    <UnitTestResult executionId="b70c2dd1-0af7-4515-9460-a975ab47a8b2" testId="bf609174-17c9-da1d-bf34-c2a7cb10d47e" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.SetCompletionState_ReopeningTodoClearsCompletedAtUtc" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0002617" startTime="2026-11-16T21:29:24.2804131+01:00" endTime="2026-11-16T21:29:24.2812323+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b70c2dd1-0af7-4515-9460-a975ab47a8b2" />
+    <UnitTestResult executionId="2d215605-cf3c-401a-baf6-5c08d454c57b" testId="74334c4c-4dbe-6b02-4321-fbef9a040834" testName="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 10)" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0263210" startTime="2026-11-16T21:29:26.3747978+01:00" endTime="2026-11-16T21:29:26.3991107+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d215605-cf3c-401a-baf6-5c08d454c57b">
+      <Output>
+        <StdOut>Endpoint: GET /api/todos&#xD;
+Concurrent requests: 10&#xD;
+Rounds: 3&#xD;
+Measured requests: 30&#xD;
+Average: 0,32 ms&#xD;
+Minimum: 0,19 ms&#xD;
+P50: 0,32 ms&#xD;
+P95: 0,46 ms&#xD;
+P99: 0,53 ms&#xD;
+Maximum: 0,53 ms&#xD;
+Responses &gt;= 500 ms: 0/30&#xD;
+500 ms target: MET&#xD;
+HTTP success: 30/30&#xD;
+HTTP errors: 0&#xD;
+Transport errors: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="03a23a5e-f456-401b-a01a-a70135d40242" testId="ffe1c577-8995-dca9-2d8d-794b3bae37be" testName="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.CorruptedJsonFile_LogsErrorAndStartsCleanWithoutThrowing" computerName="MARTIN-NOTEBOOK" duration="00:00:00.1023900" startTime="2026-11-16T21:29:24.2526367+01:00" endTime="2026-11-16T21:29:24.3213756+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03a23a5e-f456-401b-a01a-a70135d40242" />
+    <UnitTestResult executionId="eca1833d-f63d-41bd-96a2-eb3fc5f90b38" testId="589a9aa5-d393-a3e7-8de2-5bac220b4141" testName="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Complete_HttpRequest_MeasuresResponseTime" computerName="MARTIN-NOTEBOOK" duration="00:00:00.6350051" startTime="2026-11-16T21:29:24.2526223+01:00" endTime="2026-11-16T21:29:24.8512903+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eca1833d-f63d-41bd-96a2-eb3fc5f90b38">
+      <Output>
+        <StdOut>POST /api/todos/{id}/complete&#xD;
+Requests: 50&#xD;
+Average: 1,25 ms&#xD;
+Minimum: 0,19 ms&#xD;
+Maximum: 19,92 ms&#xD;
+P50: 0,34 ms&#xD;
+P95: 6,44 ms&#xD;
+Limit: 500 ms</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8c070bbe-0e0a-4c9f-bd73-46be7a87cc1a" testId="5d817e0e-2893-e049-9ffb-d9cd060426b5" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_DuplicateExistingId_PersistsNoNewItems" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0014076" startTime="2026-11-16T21:29:24.2898335+01:00" endTime="2026-11-16T21:29:24.2898659+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c070bbe-0e0a-4c9f-bd73-46be7a87cc1a" />
+    <UnitTestResult executionId="a1db080e-b344-4ef5-9e77-9786dc71ca60" testId="fcbf84dc-3183-c408-175b-7b71cde67381" testName="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsStoredUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0006607" startTime="2026-11-16T21:29:24.2854891+01:00" endTime="2026-11-16T21:29:24.2857686+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1db080e-b344-4ef5-9e77-9786dc71ca60" />
+    <UnitTestResult executionId="013ec326-0159-4259-a1e7-a2c383bb2645" testId="b9bf8a6a-c691-fd1e-905a-e0b84e0bf06f" testName="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Delete_ExistingTodo_ReturnsNoContent" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0010190" startTime="2026-11-16T21:29:24.2863023+01:00" endTime="2026-11-16T21:29:24.2870657+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="013ec326-0159-4259-a1e7-a2c383bb2645" />
+    <UnitTestResult executionId="c05ea073-8046-49a6-a311-a50d63528ba2" testId="59ae48c3-9bdb-2e0f-f229-dfd280679b6d" testName="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_OmittedUserId_ClearsUserId" computerName="MARTIN-NOTEBOOK" duration="00:00:00.0005234" startTime="2026-11-16T21:29:24.2735760+01:00" endTime="2026-11-16T21:29:24.2736318+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c05ea073-8046-49a6-a311-a50d63528ba2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsNullForUnknownId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a398566f-bc7e-1f01-b504-cb49a093156d">
+      <Execution id="8638f4a3-88a7-4045-8d05-054787b9433c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetByIdAsync_ReturnsNullForUnknownId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidPriority_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="5b127c65-3c32-c2ac-0420-aeb87e5221aa">
+      <Execution id="ab09f58a-4e0e-46f0-a52f-8537fb2ceb64" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="InvalidPriority_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Create_ValidRequest_ReturnsCreatedTodo" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="21216b83-b5cc-db1e-4e63-f625f16e30eb">
+      <Execution id="def15944-22e2-42f6-9a61-6e5759015730" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Create_ValidRequest_ReturnsCreatedTodo" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.Tasks_PersistAcrossRepositoryInstances" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f6e74b6b-68cc-108c-7a13-777709cedbd0">
+      <Execution id="eb297fd1-8455-44fa-9b5f-1ed5c5085833" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="Tasks_PersistAcrossRepositoryInstances" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="834fe1af-9c1d-1b9c-69ea-f7c977a34892">
+      <Execution id="0c664088-d949-466a-820f-6b6f5df1cf26" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_DuplicateIdsWithinBatch_PersistsNothing" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8a2788be-2067-89c5-4357-9bfe2c7f6745">
+      <Execution id="b4f0065f-e4a8-4fb8-8e68-a92d60478e24" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="AddRangeAsync_DuplicateIdsWithinBatch_PersistsNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithoutUserId_ReturnsTodosWithAndWithoutUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="10ccb059-7329-eb87-9dfb-db3ff0b07367">
+      <Execution id="b94066b3-1b15-49c6-891d-35387d1df857" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="GetAll_WithoutUserId_ReturnsTodosWithAndWithoutUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.Update_IncrementsVersion_AfterEachSuccessfulUpdate" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="4e03fa80-cc1d-b2ef-1d92-3ebb670d42a7">
+      <Execution id="fa46ab2f-3a42-4d28-ae41-f41fe52a4b6a" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests" name="Update_IncrementsVersion_AfterEachSuccessfulUpdate" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Complete_UnknownTodo_ReturnsNotFound" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="65e1bb44-2516-97dd-0d45-37d81771ee93">
+      <Execution id="3289d7c2-7836-49b6-b8ea-d9d617009b54" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Complete_UnknownTodo_ReturnsNotFound" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.ConcurrentUpdates_OnlyOneVersionWins" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="d8462da7-f973-3629-e9ac-d332d347e452">
+      <Execution id="82616e2c-a70d-4e0f-9c57-91ef74b6f25d" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="ConcurrentUpdates_OnlyOneVersionWins" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Delete_UnknownTodo_ReturnsNotFound" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="c1c84907-1b61-6505-47f4-4b6513b8e950">
+      <Execution id="06c01df9-1a6a-4719-87d8-cff9169b24a7" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Delete_UnknownTodo_ReturnsNotFound" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.AddRangeAsync_PersistsAllItemsAcrossInstances" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="c1fa8483-1b0a-544a-4472-4c2b1f3ff85c">
+      <Execution id="85998af1-8041-4011-948c-c9b32307b8f2" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="AddRangeAsync_PersistsAllItemsAcrossInstances" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_ValidItems_PersistsAllItems" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f6567b8c-1743-e176-b838-f607cf0c773d">
+      <Execution id="c1bf2937-983c-44ed-8e43-a944d9f4d1fd" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="AddRangeAsync_ValidItems_PersistsAllItems" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetAll_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="42891576-e829-e785-9d7d-681d6549577e">
+      <Execution id="8c01a1ac-c4d6-4ccb-b8df-4ed2f5144f06" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="GetAll_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.UpdateAsync_ReturnsFalseForUnknownTodoItem" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="6804343d-6e99-9d8c-a851-4ec3e20f6c57">
+      <Execution id="c2ad308b-a025-4fd3-80e7-6099335b091e" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="UpdateAsync_ReturnsFalseForUnknownTodoItem" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 1)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="98678091-b853-4459-774a-ba1927499c7f">
+      <Execution id="ccc21b97-58f6-4e99-816d-e70fb75764fe" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests" name="Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.NonUtcFirstDueDate_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="ff831887-2c8a-72d2-424c-ed4c58acc54e">
+      <Execution id="8a40b64f-bbf9-4152-9c6c-9b6a69012758" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="NonUtcFirstDueDate_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.ConcurrentUpdates_OnlyOneSucceeds" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="5ec52f44-92b7-d1ac-fd53-a5c09bde644f">
+      <Execution id="31e3c96b-24a1-4776-9f18-b01cff6017b5" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests" name="ConcurrentUpdates_OnlyOneSucceeds" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidCount_Returns400AndCreatesNothing(count: 0)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="33138ae3-0066-6e9b-d8fc-e7f0e83057ee">
+      <Execution id="5fdd5347-aab1-4594-959b-16ea87ca5287" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidCount_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Update_WithUserId_ChangesUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="67a5235d-3c97-d8dc-8777-56d05a57a7ed">
+      <Execution id="4ef195c1-cc4a-49ee-a8dc-7936bcefaebc" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="Update_WithUserId_ChangesUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 52)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="72e77548-189f-7d0b-1c99-1b1cd482af33">
+      <Execution id="f0715235-50df-49c9-97ae-62ad9de366cb" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests" name="Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="cd26ef84-6011-55fc-e5d8-cb7c9fa8aade">
+      <Execution id="e7948143-da18-4bd9-9fdd-b1e643b8e9f6" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToDto_MapsUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="20ec7a55-a74f-dac5-527d-3dae110860ae">
+      <Execution id="db823615-0c40-426d-8460-349c26048ddf" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ToDto_MapsUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_WithUserId_Returns201WithUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="80dd0910-8c60-3365-df29-887d05d00037">
+      <Execution id="ad2f83ae-186c-4a0c-ba79-70dd4c3fa2f1" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="Create_WithUserId_Returns201WithUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_UserIdTooLong_Returns400" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a910079b-939e-b82f-1082-5447ac7ba6d2">
+      <Execution id="abaaa65a-ed7a-4181-b560-c0d95ab3a5d9" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="GetAll_UserIdTooLong_Returns400" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithUserId_ReturnsOnlyThatUsersTodos" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="6c349bda-c0e1-ce9a-cb65-93a0b5d0ea9a">
+      <Execution id="eae68535-8576-4642-95b1-1e4a88c06d8b" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="GetAll_WithUserId_ReturnsOnlyThatUsersTodos" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_WithUserIdAndIsCompleted_ReturnsMatchingSubset" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8504265b-755f-5465-c129-75eccdca8ade">
+      <Execution id="7ef6b42f-4635-4271-aa68-0da3130c4424" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="GetAll_WithUserIdAndIsCompleted_ReturnsMatchingSubset" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f950dbf4-ef3e-beb6-01bf-99d4360e1bd8">
+      <Execution id="d07af654-e152-4bc6-bc14-3019e372f360" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_OmittedUserId_ClearsUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="59ae48c3-9bdb-2e0f-f229-dfd280679b6d">
+      <Execution id="c05ea073-8046-49a6-a311-a50d63528ba2" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ApplyTo_OmittedUserId_ClearsUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidTitle_Returns400AndCreatesNothing" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="86936530-4b9f-8578-853d-b7bd9e9776f5">
+      <Execution id="9bb9db13-2e31-4463-b8ed-073fb4125e3b" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidTitle_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="74334c4c-4dbe-6b02-4321-fbef9a040834">
+      <Execution id="2d215605-cf3c-401a-baf6-5c08d454c57b" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Create_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a5c43e52-6255-e8a1-dedc-75275fe105e0">
+      <Execution id="88f1de8e-e77a-40a1-8d7e-47b080ab7345" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="Create_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="2e623b68-6e73-3ee2-d139-1a75f9565833">
+      <Execution id="672d35cb-3673-41c2-b554-353f668984a8" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Delete_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="e575752f-ae3b-eced-02bf-d2fdad8c5bd4">
+      <Execution id="1ce6d7cc-9b16-4795-ace0-3db3e8a40bdd" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="Delete_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_UserIdTooLong_Returns400" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="626c1526-fcc5-06b8-29fa-293d31977c0a">
+      <Execution id="8e20f4b6-6ad6-41fb-87d8-1884ab382d59" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="Create_UserIdTooLong_Returns400" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Complete_ExistingTodo_ReturnsCompletedTodo" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="e1f7a932-336d-3d87-e770-a145e7d85d43">
+      <Execution id="15d07715-453c-44ab-aede-c07523de2e7b" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Complete_ExistingTodo_ReturnsCompletedTodo" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 53)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="677d45b4-01e6-c103-e673-ca945d87abcb">
+      <Execution id="b57679f6-0d69-4ac2-a298-4758487a5303" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="RepeatCount_OutOfRange_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: &quot;not-a-date&quot;)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a4228e18-7b3e-9c4e-aa64-47fa205641b7">
+      <Execution id="80c86f09-7ae3-4012-8f0f-f57b84d5cc8e" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidDate_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Update_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0d524be2-ed77-6ed0-da2f-8719f25e1041">
+      <Execution id="76341f0b-7c81-423a-8f00-3ee6879051bb" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="Update_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Create_WithUserId_ReturnsTrimmedUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="43928f86-6c41-3d0a-773b-7b4d68529c3c">
+      <Execution id="d9e9a9e8-c81b-4c77-b009-afc8ff1bae28" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Create_WithUserId_ReturnsTrimmedUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 0)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="3e5858ab-1ebd-1e88-9641-9dd28b42fb1e">
+      <Execution id="8ae9d646-1c7c-4fd7-b332-f5bbab8135ee" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="RepeatCount_OutOfRange_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.DateOverflow_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0c48091e-bc70-a618-ab7b-55681ff2a221">
+      <Execution id="796b8597-d6ba-4253-a7f6-cdbbd9288c96" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="DateOverflow_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddAsync_AddsTodoItem" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="47edabcd-eb69-c278-563a-ffd2a7ea5796">
+      <Execution id="f9dd4f0e-3407-413e-bdab-1fa8ba7a283e" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="AddAsync_AddsTodoItem" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_ConvertsWhitespaceDescriptionToNull" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="400c4860-32fc-1547-1822-e17ad8a4e919">
+      <Execution id="3dbca7bd-6c5e-4333-81eb-7d1f51960c8d" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ToEntity_ConvertsWhitespaceDescriptionToNull" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="55cee115-ae22-302e-44ed-84dd87dc5cc5">
+      <Execution id="374848fb-d1f7-437d-84ed-934e31f87869" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_TrimsUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="614bd7ac-9bf9-b1de-b776-4f2bc9573ccd">
+      <Execution id="9f903ca3-e02a-4df0-a2ca-57d5ffe69e70" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ToEntity_TrimsUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.ConcurrentCreates_DoNotLoseRecords" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="3b56f65e-cb46-73c3-46d6-a75e4d1f4d6d">
+      <Execution id="d69e3d12-0f9f-469f-b31d-41196111f26c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="ConcurrentCreates_DoNotLoseRecords" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidCount_Returns400AndCreatesNothing(count: 53)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="cc3fa7d8-25f9-efde-105d-26a90eeb28f8">
+      <Execution id="b6aafa86-44da-47ad-ae42-9f143e17c262" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidCount_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdTooLong_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="c1e3e563-c966-dee6-e26e-8e6af66a7f1f">
+      <Execution id="6f069620-9f0d-435b-9772-52e1033af9b9" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests" name="CreateTodoItemRequest_UserIdTooLong_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="40b7f359-15ff-8721-f37b-d8beca9a51cc">
+      <Execution id="cd7d41a6-ed1b-49e1-b63d-0ed76fc46f30" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.CorruptedJsonFile_LogsErrorAndStartsCleanWithoutThrowing" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="ffe1c577-8995-dca9-2d8d-794b3bae37be">
+      <Execution id="03a23a5e-f456-401b-a01a-a70135d40242" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="CorruptedJsonFile_LogsErrorAndStartsCleanWithoutThrowing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByCompletionStatus" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="2326a333-22f8-6c7e-be2a-57c1d582a404">
+      <Execution id="d5925a4a-fd50-4038-9bdc-798b00a5680f" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_FiltersByCompletionStatus" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;DELETE /api/todos/{id}&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="9daeb468-5c6f-231e-4407-c886b94ce938">
+      <Execution id="7efb0ca7-7700-473e-b366-f26ac65b18ac" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_WhitespaceUserId_ReturnsAllTodos" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="cea76898-0ffb-a597-657e-e1f337fcbcac">
+      <Execution id="50ebd585-6bbf-4b61-8f8f-178e67257eaf" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="GetAll_WhitespaceUserId_ReturnsAllTodos" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.CorruptedJson_IsNotSilentlyOverwritten" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a11b9d46-dc44-c9a9-74e2-36fc0a25b700">
+      <Execution id="0247b793-96b0-4685-8dd0-1fc2aa8f558a" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="CorruptedJson_IsNotSilentlyOverwritten" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.PerformanceProfilingTests.ApiEndpoints_ResponseTime_ShouldBeWellUnder500Milliseconds" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="65f04d0b-9e27-3746-ac2a-3a9326b269ca">
+      <Execution id="0c19fdf6-16ae-45b1-b9aa-9ab6c593cec4" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.PerformanceProfilingTests" name="ApiEndpoints_ResponseTime_ShouldBeWellUnder500Milliseconds" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos/{id}/complete&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="84502c80-cd6e-019f-c970-880b379ec5e5">
+      <Execution id="bebafeee-d350-4631-8d30-1d84e4a66109" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.UpdateAsync_UpdatesExistingTodoItem" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="14b50f29-ffa1-56a4-22fd-49611c73c4b8">
+      <Execution id="acf0e17f-ae97-4b86-8662-03a9350b867a" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="UpdateAsync_UpdatesExistingTodoItem" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.AddRangeAsync_WithExistingId_DoesNotPersistPartialBatch" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="e10d6610-3bc7-8405-3392-189a23ea85c9">
+      <Execution id="8196d649-096b-49b6-83e0-4f76cb9c95cc" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="AddRangeAsync_WithExistingId_DoesNotPersistPartialBatch" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="6ad900f4-9e16-c6e4-c211-215ec2ac873c">
+      <Execution id="e0881bde-eff4-407e-af08-618c796b8bb7" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="92fc500e-052c-46de-e488-f89875159190">
+      <Execution id="7cbf0ebd-8f31-4907-9fbb-7705f37cb192" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_FiltersByUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.ValidRequest_PassesValidation(repeatCount: 52)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8b69cab5-4b47-8a7a-3031-c2da1ea24127">
+      <Execution id="583492f2-fafa-41f1-a496-19f9941edaee" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="ValidRequest_PassesValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_FiltersByUserIdAndCompletionStatus" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="bc30ac56-affd-0037-f086-85be52a32e4a">
+      <Execution id="6b5e3fb5-87ae-4094-8694-60a10f83c4d2" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_FiltersByUserIdAndCompletionStatus" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.GetAllAsync_FiltersByUserIdAndCompletionStatus" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="caa6a180-2ce1-00aa-1bb9-4a4a83f6a034">
+      <Execution id="0b0b1957-e603-4624-8512-e2f3b62d391c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="GetAllAsync_FiltersByUserIdAndCompletionStatus" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: -1)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="590f5540-26e8-d80a-3b25-b239dd131fd2">
+      <Execution id="8f4a88ed-7e4f-4694-a052-792ba1aceb95" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="RepeatCount_OutOfRange_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.RepeatCount_OutOfRange_FailsValidation(repeatCount: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="9f254379-6ce8-5cd5-25ec-f3114fea0b54">
+      <Execution id="aac487be-9096-472f-b66b-ab763b4c0503" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="RepeatCount_OutOfRange_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdAtMaxLength_PassesValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="29522a87-b39a-7165-d4c1-ac2931b55b8c">
+      <Execution id="a4424ba3-4a18-489f-8184-415a86ff1a44" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests" name="CreateTodoItemRequest_UserIdAtMaxLength_PassesValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="ca2639c3-f48c-e3f7-629b-a8fc963656ec">
+      <Execution id="6bb200a1-f58f-4888-9111-1dd3d8a166ae" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_ValidRequest_Returns201AndPersistsAllOccurrences" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="338a83d1-2b58-9852-ad60-31901859450d">
+      <Execution id="ea6794bc-8f0d-4eb0-960b-cca75c6bb2b1" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_ValidRequest_Returns201AndPersistsAllOccurrences" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.SetCompletionState_ReopeningTodoClearsCompletedAtUtc" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="bf609174-17c9-da1d-bf34-c2a7cb10d47e">
+      <Execution id="b70c2dd1-0af7-4515-9460-a975ab47a8b2" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="SetCompletionState_ReopeningTodoClearsCompletedAtUtc" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.TooLongDescription_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="717ba064-5970-66e0-1a83-65cd99b17b40">
+      <Execution id="6a027f85-b855-44fd-9a08-81155eafc38d" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="TooLongDescription_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetById_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0242f631-e6b8-135f-dce0-f431113abea0">
+      <Execution id="f0f3389b-5e46-4ebb-b6e2-5297658acdc1" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="GetById_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_EmptyRepository_ReturnsOkWithEmptyList" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="571157cb-8726-0f3b-8403-8775c389650f">
+      <Execution id="e76c1aa5-dcff-4dba-af77-feca6eab2d38" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="GetAll_EmptyRepository_ReturnsOkWithEmptyList" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.StaleUpdate_ThrowsConflictAndPreservesLatestData" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="a4be0dc6-ce49-951c-ba42-dc49845b5d86">
+      <Execution id="a0816998-c385-4ab4-b23a-60ab3bd70020" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="StaleUpdate_ThrowsConflictAndPreservesLatestData" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.NewRepositoryInstance_LoadsPreviouslySavedData" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="7230f00a-776e-2cd5-0a1f-b36d9b6a19d8">
+      <Execution id="aa769b8f-9bf9-44b4-9388-a5bcf94d3100" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="NewRepositoryInstance_LoadsPreviouslySavedData" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.Delete_ExistingTodo_ReturnsNoContent" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="b9bf8a6a-c691-fd1e-905a-e0b84e0bf06f">
+      <Execution id="013ec326-0159-4259-a1e7-a2c383bb2645" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="Delete_ExistingTodo_ReturnsNoContent" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="c09cece2-6e97-cb20-b1a8-5bf386ab1086">
+      <Execution id="46785b61-1cf9-4a46-abe8-1a3f7db71cce" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="09bccb4f-9abd-36d9-66d8-cf0865e673ef">
+      <Execution id="9917f77e-b1f1-4412-8d0d-b808242f4b4a" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 10)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8202e94f-5468-0088-bd5d-486bd4701ec7">
+      <Execution id="c55440db-6088-4a56-a0ca-790cebb85ee7" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_SetsTrimmedUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="9e8c1043-0edf-48e2-2f9a-1afb756bc105">
+      <Execution id="6d308d07-e058-4ac9-9a40-eb1022467ed3" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ApplyTo_SetsTrimmedUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_TrimsTextAndInitializesNewTodo" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="2ea2e1a1-0923-3952-f927-9b659ff6bac1">
+      <Execution id="19496fad-f269-4127-ac7e-d12ec0617918" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ToEntity_TrimsTextAndInitializesNewTodo" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests.Update_WithStaleVersion_Returns409AndPreservesData" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="098916af-848b-fd53-4b7a-cc8a23f73f0f">
+      <Execution id="54f19dc2-aaa4-4b57-913f-4976872c2578" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.TodoConcurrencyTests" name="Update_WithStaleVersion_Returns409AndPreservesData" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.GetAll_UnknownUserId_ReturnsEmptyList" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="d6735a4e-b5c8-cd0e-9874-a1eb5b622454">
+      <Execution id="e127e80f-251e-4e98-abae-2c2dd9dd223c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="GetAll_UnknownUserId_ReturnsEmptyList" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.AddRangeAsync_DuplicateExistingId_PersistsNoNewItems" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="5d817e0e-2893-e049-9ffb-d9cd060426b5">
+      <Execution id="8c070bbe-0e0a-4c9f-bd73-46be7a87cc1a" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="AddRangeAsync_DuplicateExistingId_PersistsNoNewItems" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.Complete_HttpRequest_MeasuresResponseTime" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="589a9aa5-d393-a3e7-8de2-5bac220b4141">
+      <Execution id="eca1833d-f63d-41bd-96a2-eb3fc5f90b38" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="Complete_HttpRequest_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsStoredUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="fcbf84dc-3183-c408-175b-7b71cde67381">
+      <Execution id="a1db080e-b344-4ef5-9e77-9786dc71ca60" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetByIdAsync_ReturnsStoredUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidTitle_FailsValidation(title: &quot;&quot;)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f0d867f8-3f7a-ee37-907f-122632e85610">
+      <Execution id="aa160b7d-298f-43b0-95b3-23b87af3241f" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="InvalidTitle_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;PUT /api/todos/{id}&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f6cf5c6f-3114-41d2-241d-cda9fcfb1966">
+      <Execution id="0d197949-4c7d-4c93-a27e-3eae6a6ac023" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: &quot;2026-10-20T12:00:00+02:00&quot;)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="bb6100d4-bc01-4c0b-128e-4fa4232d6301">
+      <Execution id="27a117d0-1fa0-4bd8-b0c5-3bbd6e5f1cc4" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidDate_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetAll_WithUserIdFilter_ReturnsOnlyMatchingTodos" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="be21a9fc-62ff-ff1b-d5bb-2f591b3b993f">
+      <Execution id="92afe0ff-bc6a-44d8-9401-05aa945af559" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="GetAll_WithUserIdFilter_ReturnsOnlyMatchingTodos" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.LegacyJsonWithoutUserId_LoadsWithNullUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="f430affc-8bda-8063-7782-45556f160e13">
+      <Execution id="04ef89e1-aa0c-4012-8a78-eb2c723f711f" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="LegacyJsonWithoutUserId_LoadsWithNullUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests.Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences(repeatCount: 3)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="546b1ce9-dea4-081f-6861-adc95c6552eb">
+      <Execution id="9ed91d4a-06fd-4304-af55-ba25f417cd9c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.RecurringTodoTests" name="Repeat_ValidRequest_CreatesCorrectWeeklyOccurrences" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ToEntity_WhitespaceUserId_SetsNull" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="b631e1f1-0f8a-8c09-e94a-a7f73a8cf637">
+      <Execution id="b00b1b68-4738-47f6-be70-d690104fbcd9" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ToEntity_WhitespaceUserId_SetsNull" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests.Repeat_InvalidDate_Returns400AndCreatesNothing(firstDueAtUtc: null)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="d52a7db8-88bc-ef9e-08a3-9fd2af456341">
+      <Execution id="9d0428f5-b3c0-48bf-9538-3215abef1dbd" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.RecurringTodoApiTests" name="Repeat_InvalidDate_Returns400AndCreatesNothing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.InvalidTitle_FailsValidation(title: &quot; &quot;)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="df80dec1-3a97-32cb-0db2-c0522a47d721">
+      <Execution id="0be5b57b-35ff-4f97-b65a-4d59489263b8" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="InvalidTitle_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_UserIdFilter_ExcludesTodosWithoutUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="684ea915-9a2b-700e-9f4e-2fd638f21929">
+      <Execution id="20d85659-133a-4164-947c-738776344a2f" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_UserIdFilter_ExcludesTodosWithoutUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests.Create_WithoutUserId_Returns201WithNullUserId" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="9a71b417-139e-f366-8678-f2f13d884ce0">
+      <Execution id="c3ec3584-ba70-4c9a-9730-f62f82d860fc" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.UserTodoFilterApiTests" name="Create_WithoutUserId_Returns201WithNullUserId" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.UserId_PersistsAcrossRepositoryInstances" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="09df7efa-f8cc-6920-a8fd-1c68124cc7a8">
+      <Execution id="cddd4a9c-38ac-40ba-9492-308148ea59c1" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="UserId_PersistsAcrossRepositoryInstances" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetByIdAsync_ReturnsExistingTodoItem" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="45dcddca-b4d8-389a-24d4-f39c89c44222">
+      <Execution id="3cddfd8c-cc58-46ce-89c5-4f0d1e683adf" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetByIdAsync_ReturnsExistingTodoItem" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.CreateTodoItemRequest_UserIdOmitted_PassesValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="bae0eca5-72b6-1923-e07a-8b1be19d30bd">
+      <Execution id="81305106-cc8f-4aae-8079-eb13a080a354" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests" name="CreateTodoItemRequest_UserIdOmitted_PassesValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.ApplyTo_UpdatesTodoEntity" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="9308ed2f-e757-dd92-3703-2d649938e618">
+      <Execution id="431223d9-433b-4d54-98f8-2fdf8493b034" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="ApplyTo_UpdatesTodoEntity" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Controllers.TodosControllerTests.GetById_UnknownId_ReturnsNotFound" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="d3dc4239-4442-ab93-b00a-46f1b52635b1">
+      <Execution id="2094e831-1a00-4735-9bdd-be452b2f2c9d" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Controllers.TodosControllerTests" name="GetById_UnknownId_ReturnsNotFound" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests.Changes_AreVisibleAcrossRepositoriesWithoutRestart" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0e2c0c3b-2e42-09db-b287-abcf11080cb6">
+      <Execution id="7800cb29-542d-4145-a8ef-627bba197ac4" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Integration.JsonFileMultiInstanceTests" name="Changes_AreVisibleAcrossRepositoriesWithoutRestart" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests.GetAll_HttpRequest_ReturnsOk" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="7db2992e-5a6c-0cf1-df73-b6f0fbc61b88">
+      <Execution id="bcd0e400-30af-4071-bebf-4c03fb26dfff" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.HttpPerformanceTests" name="GetAll_HttpRequest_ReturnsOk" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 50)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0fe06359-57b6-cd70-911f-7451a981d5b1">
+      <Execution id="6e48aec5-3266-4da1-ae28-8403d0b5983c" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.ValidRequest_PassesValidation(repeatCount: 1)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8940f1c7-65d4-ce5b-ce54-47aa0cac850d">
+      <Execution id="49679b46-af61-4837-b020-7ed35a6c7df6" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="ValidRequest_PassesValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_UserIdFilter_IsCaseSensitive" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="1ede5cb4-9899-dfd4-c006-ff954ca1082c">
+      <Execution id="e0c01501-83fa-4886-bac2-be0d6326cbbe" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_UserIdFilter_IsCaseSensitive" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.GetAllAsync_SortsByPriorityThenCreatedAt" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="70cf7013-7213-d1a5-a021-5db629a2423a">
+      <Execution id="0bda056f-92cd-4751-9783-f6cd03f92291" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="GetAllAsync_SortsByPriorityThenCreatedAt" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests.UpdateTodoItemRequest_UserIdTooLong_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="0759d092-b5bd-6e01-2350-04e1cc93aa0e">
+      <Execution id="199bbd2d-ab09-4992-95ba-844555599d89" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.TodoUserIdValidationTests" name="UpdateTodoItemRequest_UserIdTooLong_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Mapping.TodoMapperTests.SetCompletionState_CompletingTodoSetsCompletedAtUtc" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="3f2495c3-1bbb-6d3a-57cb-531fc2a4855b">
+      <Execution id="6edf3876-fb13-429a-9a3c-9d28e44b0010" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Mapping.TodoMapperTests" name="SetCompletionState_CompletingTodoSetsCompletedAtUtc" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests.MissingFirstDueDate_FailsValidation" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="3a0ea098-34c8-dc75-46af-ad37110e86fe">
+      <Execution id="8fe0f3d9-bf3f-4ee5-9da4-a323f12ccb75" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.DTO.CreateRecurringTodoRequestTests" name="MissingFirstDueDate_FailsValidation" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;GET /api/todos/{id}&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="70ec8f3b-7d48-00b9-8737-aa0fe2529b32">
+      <Execution id="0b43f01b-2472-4f3e-a7af-ba8c5ffb0e94" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests.NonExistingFile_InitializesCleanStateWithoutCrashing" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="8092d635-b968-5b30-74e9-4a91e23be797">
+      <Execution id="18e962ab-093e-4f8f-9908-984c9543fb2d" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.JsonFileTodoRepositoryTests" name="NonExistingFile_InitializesCleanStateWithoutCrashing" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Performance.ApiLoadTests.ApiEndpoints_ConcurrentLoad_MeasuresResponseTime(endpoint: &quot;POST /api/todos&quot;, concurrentRequests: 100)" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="89746235-076f-d1f9-856b-609eeb67abd4">
+      <Execution id="57c8568b-6748-431c-87cd-0a1641dd6ebc" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Performance.ApiLoadTests" name="ApiEndpoints_ConcurrentLoad_MeasuresResponseTime" />
+    </UnitTest>
+    <UnitTest name="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests.DeleteAsync_RemovesExistingTodoItem" storage="c:\users\notebook\desktop\0vp\projekt1\0vp-26-27z-studentsgroup-team-3\tests\uai.zerovp.tests\bin\release\net10.0\uai.zerovp.tests.dll" id="bc1c1bfe-d73b-ef79-e1bf-871dae4b4e70">
+      <Execution id="53fab1d5-cd90-4983-ae15-9c670e6e5340" />
+      <TestMethod codeBase="C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="UAI.ZeroVP.Tests.Data.InMemoryTodoRepositoryTests" name="DeleteAsync_RemovesExistingTodoItem" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a4be0dc6-ce49-951c-ba42-dc49845b5d86" executionId="a0816998-c385-4ab4-b23a-60ab3bd70020" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6804343d-6e99-9d8c-a851-4ec3e20f6c57" executionId="c2ad308b-a025-4fd3-80e7-6099335b091e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70ec8f3b-7d48-00b9-8737-aa0fe2529b32" executionId="0b43f01b-2472-4f3e-a7af-ba8c5ffb0e94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="717ba064-5970-66e0-1a83-65cd99b17b40" executionId="6a027f85-b855-44fd-9a08-81155eafc38d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7db2992e-5a6c-0cf1-df73-b6f0fbc61b88" executionId="bcd0e400-30af-4071-bebf-4c03fb26dfff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40b7f359-15ff-8721-f37b-d8beca9a51cc" executionId="cd7d41a6-ed1b-49e1-b63d-0ed76fc46f30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f950dbf4-ef3e-beb6-01bf-99d4360e1bd8" executionId="d07af654-e152-4bc6-bc14-3019e372f360" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e10d6610-3bc7-8405-3392-189a23ea85c9" executionId="8196d649-096b-49b6-83e0-4f76cb9c95cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b69cab5-4b47-8a7a-3031-c2da1ea24127" executionId="583492f2-fafa-41f1-a496-19f9941edaee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1c84907-1b61-6505-47f4-4b6513b8e950" executionId="06c01df9-1a6a-4719-87d8-cff9169b24a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8462da7-f973-3629-e9ac-d332d347e452" executionId="82616e2c-a70d-4e0f-9c57-91ef74b6f25d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f2495c3-1bbb-6d3a-57cb-531fc2a4855b" executionId="6edf3876-fb13-429a-9a3c-9d28e44b0010" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c09cece2-6e97-cb20-b1a8-5bf386ab1086" executionId="46785b61-1cf9-4a46-abe8-1a3f7db71cce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29522a87-b39a-7165-d4c1-ac2931b55b8c" executionId="a4424ba3-4a18-489f-8184-415a86ff1a44" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c349bda-c0e1-ce9a-cb65-93a0b5d0ea9a" executionId="eae68535-8576-4642-95b1-1e4a88c06d8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55cee115-ae22-302e-44ed-84dd87dc5cc5" executionId="374848fb-d1f7-437d-84ed-934e31f87869" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="677d45b4-01e6-c103-e673-ca945d87abcb" executionId="b57679f6-0d69-4ac2-a298-4758487a5303" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0d867f8-3f7a-ee37-907f-122632e85610" executionId="aa160b7d-298f-43b0-95b3-23b87af3241f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="338a83d1-2b58-9852-ad60-31901859450d" executionId="ea6794bc-8f0d-4eb0-960b-cca75c6bb2b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84502c80-cd6e-019f-c970-880b379ec5e5" executionId="bebafeee-d350-4631-8d30-1d84e4a66109" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1fa8483-1b0a-544a-4472-4c2b1f3ff85c" executionId="85998af1-8041-4011-948c-c9b32307b8f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10ccb059-7329-eb87-9dfb-db3ff0b07367" executionId="b94066b3-1b15-49c6-891d-35387d1df857" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="caa6a180-2ce1-00aa-1bb9-4a4a83f6a034" executionId="0b0b1957-e603-4624-8512-e2f3b62d391c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="098916af-848b-fd53-4b7a-cc8a23f73f0f" executionId="54f19dc2-aaa4-4b57-913f-4976872c2578" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86936530-4b9f-8578-853d-b7bd9e9776f5" executionId="9bb9db13-2e31-4463-b8ed-073fb4125e3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70cf7013-7213-d1a5-a021-5db629a2423a" executionId="0bda056f-92cd-4751-9783-f6cd03f92291" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df80dec1-3a97-32cb-0db2-c0522a47d721" executionId="0be5b57b-35ff-4f97-b65a-4d59489263b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd26ef84-6011-55fc-e5d8-cb7c9fa8aade" executionId="e7948143-da18-4bd9-9fdd-b1e643b8e9f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b631e1f1-0f8a-8c09-e94a-a7f73a8cf637" executionId="b00b1b68-4738-47f6-be70-d690104fbcd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c48091e-bc70-a618-ab7b-55681ff2a221" executionId="796b8597-d6ba-4253-a7f6-cdbbd9288c96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e8c1043-0edf-48e2-2f9a-1afb756bc105" executionId="6d308d07-e058-4ac9-9a40-eb1022467ed3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d52a7db8-88bc-ef9e-08a3-9fd2af456341" executionId="9d0428f5-b3c0-48bf-9538-3215abef1dbd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1e3e563-c966-dee6-e26e-8e6af66a7f1f" executionId="6f069620-9f0d-435b-9772-52e1033af9b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8202e94f-5468-0088-bd5d-486bd4701ec7" executionId="c55440db-6088-4a56-a0ca-790cebb85ee7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a0ea098-34c8-dc75-46af-ad37110e86fe" executionId="8fe0f3d9-bf3f-4ee5-9da4-a323f12ccb75" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="834fe1af-9c1d-1b9c-69ea-f7c977a34892" executionId="0c664088-d949-466a-820f-6b6f5df1cf26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45dcddca-b4d8-389a-24d4-f39c89c44222" executionId="3cddfd8c-cc58-46ce-89c5-4f0d1e683adf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ad900f4-9e16-c6e4-c211-215ec2ac873c" executionId="e0881bde-eff4-407e-af08-618c796b8bb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc1c1bfe-d73b-ef79-e1bf-871dae4b4e70" executionId="53fab1d5-cd90-4983-ae15-9c670e6e5340" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="546b1ce9-dea4-081f-6861-adc95c6552eb" executionId="9ed91d4a-06fd-4304-af55-ba25f417cd9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b56f65e-cb46-73c3-46d6-a75e4d1f4d6d" executionId="d69e3d12-0f9f-469f-b31d-41196111f26c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33138ae3-0066-6e9b-d8fc-e7f0e83057ee" executionId="5fdd5347-aab1-4594-959b-16ea87ca5287" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff831887-2c8a-72d2-424c-ed4c58acc54e" executionId="8a40b64f-bbf9-4152-9c6c-9b6a69012758" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8092d635-b968-5b30-74e9-4a91e23be797" executionId="18e962ab-093e-4f8f-9908-984c9543fb2d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6567b8c-1743-e176-b838-f607cf0c773d" executionId="c1bf2937-983c-44ed-8e43-a944d9f4d1fd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6735a4e-b5c8-cd0e-9874-a1eb5b622454" executionId="e127e80f-251e-4e98-abae-2c2dd9dd223c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bae0eca5-72b6-1923-e07a-8b1be19d30bd" executionId="81305106-cc8f-4aae-8079-eb13a080a354" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98678091-b853-4459-774a-ba1927499c7f" executionId="ccc21b97-58f6-4e99-816d-e70fb75764fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="67a5235d-3c97-d8dc-8777-56d05a57a7ed" executionId="4ef195c1-cc4a-49ee-a8dc-7936bcefaebc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43928f86-6c41-3d0a-773b-7b4d68529c3c" executionId="d9e9a9e8-c81b-4c77-b009-afc8ff1bae28" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92fc500e-052c-46de-e488-f89875159190" executionId="7cbf0ebd-8f31-4907-9fbb-7705f37cb192" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be21a9fc-62ff-ff1b-d5bb-2f591b3b993f" executionId="92afe0ff-bc6a-44d8-9401-05aa945af559" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a11b9d46-dc44-c9a9-74e2-36fc0a25b700" executionId="0247b793-96b0-4685-8dd0-1fc2aa8f558a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e575752f-ae3b-eced-02bf-d2fdad8c5bd4" executionId="1ce6d7cc-9b16-4795-ace0-3db3e8a40bdd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e623b68-6e73-3ee2-d139-1a75f9565833" executionId="672d35cb-3673-41c2-b554-353f668984a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ede5cb4-9899-dfd4-c006-ff954ca1082c" executionId="e0c01501-83fa-4886-bac2-be0d6326cbbe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc3fa7d8-25f9-efde-105d-26a90eeb28f8" executionId="b6aafa86-44da-47ad-ae42-9f143e17c262" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9f254379-6ce8-5cd5-25ec-f3114fea0b54" executionId="aac487be-9096-472f-b66b-ab763b4c0503" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0242f631-e6b8-135f-dce0-f431113abea0" executionId="f0f3389b-5e46-4ebb-b6e2-5297658acdc1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="571157cb-8726-0f3b-8403-8775c389650f" executionId="e76c1aa5-dcff-4dba-af77-feca6eab2d38" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f430affc-8bda-8063-7782-45556f160e13" executionId="04ef89e1-aa0c-4012-8a78-eb2c723f711f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47edabcd-eb69-c278-563a-ffd2a7ea5796" executionId="f9dd4f0e-3407-413e-bdab-1fa8ba7a283e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8940f1c7-65d4-ce5b-ce54-47aa0cac850d" executionId="49679b46-af61-4837-b020-7ed35a6c7df6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14b50f29-ffa1-56a4-22fd-49611c73c4b8" executionId="acf0e17f-ae97-4b86-8662-03a9350b867a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09df7efa-f8cc-6920-a8fd-1c68124cc7a8" executionId="cddd4a9c-38ac-40ba-9492-308148ea59c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ec52f44-92b7-d1ac-fd53-a5c09bde644f" executionId="31e3c96b-24a1-4776-9f18-b01cff6017b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6e74b6b-68cc-108c-7a13-777709cedbd0" executionId="eb297fd1-8455-44fa-9b5f-1ed5c5085833" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a398566f-bc7e-1f01-b504-cb49a093156d" executionId="8638f4a3-88a7-4045-8d05-054787b9433c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="400c4860-32fc-1547-1822-e17ad8a4e919" executionId="3dbca7bd-6c5e-4333-81eb-7d1f51960c8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80dd0910-8c60-3365-df29-887d05d00037" executionId="ad2f83ae-186c-4a0c-ba79-70dd4c3fa2f1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1f7a932-336d-3d87-e770-a145e7d85d43" executionId="15d07715-453c-44ab-aede-c07523de2e7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4228e18-7b3e-9c4e-aa64-47fa205641b7" executionId="80c86f09-7ae3-4012-8f0f-f57b84d5cc8e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9308ed2f-e757-dd92-3703-2d649938e618" executionId="431223d9-433b-4d54-98f8-2fdf8493b034" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9a71b417-139e-f366-8678-f2f13d884ce0" executionId="c3ec3584-ba70-4c9a-9730-f62f82d860fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8504265b-755f-5465-c129-75eccdca8ade" executionId="7ef6b42f-4635-4271-aa68-0da3130c4424" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b127c65-3c32-c2ac-0420-aeb87e5221aa" executionId="ab09f58a-4e0e-46f0-a52f-8537fb2ceb64" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="65e1bb44-2516-97dd-0d45-37d81771ee93" executionId="3289d7c2-7836-49b6-b8ea-d9d617009b54" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ea2e1a1-0923-3952-f927-9b659ff6bac1" executionId="19496fad-f269-4127-ac7e-d12ec0617918" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6cf5c6f-3114-41d2-241d-cda9fcfb1966" executionId="0d197949-4c7d-4c93-a27e-3eae6a6ac023" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb6100d4-bc01-4c0b-128e-4fa4232d6301" executionId="27a117d0-1fa0-4bd8-b0c5-3bbd6e5f1cc4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="684ea915-9a2b-700e-9f4e-2fd638f21929" executionId="20d85659-133a-4164-947c-738776344a2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e03fa80-cc1d-b2ef-1d92-3ebb670d42a7" executionId="fa46ab2f-3a42-4d28-ae41-f41fe52a4b6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="590f5540-26e8-d80a-3b25-b239dd131fd2" executionId="8f4a88ed-7e4f-4694-a052-792ba1aceb95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0759d092-b5bd-6e01-2350-04e1cc93aa0e" executionId="199bbd2d-ab09-4992-95ba-844555599d89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09bccb4f-9abd-36d9-66d8-cf0865e673ef" executionId="9917f77e-b1f1-4412-8d0d-b808242f4b4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9daeb468-5c6f-231e-4407-c886b94ce938" executionId="7efb0ca7-7700-473e-b366-f26ac65b18ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a2788be-2067-89c5-4357-9bfe2c7f6745" executionId="b4f0065f-e4a8-4fb8-8e68-a92d60478e24" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21216b83-b5cc-db1e-4e63-f625f16e30eb" executionId="def15944-22e2-42f6-9a61-6e5759015730" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7230f00a-776e-2cd5-0a1f-b36d9b6a19d8" executionId="aa769b8f-9bf9-44b4-9388-a5bcf94d3100" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e2c0c3b-2e42-09db-b287-abcf11080cb6" executionId="7800cb29-542d-4145-a8ef-627bba197ac4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cea76898-0ffb-a597-657e-e1f337fcbcac" executionId="50ebd585-6bbf-4b61-8f8f-178e67257eaf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72e77548-189f-7d0b-1c99-1b1cd482af33" executionId="f0715235-50df-49c9-97ae-62ad9de366cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="614bd7ac-9bf9-b1de-b776-4f2bc9573ccd" executionId="9f903ca3-e02a-4df0-a2ca-57d5ffe69e70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a910079b-939e-b82f-1082-5447ac7ba6d2" executionId="abaaa65a-ed7a-4181-b560-c0d95ab3a5d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca2639c3-f48c-e3f7-629b-a8fc963656ec" executionId="6bb200a1-f58f-4888-9111-1dd3d8a166ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20ec7a55-a74f-dac5-527d-3dae110860ae" executionId="db823615-0c40-426d-8460-349c26048ddf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d524be2-ed77-6ed0-da2f-8719f25e1041" executionId="76341f0b-7c81-423a-8f00-3ee6879051bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e5858ab-1ebd-1e88-9641-9dd28b42fb1e" executionId="8ae9d646-1c7c-4fd7-b332-f5bbab8135ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="626c1526-fcc5-06b8-29fa-293d31977c0a" executionId="8e20f4b6-6ad6-41fb-87d8-1884ab382d59" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc30ac56-affd-0037-f086-85be52a32e4a" executionId="6b5e3fb5-87ae-4094-8694-60a10f83c4d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="42891576-e829-e785-9d7d-681d6549577e" executionId="8c01a1ac-c4d6-4ccb-b8df-4ed2f5144f06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3dc4239-4442-ab93-b00a-46f1b52635b1" executionId="2094e831-1a00-4735-9bdd-be452b2f2c9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5c43e52-6255-e8a1-dedc-75275fe105e0" executionId="88f1de8e-e77a-40a1-8d7e-47b080ab7345" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0fe06359-57b6-cd70-911f-7451a981d5b1" executionId="6e48aec5-3266-4da1-ae28-8403d0b5983c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="89746235-076f-d1f9-856b-609eeb67abd4" executionId="57c8568b-6748-431c-87cd-0a1641dd6ebc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="65f04d0b-9e27-3746-ac2a-3a9326b269ca" executionId="0c19fdf6-16ae-45b1-b9aa-9ab6c593cec4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2326a333-22f8-6c7e-be2a-57c1d582a404" executionId="d5925a4a-fd50-4038-9bdc-798b00a5680f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf609174-17c9-da1d-bf34-c2a7cb10d47e" executionId="b70c2dd1-0af7-4515-9460-a975ab47a8b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74334c4c-4dbe-6b02-4321-fbef9a040834" executionId="2d215605-cf3c-401a-baf6-5c08d454c57b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffe1c577-8995-dca9-2d8d-794b3bae37be" executionId="03a23a5e-f456-401b-a01a-a70135d40242" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="589a9aa5-d393-a3e7-8de2-5bac220b4141" executionId="eca1833d-f63d-41bd-96a2-eb3fc5f90b38" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d817e0e-2893-e049-9ffb-d9cd060426b5" executionId="8c070bbe-0e0a-4c9f-bd73-46be7a87cc1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcbf84dc-3183-c408-175b-7b71cde67381" executionId="a1db080e-b344-4ef5-9e77-9786dc71ca60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b9bf8a6a-c691-fd1e-905a-e0b84e0bf06f" executionId="013ec326-0159-4259-a1e7-a2c383bb2645" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="59ae48c3-9bdb-2e0f-f229-dfd280679b6d" executionId="c05ea073-8046-49a6-a311-a50d63528ba2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="115" executed="115" passed="115" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.12)&#xD;
+[xUnit.net 00:00:00.09]   Discovering: UAI.ZeroVP.Tests&#xD;
+[xUnit.net 00:00:00.16]   Discovered:  UAI.ZeroVP.Tests&#xD;
+[xUnit.net 00:00:00.19]   Starting:    UAI.ZeroVP.Tests&#xD;
+[xUnit.net 00:00:02.44]   Finished:    UAI.ZeroVP.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

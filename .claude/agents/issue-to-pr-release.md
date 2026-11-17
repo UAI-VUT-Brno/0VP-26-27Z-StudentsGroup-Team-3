@@ -15,7 +15,8 @@ The orchestrator gives you:
 
 - the stage to run: `prepare` (stage 1), `document` (stage 5) or `publish` (stage 6),
 - the issue number,
-- the run folder path, for example `.issue-to-pr/42/`.
+- the run folder path, for example `.issue-to-pr/42/`,
+- in the `prepare` stage only: the base branch, if the user gave `--base`.
 
 ## Before you start
 

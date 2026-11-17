@@ -1,0 +1,12 @@
+﻿  Determining projects to restore...
+  All projects are up-to-date for restore.
+  UAI.ZeroVP.DTO -> C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\src\UAI.ZeroVP.DTO\bin\Release\net10.0\UAI.ZeroVP.DTO.dll
+  UAI.ZeroVP.Data -> C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\src\UAI.ZeroVP.Data\bin\Release\net10.0\UAI.ZeroVP.Data.dll
+  UAI.ZeroVP.API -> C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\src\UAI.ZeroVP.API\bin\Release\net10.0\UAI.ZeroVP.API.dll
+  UAI.ZeroVP.Tests -> C:\Users\notebook\Desktop\0VP\Projekt1\0VP-26-27Z-StudentsGroup-Team-3\tests\UAI.ZeroVP.Tests\bin\Release\net10.0\UAI.ZeroVP.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.25
