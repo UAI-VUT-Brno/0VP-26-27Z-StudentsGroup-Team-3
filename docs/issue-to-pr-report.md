@@ -6,7 +6,7 @@ Technical and benchmark report, team 3, course 0VP 26/27Z.
 
 `/issue-to-pr` is an agentic workflow for the UAI.ZeroVP ToDo REST API (.NET 10). Given a GitHub issue, it creates a feature branch, implements the change across the DTO, Data and API layers, writes xUnit tests, verifies the build and tests with a bounded self-healing loop, updates documentation, and opens a pull request with `gh`. It runs in Claude Code and consists only of Markdown files: one orchestrator skill, four subagents, four stage prompts and four rule files. It contains no executable code.
 
-We compared the workflow with interactive development using GitHub Copilot in VS Code on two issues: a replica of the historical issue OVP-T3-10 and a new synthetic issue. Both unattended runs finished without human intervention and produced verified pull requests. Total time to pull request was similar to Copilot (14 min 20 s vs. 15 min on B1, 10 min 35 s vs. about 10 min on B2), but the agent wrote far more tests (29 vs. 3 and 20 vs. 6 new test cases) and scored higher on our code quality checklist. It also interpreted one requirement of B1 too narrowly, as discussed in section 6.
+We compared the workflow with interactive development using GitHub Copilot in VS Code on two issues: a replica of the historical issue OVP-T3-10 and a new synthetic issue. Both unattended runs finished without human intervention and produced verified pull requests. Total time to pull request was similar to Copilot (14 min 20 s vs. 15 min on B1, 10 min 35 s vs. about 10 min on B2), but the agent wrote far more tests (29 vs. 3 and 20 vs. 6 new test cases) and scored higher on our code quality checklist, which measures how the code is written. Functional completeness is a separate result: on B1, the agent interpreted one requirement too narrowly, as discussed in section 6.
 
 The full benchmark protocol, raw data and transcripts are in [`benchmark/README.md`](benchmark/README.md).
 
@@ -146,9 +146,10 @@ For B1, we removed references to user identification and to MCP from the rules o
 |---|---|---|---|---|
 | Total time to PR | 15 min 0 s ¹ | 14 min 20 s | ~10 min ² | 10 min 35 s |
 | Human interventions | 1 prompt, 3 approvals ¹ | 0 | 1 prompt, 1 approval, 1 manual PR fix | 0 |
-| First-attempt pass | No | No | Not recorded | Yes |
-| Repair cycles | 2 | 1 | Not recorded | 0 |
-| Code quality (met / applicable) | 4 / 6 | 7 / 7 | 5 / 6 | 6 / 6 |
+| First-attempt pass | No | No | Not recorded ⁴ | Yes |
+| Repair cycles | 2 | 1 | Not recorded ⁴ | 0 |
+| Code quality checklist (met / applicable) ⁵ | 4 / 6 | 7 / 7 | 5 / 6 | 6 / 6 |
+| Issue scope fully implemented ⁵ | Yes | No ⁶ | Yes | Yes |
 | Files changed | 18 | 19 | 4 | 10 |
 | New test cases | 3 | 29 | 6 | 20 |
 | Final test result | 89 / 89 | 115 / 115 | 161 / 161 ³ | 175 / 175 |
@@ -156,7 +157,10 @@ For B1, we removed references to user identification and to MCP from the rules o
 
 ¹ Attempt 1 only. An earlier attempt 0 (4 min 40 s, 1 prompt, 10 approvals) was aborted because Copilot received only the issue number, not its text.
 ² Copilot finished the code in 1 min 37 s; the rest is committing, pushing and creating the pull request.
-³ As reported by Copilot; individual test runs were not recorded.
+³ As reported by Copilot; individual test runs were not recorded. The CI check of #58 (build and all tests) passed.
+⁴ Not recoverable: the steps were too fast to log by hand and the chat history was closed after the run. Comparisons of these two metrics are therefore based on B1 only.
+⁵ The code quality checklist measures how the code is written, not whether the issue is complete; functional completeness is the separate row below it.
+⁶ `userId` is missing in `POST /api/todos/repeat`; see section 6.1.
 
 Approximate stage durations of the agent runs, from the timestamps of the stage output files:
 
@@ -176,7 +180,7 @@ The checklist (Q1–Q7) covers layering, both repository implementations, Proble
 - **B1 Copilot:** no failure tests (all three new tests cover successful filtering); a new test file without BOM.
 - **B2 Copilot:** the controller sets the priority directly instead of using a `TodoMapper` method. Copilot did not receive our rules, while the agent reads them on every run.
 
-The agent lost no points on the checklist. The full table with explanations is in [`benchmark/README.md`](benchmark/README.md#code-quality).
+The agent lost no points on the checklist. This does not mean that it fully implemented every issue: the checklist evaluates the code that was written, while requirement coverage is reported separately (table in 5.2, section 6.1). The full table with explanations is in [`benchmark/README.md`](benchmark/README.md#code-quality).
 
 ### 5.4 Interpretation
 
@@ -216,7 +220,7 @@ These fixes are part of the current version and show that review by humans remai
 - **The plan is a single point of failure.** If the planner narrows or misses a requirement, later stages cannot notice it, as B1 shows. A possible improvement is a final check that compares the pull request against the original acceptance criteria, not only against the plan.
 - **Possible contamination of B1.** The agent chose the same name (`NormalizeUserId`), the same 100-character limit and the same validation message for `userId` as the original solution, although we removed these details from the rules on the baseline branch. The transcript shows no access to the git history, and the choices follow existing patterns in the code (for example the message for the description limit), but the local repository still contained the original solution in its history, available to both approaches. A fresh clone containing only the baseline branch would rule this out.
 - **Small sample.** Two issues and one person per approach do not allow general conclusions. Results also depend on the model version and on the person using Copilot.
-- **Manual measurement of Copilot runs.** Copilot runs were timed and logged by hand; in B2 the intermediate steps were not recorded.
+- **Manual measurement of Copilot runs.** Copilot runs were timed and logged by hand. In B2 the first-attempt result and the number of repair cycles were not recorded and could not be recovered, so issue #47 is not fully met for that run; see the measurement gap in [`benchmark/README.md`](benchmark/README.md#measurement-gap-b2-copilot).
 - **Unequal grounding.** The agent reads repository rules on every run; Copilot received only the issue text. Part of the quality difference comes from the rules rather than from autonomy itself.
 - **Model behavior is not deterministic.** The same issue can produce different plans and code in another run. Occasionally the model also states unverified assumptions, for example a guess about a missing newline that the planner recorded without reading the file.
 
