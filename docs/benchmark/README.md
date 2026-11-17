@@ -122,9 +122,10 @@ All runs took place on 16 November 2026, by Martin239412. Approach A used Copilo
 |---|---|---|---|---|
 | Total time to PR | 15 min 0 s ¹ | 14 min 20 s | ~10 min ² | 10 min 35 s |
 | Human interventions | 1 prompt, 3 approvals ¹ | 0 | 1 prompt, 1 approval, 1 manual PR fix | 0 |
-| First-attempt pass | No | No | Not recorded | Yes |
-| Repair cycles | 2 | 1 | Not recorded | 0 |
-| Code quality (met / applicable) | 4 / 6 | 7 / 7 | 5 / 6 | 6 / 6 |
+| First-attempt pass | No | No | Not recorded ⁴ | Yes |
+| Repair cycles | 2 | 1 | Not recorded ⁴ | 0 |
+| Code quality checklist (met / applicable) ⁵ | 4 / 6 | 7 / 7 | 5 / 6 | 6 / 6 |
+| Issue scope fully implemented ⁵ | Yes | No ⁶ | Yes | Yes |
 | Files changed | 18 | 19 | 4 | 10 |
 | New test cases | 3 | 29 | 6 | 20 |
 | Final test result | 89 / 89 | 115 / 115 | 161 / 161 ³ | 175 / 175 |
@@ -132,31 +133,47 @@ All runs took place on 16 November 2026, by Martin239412. Approach A used Copilo
 
 ¹ Attempt 1 only. An earlier attempt 0 (4 min 40 s, 1 prompt, 10 approvals) was aborted because only the issue number was given to Copilot, without the issue text; Copilot then implemented an unrelated priority filter. See `evidence/b1-copilot.md`.
 ² Copilot finished the code in 1 min 37 s; the rest is committing, pushing and creating the pull request, including a manual correction of its base branch.
-³ As reported by Copilot; individual test runs were not recorded.
+³ As reported by Copilot; individual test runs were not recorded. The CI check of #58 (build and all tests) passed.
+⁴ Not recoverable; see [Measurement gap](#measurement-gap-b2-copilot).
+⁵ The code quality checklist (Q1–Q7) measures how the code is written, not whether the issue is complete. Functional completeness is reported separately in the row *Issue scope fully implemented* and in [Requirement coverage](#requirement-coverage).
+⁶ `userId` is missing in `POST /api/todos/repeat`; see [Requirement coverage](#requirement-coverage).
 
 For reference, PR #30 (the original human solution of B1) changed 18 files and added 17 test methods.
 
 ### Code quality
 
+The checklist evaluates the code that was written. A run can meet every item and still miss part of the issue, as B1 Agent shows.
+
 | # | Criterion | B1 Copilot | B1 Agent | B2 Copilot | B2 Agent |
 |---|---|---|---|---|---|
-| Q1 | Layering follows `rules/architecture.md` | 1 | 1 | 0 ⁴ | 1 |
+| Q1 | Layering follows `rules/architecture.md` | 1 | 1 | 0 ⁷ | 1 |
 | Q2 | Repository changes in both implementations | 1 | 1 | n/a | n/a |
-| Q3 | ProblemDetails and `[ProducesResponseType]` for errors | n/a ⁵ | 1 | 1 | 1 |
-| Q4 | Success and failure test for every new behavior | 0 ⁶ | 1 | 1 | 1 |
+| Q3 | ProblemDetails and `[ProducesResponseType]` for errors | n/a ⁸ | 1 | 1 | 1 |
+| Q4 | Success and failure test for every new behavior | 0 ⁹ | 1 | 1 | 1 |
 | Q5 | Documentation updated | 1 | 1 | 1 | 1 |
-| Q6 | `.editorconfig` respected | 0 ⁷ | 1 | 1 | 1 |
+| Q6 | `.editorconfig` respected | 0 ¹⁰ | 1 | 1 | 1 |
 | Q7 | No unrelated changes | 1 | 1 | 1 | 1 |
 
-⁴ The controller sets `Priority` and `UpdatedAtUtc` directly instead of adding a `TodoMapper` method. Copilot was not given the repository rules; the agent reads them on every run.
-⁵ No new error responses: Copilot added no validation for `userId`. The reference solution and the agent limit it to 100 characters and return 400.
-⁶ All three new tests cover successful filtering; there is no failure test.
-⁷ The new file `UserTodoApiTests.cs` is UTF-8 without BOM. `git diff --check` passed in all four runs.
+⁷ The controller sets `Priority` and `UpdatedAtUtc` directly instead of adding a `TodoMapper` method. Copilot was not given the repository rules; the agent reads them on every run.
+⁸ No new error responses: Copilot added no validation for `userId`. The reference solution and the agent limit it to 100 characters and return 400.
+⁹ All three new tests cover successful filtering; there is no failure test.
+¹⁰ The new file `UserTodoApiTests.cs` is UTF-8 without BOM. `git diff --check` passed in all four runs.
 
 ### Requirement coverage
 
 - **B1 Agent** did not add `userId` to `POST /api/todos/repeat` (`CreateRecurringTodoRequest`). The issue asks for `userId` in "creation/update contracts"; the reference solution and Copilot include it. The planner recorded this as an explicit assumption (A7 in `evidence/b1-agent/plan.md`), limiting the change to `POST` and `PUT` to avoid touching the `Repeat()` exception in `rules/architecture.md`.
-- All other runs cover every acceptance criterion of their issue.
+- B1 Copilot, B2 Copilot and B2 Agent implement the full scope of their issue.
+- B1 Agent therefore has the highest code quality score on B1 but does not fully implement the issue; the two results must be read together.
+
+### Measurement gap (B2 Copilot)
+
+Issue #47 asks for the first-attempt pass result and the number of repair cycles for every run. For B2 Copilot, both values are missing:
+
+- **What is missing:** whether Copilot's first test run passed, and how many fix iterations followed.
+- **Why:** Copilot finished the task in 1 min 37 s with 21 steps, faster than the steps could be logged by hand. The chat session was closed after the run and its history is no longer available, so the steps cannot be reconstructed.
+- **What is known:** Copilot reported that all 161 tests passed, and the CI check of #58 (Release build and all tests) passed. This confirms the final state, not the first attempt.
+- **Impact:** the requirement of #47 to record these two metrics for every run is not fully met for this run. The other three runs have complete data. Comparisons of first-attempt pass and repair cycles between Copilot and the agent are therefore based on B1 only. No values were estimated.
+- **Why not repeated:** a new run would not measure the same attempt, because Copilot's output varies between runs and the person now knows the task and the agent's solution.
 
 ### Observations
 
@@ -166,7 +183,7 @@ For reference, PR #30 (the original human solution of B1) changed 18 files and a
 - **Self-healing:** on B1 the QA agent diagnosed a failing new test (wrong expected content type) and corrected the test instead of changing the shared `[Produces]` attribute of the controller, with a documented reasoning. On B2 the first run passed.
 - **Documentation:** the agent updated `docs/OpenAPI.md` and both READMEs; Copilot updated only `docs/OpenAPI.md`.
 - **Deviations of the agent:** a requirement interpreted too narrowly on B1 (see above), and pull request descriptions ending with a "Generated with Claude Code" line that is not part of the template in `prompts/pr-generator.md`.
-- **Measurement limits:** Copilot runs were timed and logged by hand. In B2 the intermediate Copilot steps were not recorded, so its first-attempt result is unknown.
+- **Measurement limits:** Copilot runs were timed and logged by hand. In B2 the intermediate Copilot steps were not recorded; see [Measurement gap](#measurement-gap-b2-copilot).
 
 ## Evidence
 

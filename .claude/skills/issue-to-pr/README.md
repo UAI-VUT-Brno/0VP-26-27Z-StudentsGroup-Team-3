@@ -27,7 +27,7 @@ Add `--dry-run` to validate the input, fetch the issue, check the rule files and
 Add `--base <branch>` to start the feature branch from another existing branch and open the pull request against it instead of the default branch. The benchmark uses this to run issues on baseline branches (see `docs/benchmark/README.md`):
 
 ```text
-/issue-to-pr #60 --base benchmark/base-t3-10
+/issue-to-pr #54 --base benchmark/base-t3-10
 ```
 
 For an unattended run, start Claude Code in a permission mode that does not stop for approvals, for example `auto`.
