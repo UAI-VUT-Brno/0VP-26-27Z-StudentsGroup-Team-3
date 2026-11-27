@@ -1,6 +1,6 @@
-# Sjednocené kódování a formátování napříč editory.
-# UTF-8 s BOM je u zdrojových souborů C# nutnost: bez BOM dekóduje kompilátor
-# na Windows zdrojový kód systémovou ANSI kódovou stránkou a diakritika se rozbije.
+# Consistent encoding and formatting across editors.
+# UTF-8 with BOM is required for C# source files: without a BOM, the compiler
+# on Windows decodes source code using the system ANSI code page and breaks diacritics.
 root = true
 
 [*]
@@ -20,7 +20,7 @@ indent_size = 2
 [*.{csproj,props,targets}]
 indent_size = 2
 
-# Docker a nginx čtou tyto soubory po řádcích; LF a žádný BOM.
+# Docker and nginx read these files line by line; use LF and no BOM.
 [{Dockerfile,Dockerfile.*,*.dockerignore,.dockerignore,compose.yaml,compose.*.yaml,*.conf,*.env}]
 charset = utf-8
 end_of_line = lf

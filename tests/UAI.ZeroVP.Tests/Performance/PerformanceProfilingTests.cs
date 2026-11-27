@@ -34,7 +34,7 @@ public class PerformanceProfilingTests
         // 1. Measuring task creation
         var createRequest = new CreateTodoItemRequest
         {
-            Title = "Profilovací úkol",
+            Title = "Profiling task",
             Priority = TodoPriority.High
         };
         var createResult = await _todosController.Create(createRequest, ct);

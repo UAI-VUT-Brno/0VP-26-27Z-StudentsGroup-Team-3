@@ -1,4 +1,4 @@
-## Výstupy buildu
+## Build outputs
 bin/
 obj/
 [Dd]ebug/
@@ -12,10 +12,10 @@ artifacts/
 *.suo
 .vscode/
 
-## Uživatelské nastavení aplikace
+## Local application settings
 appsettings.*.local.json
 
-## Ostatní
+## Other
 *.log
 **/logs/
 
