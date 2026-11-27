@@ -76,7 +76,7 @@ The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriente
 
 | Method | Route | Description |
 | --- | --- | --- |
-| `GET` | `/api/todos` | List todos; optional `?isCompleted=true` or `false` |
+| `GET` | `/api/todos` | List todos; optional `?isCompleted=true` or `false` and `?userId=` filters |
 | `GET` | `/api/todos/{id}` | Get a todo by ID |
 | `POST` | `/api/todos` | Create a todo (`201 Created`, `Location` header) |
 | `POST` | `/api/todos/repeat` | Create a weekly series of independent todos |
@@ -90,7 +90,11 @@ The `LoadTest` environment uses `InMemoryTodoRepository` for performance-oriente
 
 Failed requests return standard ASP.NET Core `ProblemDetails` responses.
 
-`POST /api/todos/repeat` accepts a title, optional description, priority, UTC `firstDueAtUtc`, and `repeatCount` (1–52 additional weekly occurrences). Each occurrence has its own ID.
+`POST /api/todos/repeat` accepts a title, optional description, optional `userId`, priority, UTC `firstDueAtUtc`, and `repeatCount` (1–52 additional weekly occurrences). Each occurrence has its own ID.
+
+### User identification
+
+Todos can be assigned to a user with an optional `userId` (maximum 100 characters) in the body of `POST /api/todos`, `POST /api/todos/repeat` and `PUT /api/todos/{id}`. It is a simple label, not authentication. `GET /api/todos?userId=karel` returns only that user's todos ("My Tasks"); matching is exact and case-sensitive and can be combined with `isCompleted`. See [the OpenAPI documentation](docs/OpenAPI.md) for details.
 
 ### Optimistic concurrency
 
@@ -184,15 +188,28 @@ $env:Swagger__Enabled = "true"
 
 The project also includes sample HTTP requests in [`src/UAI.ZeroVP.API/UAI.ZeroVP.API.http`](src/UAI.ZeroVP.API/UAI.ZeroVP.API.http).
 
-## Docker learning materials
+## Docker
 
-The API is intended as a foundation for exercises on Dockerfiles, container tooling and configuration. Some original course exercises assume process-local storage; with the current JSON implementation, their restart and replication scenarios may behave differently unless configured accordingly.
+The API can run in containers. `docker-compose.yml` starts **three API instances** that share one persistent JSON storage file through a named Docker volume:
 
-Build Docker images from the repository root when using the relevant teaching Dockerfiles. The `case-study-a-dockerfile`, `case-study-b-tooling` and `case-study-c-configuration` directories referenced by earlier README versions were **not present in the supplied project snapshot**; consult the course materials if you need those examples.
+```powershell
+docker compose up --build -d
+```
+
+| Service | URL |
+| --- | --- |
+| `api-1` | http://localhost:5001 |
+| `api-2` | http://localhost:5002 |
+| `api-3` | http://localhost:5003 |
+
+Swagger UI is enabled in the containers, for example at http://localhost:5001/swagger. Stop the instances with `docker compose down` (keeps the data volume) or `docker compose down -v` (also deletes the shared data). See [the Docker guide](docs/docker.md) for verification steps and details.
+
+The original course case studies (`case-study-a-dockerfile`, `case-study-b-tooling`, `case-study-c-configuration`) are available in the `case-study` branch.
 
 ## Further documentation
 
 - [Multi-instance JSON storage](docs/multi-instance.md)
+- [Docker and Docker Compose](docs/docker.md)
 - [API performance](docs/api-performance.md)
 - [HTTP load testing](docs/api-load-testing.md)
 - [OpenAPI documentation](docs/OpenAPI.md)
