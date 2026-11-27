@@ -1,4 +1,4 @@
-## Výstupy buildu
+## Build outputs
 bin/
 obj/
 [Dd]ebug/
@@ -12,12 +12,15 @@ artifacts/
 *.suo
 .vscode/
 
-## Uživatelské nastavení aplikace
+## Local application settings
 appsettings.*.local.json
 
-## Ostatní
+## Other
 *.log
 **/logs/
+
+## Local JSON storage
+**/data/todos.json*
 
 # Local MCP test data
 mcp-dev-todos.json

@@ -76,7 +76,7 @@ Prostředí `LoadTest` používá `InMemoryTodoRepository` pro výkonnostní HTT
 
 | Metoda | Cesta | Popis |
 | --- | --- | --- |
-| `GET` | `/api/todos` | Seznam úkolů; volitelný filtr `?isCompleted=true` nebo `false` |
+| `GET` | `/api/todos` | Seznam úkolů; volitelné filtry `?isCompleted=true` nebo `false` a `?userId=` |
 | `GET` | `/api/todos/{id}` | Detail úkolu |
 | `POST` | `/api/todos` | Vytvoření úkolu (`201 Created`, hlavička `Location`) |
 | `POST` | `/api/todos/repeat` | Vytvoření týdenní řady samostatných úkolů |
@@ -90,7 +90,11 @@ Prostředí `LoadTest` používá `InMemoryTodoRepository` pro výkonnostní HTT
 
 Chybové odpovědi používají standardní ASP.NET Core `ProblemDetails`.
 
-`POST /api/todos/repeat` přijímá název, volitelný popis, prioritu, UTC termín `firstDueAtUtc` a `repeatCount` (1–52 dalších týdenních opakování). Každý výskyt má své ID.
+`POST /api/todos/repeat` přijímá název, volitelný popis, volitelné `userId`, prioritu, UTC termín `firstDueAtUtc` a `repeatCount` (1–52 dalších týdenních opakování). Každý výskyt má své ID.
+
+### Identifikace uživatele
+
+Úkol lze přiřadit uživateli volitelným polem `userId` (nejvýše 100 znaků) v těle `POST /api/todos`, `POST /api/todos/repeat` a `PUT /api/todos/{id}`. Jde o jednoduchý štítek, ne o autentizaci. `GET /api/todos?userId=karel` vrátí jen úkoly daného uživatele („Moje úkoly“); porovnání je přesné, rozlišuje velikost písmen a lze ho kombinovat s `isCompleted`. Podrobnosti popisuje [dokumentace OpenAPI](docs/OpenAPI.md) (v angličtině).
 
 ### Optimistic concurrency
 
@@ -184,15 +188,28 @@ $env:Swagger__Enabled = "true"
 
 Projekt také obsahuje ukázkové HTTP požadavky v [`src/UAI.ZeroVP.API/UAI.ZeroVP.API.http`](src/UAI.ZeroVP.API/UAI.ZeroVP.API.http).
 
-## Výukové materiály k Dockeru
+## Docker
 
-API slouží jako základ cvičení k Dockerfile, kontejnerovým nástrojům a konfiguraci. Některá původní zadání předpokládají úložiště pouze v RAM; s aktuálním JSON úložištěm se scénáře restartu a replikace mohou chovat jinak, pokud se vhodně nenakonfigurují.
+API lze spustit v kontejnerech. `docker-compose.yml` spustí **tři instance API**, které sdílejí jeden perzistentní JSON soubor přes pojmenovaný Docker volume:
 
-Docker image sestavuj z kořenového adresáře repozitáře, pokud používáš příslušné výukové Dockerfile. Adresáře `case-study-a-dockerfile`, `case-study-b-tooling` a `case-study-c-configuration` uváděné ve starších verzích README **nebyly součástí poskytnutého snímku projektu**; konkrétní příklady hledej ve výukových materiálech.
+```powershell
+docker compose up --build -d
+```
+
+| Služba | URL |
+| --- | --- |
+| `api-1` | http://localhost:5001 |
+| `api-2` | http://localhost:5002 |
+| `api-3` | http://localhost:5003 |
+
+Swagger UI je v kontejnerech zapnutý, například na http://localhost:5001/swagger. Instance zastavíš příkazem `docker compose down` (data ve volume zůstanou) nebo `docker compose down -v` (smaže i sdílená data). Postup ověření a podrobnosti popisuje [návod k Dockeru](docs/docker.md) (v angličtině).
+
+Původní případové studie z výuky (`case-study-a-dockerfile`, `case-study-b-tooling`, `case-study-c-configuration`) jsou ve větvi `case-study`.
 
 ## Další dokumentace
 
 - [Multi-instance JSON úložiště](docs/multi-instance.md)
+- [Docker a Docker Compose](docs/docker.md)
 - [Výkon API](docs/api-performance.md)
 - [HTTP zátěžové testování](docs/api-load-testing.md)
 - [Dokumentace OpenAPI](docs/OpenAPI.md)

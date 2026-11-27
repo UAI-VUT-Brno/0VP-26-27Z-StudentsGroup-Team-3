@@ -53,6 +53,12 @@ builder.Services.AddControllers()
             new JsonStringEnumConverter());
     });
 
+// The OpenAPI generator reads the minimal API JSON options, not the MVC ones.
+// Without this, Swagger documents enums as integers although the API uses strings.
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(
+        new JsonStringEnumConverter()));
+
 // Standardized error responses using ProblemDetails (RFC 9457).
 builder.Services.AddProblemDetails();
 
@@ -98,7 +104,6 @@ builder.Services.AddOpenApi(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Register MCP services before building the application.
 // MCP requires both Development and explicit configuration.
@@ -142,8 +147,6 @@ app.UseStatusCodePages();
 if (swaggerEnabled)
 {
     app.MapOpenApi();
-
-    app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/openapi/v1.json", "UAI.ZeroVP – ToDo API v1");
