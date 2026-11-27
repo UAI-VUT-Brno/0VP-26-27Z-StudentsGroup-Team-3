@@ -53,6 +53,12 @@ builder.Services.AddControllers()
             new JsonStringEnumConverter());
     });
 
+// The OpenAPI generator reads the minimal API JSON options, not the MVC ones.
+// Without this, Swagger documents enums as integers although the API uses strings.
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(
+        new JsonStringEnumConverter()));
+
 // Standardized error responses using ProblemDetails (RFC 9457).
 builder.Services.AddProblemDetails();
 
