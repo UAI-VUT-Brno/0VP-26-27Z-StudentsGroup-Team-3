@@ -104,7 +104,6 @@ builder.Services.AddOpenApi(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Register MCP services before building the application.
 // MCP requires both Development and explicit configuration.
@@ -148,8 +147,6 @@ app.UseStatusCodePages();
 if (swaggerEnabled)
 {
     app.MapOpenApi();
-
-    app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/openapi/v1.json", "UAI.ZeroVP – ToDo API v1");
