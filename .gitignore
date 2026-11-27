@@ -19,6 +19,9 @@ appsettings.*.local.json
 *.log
 **/logs/
 
+## Local JSON storage
+**/data/todos.json*
+
 # Local MCP test data
 mcp-dev-todos.json
 mcp-dev-todos.json.lock
